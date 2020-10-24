@@ -41,10 +41,19 @@
 // Related Topics Array Hash Table 
 // 👍 17485 👎 626
 
+// 2020-10-24 15:44:56
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func twoSum(nums []int, target int) []int {
+m := make(map[int]int)
+for i := 0; i < len(nums); i++ {
+another := target - nums[i]
+if _, ok := m[another]; ok {
+return []int{m[another], i}
+}
+m[nums[i]] = i
+}
+return nil
 
-    
 }
 //leetcode submit region end(Prohibit modification and deletion)
