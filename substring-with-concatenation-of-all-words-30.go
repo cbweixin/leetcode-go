@@ -20,7 +20,7 @@ func findSubstring(s string, words []string) []int {
 		for j := 0; j < len(words); j++ {
 			t := s[i+j*length : i+(j+1)*length]
 			w, ok := counter[t]
-			if ! ok {
+			if !ok {
 				break
 			}
 			tmpCounter[t]++
