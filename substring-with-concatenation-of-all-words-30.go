@@ -2,6 +2,7 @@ package main
 
 import "fmt"
 
+// my first go code
 func findSubstring(s string, words []string) []int {
 	if len(words) == 0 {
 		return []int{}
