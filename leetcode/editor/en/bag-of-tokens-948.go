@@ -88,7 +88,7 @@ func bagOfTokensScore(tokens []int, P int) int {
 		return x
 	}
 
-	for (i < j && j >= 0) && (P >= 0 || score >= 0) {
+	for (i <= j && j >= 0) && (P >= 0 || score >= 0) {
 		for i <= j && j >= 0 && P-tokens[i] >= 0 {
 			P -= tokens[i]
 			score++
