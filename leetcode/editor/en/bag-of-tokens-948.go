@@ -80,6 +80,9 @@ func bagOfTokensScore(tokens []int, P int) int {
 	}
 	sort.Ints(tokens)
 	i, j := 0, len(tokens)-1
+	if P < tokens[i] {
+		return 0
+	}
 	ans, score := 0, 0
 	max := func(x, y int) int {
 		if x < y {
@@ -100,6 +103,9 @@ func bagOfTokensScore(tokens []int, P int) int {
 			score--
 			j--
 		}
+		if i == j {
+			break
+		}
 
 	}
 
@@ -111,6 +117,5 @@ func bagOfTokensScore(tokens []int, P int) int {
 func main() {
 	tokens := []int{33, 4, 28, 24, 96}
 	P := 35
-
 	println(bagOfTokensScore(tokens, P))
 }
