@@ -41,17 +41,17 @@ package main
 // 2020-10-25 10:50:35
 
 //leetcode submit region begin(Prohibit modification and deletion)
-func max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
-}
 
 func matrixScore(A [][]int) int {
 	M, N := len(A), len(A[0])
 	// review, need to convert int to unsigned int
 	ans := (1 << uint(N-1)) * M
+	max := func(x, y int) int {
+		if x < y {
+			return y
+		}
+		return x
+	}
 
 	for j := 1; j < N; j++ {
 		cnt := 0
