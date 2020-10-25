@@ -74,7 +74,7 @@ import (
 
 //leetcode submit region begin(Prohibit modification and deletion)
 
-func bagOfTokensScore(tokens []int, P int) int {
+func bagOfTokensScore1(tokens []int, P int) int {
 	if len(tokens) == 0 {
 		return 0
 	}
@@ -111,6 +111,35 @@ func bagOfTokensScore(tokens []int, P int) int {
 
 	return ans
 
+}
+
+func bagOfTokensScore(tokens []int, P int) int {
+	if len(tokens) == 0 {
+		return 0
+	}
+	sort.Ints(tokens)
+	i, j := 0, len(tokens)-1
+	if P < tokens[i] {
+		return 0
+	}
+	scores := 0
+
+	for i <= j {
+		if P-tokens[i] >= 0 {
+			P -= tokens[i]
+			i++
+			scores++
+		} else if scores > 0 && i < j {
+			P += tokens[j]
+			j--
+			scores--
+
+		} else {
+			break
+		}
+
+	}
+	return scores
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
