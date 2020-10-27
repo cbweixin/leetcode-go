@@ -4,6 +4,7 @@ func wordPatternMatch(pattern string, str string) bool {
 	p2s := make(map[byte]string)
 	s2p := make(map[string]byte)
 
+	// review , how to define a recursive function
 	var dfs func(int, int) bool
 	dfs = func(p int, s int) bool {
 		if p == len(pattern) && s == len(str) {
@@ -20,6 +21,7 @@ func wordPatternMatch(pattern string, str string) bool {
 			if !ok1 && !ok2 {
 				p2s[c] = w
 				s2p[w] = c
+				// call recursivly
 				if dfs(p+1, i+1) {
 					return true
 				}
