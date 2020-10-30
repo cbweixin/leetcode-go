@@ -119,7 +119,7 @@ func leastOpsExpressTarget(x int, target int) int {
 		if sums-goal < goal {
 			l = dfs(sums-goal) + cnt
 		}
-		r = dfs(int(sums/goal)) + cnt + 1
+		r = dfs(goal-sums/x) + cnt - 1
 
 		memo[goal] = min(l, r) + 1
 		return memo[goal]
@@ -131,4 +131,5 @@ func leastOpsExpressTarget(x int, target int) int {
 //leetcode submit region end(Prohibit modification and deletion)
 func main() {
 	fmt.Println(leastOpsExpressTarget(3, 19))
+	//fmt.Println(leastOpsExpressTarget(5, 501))
 }
