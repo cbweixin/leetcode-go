@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	ff()
+	fmt.Println(f2())
 
 }
 
@@ -14,4 +15,11 @@ func ff() {
 		g(i)
 		fmt.Printf(" - g is of type %T and has value %v\n", g, g)
 	}
+}
+
+func f2() (ret int) {
+	defer func() {
+		ret++
+	}()
+	return 1
 }
