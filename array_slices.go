@@ -52,6 +52,18 @@ func main() {
 	fmt.Printf("\nThe length of slice1 is %d\n", len(slice1))
 	fmt.Printf("The capacity of slice1 is %d\n", cap(slice1))
 
+	var slice3 []int = make([]int, 4)
+
+	slice3[0] = 1
+	slice3[1] = 2
+	slice3[2] = 3
+	slice3[3] = 4
+
+	for ix, value := range slice3 {
+		fmt.Printf("Slice at %d is: %d\n", ix, value)
+	}
+	fmt.Println(sum_slice(slice3))
+
 }
 
 // a is a slice, []int, there is no length in '[]'
