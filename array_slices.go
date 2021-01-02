@@ -64,6 +64,29 @@ func main() {
 	}
 	fmt.Println(sum_slice(slice3))
 
+	seasons := []string{"Spring", "Summer", "Autumn", "Winter"}
+	for ix, season := range seasons {
+		fmt.Printf("Season %d is: %s\n", ix, season)
+	}
+
+	var season string
+	for _, season = range seasons {
+		fmt.Printf("%s\n", season)
+	}
+
+	slice4 := make([]int, 0, 10)
+	// load the slice, cap(slice1) is 10:
+	for i := 0; i < cap(slice4); i++ {
+		slice4 = slice4[0 : i+1]
+		slice4[i] = i
+		fmt.Printf("The length of slice is %d\n", len(slice4))
+	}
+
+	// print the slice:
+	for i := 0; i < len(slice4); i++ {
+		fmt.Printf("Slice at %d is %d\n", i, slice4[i])
+	}
+
 }
 
 // a is a slice, []int, there is no length in '[]'
