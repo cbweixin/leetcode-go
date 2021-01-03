@@ -63,6 +63,7 @@ func main() {
 	// 调用myTime.first3Chars
 	fmt.Println("First 3 chars:", m.first3Chars())
 
+	// 注意 Go 为我们做了探测工作，我们自己并没有指出是否在指针上调用方法，Go 替我们做了这些事情。b1 是值而 b2 是指针，方法都支持运行了。
 	var b1 B2     // b1是值
 	b2 := new(B2) // b2是指针
 	b1.change()
