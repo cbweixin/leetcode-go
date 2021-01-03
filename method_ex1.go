@@ -27,6 +27,22 @@ func (t myTime) first3Chars() string {
 	return t.Time.String()[0:3]
 }
 
+type B2 struct {
+	thing int
+}
+
+// 如果想要方法改变接收者的数据，就在接收者的指针类型上定义该方法。否则，就在普通的值类型上定义方法。
+func (b *B2) change() {
+	b.thing = 1
+}
+
+// 按值传递，实例的拷贝，接收者的数据并未改变
+func (b B2) change2() {
+	b.thing = 2
+}
+
+func (b B2) write() string { return fmt.Sprint(b) }
+
 func main() {
 
 	two1 := new(TwoInts)
@@ -46,6 +62,18 @@ func main() {
 	fmt.Println("Full time now:", m.String())
 	// 调用myTime.first3Chars
 	fmt.Println("First 3 chars:", m.first3Chars())
+
+	var b1 B2     // b1是值
+	b2 := new(B2) // b2是指针
+	b1.change()
+	fmt.Println(b1.write())
+	b1.change2()
+	fmt.Println(b1.write())
+
+	b2.change()
+	fmt.Println(b2.write())
+	b2.change2()
+	fmt.Println(b2.write())
 
 }
 
