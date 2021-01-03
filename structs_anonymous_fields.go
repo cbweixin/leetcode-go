@@ -14,6 +14,15 @@ type outerS struct {
 	innerS //anonymous field
 }
 
+type A struct {
+	ax, ay int
+}
+
+type B struct {
+	A
+	bx, by float32
+}
+
 func main() {
 	outer := new(outerS)
 	outer.b = 6
@@ -31,5 +40,9 @@ func main() {
 	// 使用结构体字面量
 	outer2 := outerS{6, 7.5, 60, innerS{5, 10}}
 	fmt.Println("outer2 is:", outer2)
+
+	b := B{A{1, 2}, 3.0, 4.0}
+	fmt.Println(b.ax, b.ay, b.bx, b.by)
+	fmt.Println(b.A)
 
 }
