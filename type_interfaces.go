@@ -58,4 +58,15 @@ func main() {
 	} else {
 		fmt.Println("areaIntf does not contain a variable of type Circle")
 	}
+
+	switch t := areaIntf2.(type) {
+	case *Square2:
+		fmt.Printf("Type Square %T with value %v\n", t, t)
+	case *Circle2:
+		fmt.Printf("Type Circle %T with value %v\n", t, t)
+	case nil:
+		fmt.Printf("nil value: nothing to check?\n")
+	default:
+		fmt.Printf("Unexpected type %T\n", t)
+	}
 }
