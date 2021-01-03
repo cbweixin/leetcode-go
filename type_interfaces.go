@@ -32,6 +32,8 @@ func main() {
 
 	areaIntf = sq1
 	// Is Square the type of areaIntf?
+	// 如果忽略 areaIntf.(*Square) 中的 * 号，会导致编译错误：impossible type assertion: Square does not implement Shaper
+	// (Area method has pointer receiver)。
 	if t, ok := areaIntf.(*Square2); ok {
 		fmt.Printf("The type of areaIntf is: %T\n", t)
 	}
@@ -50,6 +52,7 @@ func main() {
 	if t, ok := areaIntf2.(*Square2); ok {
 		fmt.Printf("The type of areaIntf is: %T\n", t)
 	}
+
 	if u, ok := areaIntf2.(*Circle2); ok {
 		fmt.Printf("The type of areaIntf is: %T\n", u)
 	} else {
