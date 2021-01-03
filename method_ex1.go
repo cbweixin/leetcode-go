@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 type TwoInts struct {
 	a int
@@ -16,6 +19,14 @@ func (v IntVector) Sum() (s int) {
 	return
 }
 
+type myTime struct {
+	time.Time //anonymous field
+}
+
+func (t myTime) first3Chars() string {
+	return t.Time.String()[0:3]
+}
+
 func main() {
 
 	two1 := new(TwoInts)
@@ -29,6 +40,12 @@ func main() {
 	fmt.Printf("The sum is: %d\n", two2.AddThem())
 
 	fmt.Println(IntVector{1, 2, 3}.Sum())
+
+	m := myTime{time.Now()}
+	// 调用匿名Time上的String方法
+	fmt.Println("Full time now:", m.String())
+	// 调用myTime.first3Chars
+	fmt.Println("First 3 chars:", m.first3Chars())
 
 }
 
