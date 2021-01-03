@@ -1,5 +1,10 @@
 package main
 
+import (
+	"./pack1"
+	"fmt"
+)
+
 type Foo map[string]string
 type Bar struct {
 	thingOne string
@@ -26,8 +31,16 @@ func main() {
 	x["y"] = "world"
 
 	// NOT OK
-	u := new(Foo)
-	(*u)["x"] = "goodbye" // 运行时错误!! panic: assignment to entry in nil map
-	(*u)["y"] = "world"
+	//u := new(Foo)
+	//(*u)["x"] = "goodbye" // 运行时错误!! panic: assignment to entry in nil map
+	//(*u)["y"] = "world"
+
+	//struct1 := new(structPack.ExpStruct)
+	struct1 := new(pack1.ExpStruct)
+	struct1.Mi1 = 10
+	struct1.Mf1 = 16.
+
+	fmt.Printf("Mi1 = %d\n", struct1.Mi1)
+	fmt.Printf("Mf1 = %f\n", struct1.Mf1)
 
 }
