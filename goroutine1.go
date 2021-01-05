@@ -9,6 +9,8 @@ func main() {
 	fmt.Println("In main()")
 	go longWait()
 	go shortWait()
+	//longWait()
+	//shortWait()
 	fmt.Println("About to sleep in main()")
 	// sleep works with a Duration in nanoseconds (ns) !
 	time.Sleep(10 * 1e9)
