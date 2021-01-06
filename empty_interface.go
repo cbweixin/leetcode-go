@@ -10,10 +10,10 @@ type Person2 struct {
 	age  int
 }
 
-type Any interface{}
+type Any3 interface{}
 
 func main() {
-	var val Any
+	var val Any3
 	val = 5
 	fmt.Printf("val has the value: %v\n", val)
 	val = str
