@@ -35,6 +35,7 @@ func main() {
 		v1 := os[0]
 		v2 := os[1]
 		ns := []uint64{v2, v1 + v2}
+		// review, notice v1 and ns is of different type(uint64 vs []uint64), but it all 'Any' type
 		return v1, ns
 	}
 	fib := BuildLazyIntEvaluator_fib(fibFunc, []uint64{0, 1})
