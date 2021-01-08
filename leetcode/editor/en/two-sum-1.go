@@ -46,7 +46,7 @@ package main
 // 2020-10-24 15:44:56
 
 //leetcode submit region begin(Prohibit modification and deletion)
-func twoSum(nums []int, target int) []int {
+func twoSum1(nums []int, target int) []int {
 	m := make(map[int]int)
 	for i := 0; i < len(nums); i++ {
 		another := target - nums[i]
@@ -57,6 +57,36 @@ func twoSum(nums []int, target int) []int {
 	}
 	return nil
 
+}
+
+func twoSum(nums []int, target int) []int {
+
+	// the solution uses concurrency
+	// setup several goroutines and once one goroutine finds the solution
+	// it will pass the solution to the channel
+	// and then return the result
+	var outputChannel = make(chan []int)
+
+	endIndex := len(nums) - 1
+
+	for key, value := range nums[:endIndex] {
+		keyTemp := key
+		valueTemp := value
+
+		go func() {
+			var nextKey = keyTemp + 1
+			for nextKey != endIndex+1 {
+				if nums[nextKey]+valueTemp == target {
+					outputChannel <- []int{keyTemp, nextKey}
+					break
+				} else {
+					nextKey++
+				}
+			}
+		}()
+	}
+
+	return <-outputChannel
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
