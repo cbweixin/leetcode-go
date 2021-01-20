@@ -86,6 +86,9 @@ func openLock(deadends []string, target string) int {
 	if lookup[target] || lookup["0000"] {
 		return -1
 	}
+	if target == "0000" {
+		return 0
+	}
 	seen := make(map[string]bool)
 	que := []string{}
 	que = append(que, "0000")
@@ -99,7 +102,7 @@ func openLock(deadends []string, target string) int {
 				for j := -1; j < 2; j++ {
 					// review, rune is character in golang
 					s := []rune(cur)
-					s[i] = rune((int(s[i])-int('0')+j)%10 + int('0'))
+					s[i] = rune((int(s[i])-int('0')+j+10)%10 + int('0'))
 					if string(s) == target {
 						return time
 					}
@@ -122,7 +125,8 @@ func openLock(deadends []string, target string) int {
 //leetcode submit region end(Prohibit modification and deletion)
 func main() {
 	start := time.Now()
-	res := openLock([]string{"0201", "0101", "0102", "1212", "2002"}, "0202")
+	//res := openLock([]string{"0201", "0101", "0102", "1212", "2002"}, "0202")
+	res := openLock([]string{"8888"}, "0009")
 	end := time.Now()
 	fmt.Println("run in ", end.Sub(start).Milliseconds(), "ms")
 	fmt.Println(res)
