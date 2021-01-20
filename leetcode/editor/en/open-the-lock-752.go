@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"time"
+)
+
 //You have a lock in front of you with 4 circular wheels. Each wheel has 10 slot
 //s: '0', '1', '2', '3', '4', '5', '6', '7', '8', '9'. The wheels can rotate freel
 //y and wrap around: for example we can turn '9' to be '0', or '0' to be '9'. Each
@@ -87,21 +92,25 @@ func openLock(deadends []string, target string) int {
 
 	// review, how to do bfs in golang
 	for time := 1; len(que) != 0; time++ {
-		cur := que[0]
-		que = que[1:]
-		for i := 0; i < 4; i++ {
-			for j := -1; j < 2; j++ {
-				// review, rune is character in golang
-				s := []rune(cur)
-				s[i] = rune((int(s[i])-int('0')+j)%10 + int('0'))
-				if string(s) == target {
-					return time
-				}
-				if !lookup[string(s)] && !seen[string(s)] {
-					que = append(que, string(s))
-				}
+		for n := len(que); n > 0; n-- {
+			cur := que[0]
+			que = que[1:]
+			for i := 0; i < 4; i++ {
+				for j := -1; j < 2; j++ {
+					// review, rune is character in golang
+					s := []rune(cur)
+					s[i] = rune((int(s[i])-int('0')+j)%10 + int('0'))
+					if string(s) == target {
+						return time
+					}
+					if !lookup[string(s)] && !seen[string(s)] {
+						que = append(que, string(s))
+						seen[string(s)] = true
+					}
 
+				}
 			}
+
 		}
 
 	}
@@ -111,3 +120,11 @@ func openLock(deadends []string, target string) int {
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	start := time.Now()
+	res := openLock([]string{"0201", "0101", "0102", "1212", "2002"}, "0202")
+	end := time.Now()
+	fmt.Println("run in ", end.Sub(start).Milliseconds(), "ms")
+	fmt.Println(res)
+
+}
