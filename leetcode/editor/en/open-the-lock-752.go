@@ -102,6 +102,8 @@ func openLock(deadends []string, target string) int {
 				for j := -1; j < 2; j++ {
 					// review, rune is character in golang
 					s := []rune(cur)
+					// review, there is a big differences between go and python, -1 % 10 == -1 for go, but 9 for python
+					// that's the reason why we need to + 10 again
 					s[i] = rune((int(s[i])-int('0')+j+10)%10 + int('0'))
 					if string(s) == target {
 						return time
