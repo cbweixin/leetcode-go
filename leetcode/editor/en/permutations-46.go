@@ -1,5 +1,10 @@
 package main
 
+import (
+	"fmt"
+	"time"
+)
+
 //Given an array nums of distinct integers, return all the possible permutations
 //. You can return the answer in any order.
 //
@@ -53,6 +58,7 @@ func permuteRec(currComb, left []int, res *[][]int) {
 
 func permute(nums []int) [][]int {
 	c, done := make(chan []int, len(nums)), make(chan struct{})
+	// I don't think this makes sense
 	go p(nums, c, done)
 	go func(done <-chan struct{}) {
 		<-done
@@ -85,6 +91,21 @@ func perm(a []int, i int, c chan<- []int) {
 		perm(a, i+1, c)
 		a[i], a[j] = a[j], a[i]
 	}
+}
+
+func main() {
+	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	start := time.Now()
+	permute2(arr)
+	end1 := time.Now()
+	permute(arr)
+	end2 := time.Now()
+
+	delta1 := end1.Sub(start)
+	delta2 := end2.Sub(end1)
+
+	fmt.Println("%s, %s", delta1, delta2)
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
