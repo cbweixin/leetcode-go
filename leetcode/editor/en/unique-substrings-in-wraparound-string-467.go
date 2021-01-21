@@ -119,4 +119,5 @@ func findSubstringInWraproundString(p string) int {
 //leetcode submit region end(Prohibit modification and deletion)
 func main() {
 	fmt.Println(findSubstringInWraproundString("cac"))
+	fmt.Println(findSubstringInWraproundString("zab"))
 }
