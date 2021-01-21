@@ -79,6 +79,7 @@ import "sort"
 // 2021-01-20 12:24:56
 
 //leetcode submit region begin(Prohibit modification and deletion)
+// https://github.com/ldeng7/go-leetcode/blob/e4bde214cbbc7a0fe71aaac2f3c92d0926293288/001xxx/172.go
 type DinnerPlates struct {
 	cap     int
 	stacks  [][]int
@@ -155,3 +156,7 @@ func (this *DinnerPlates) PopAtStack(index int) int {
  * param_3 := obj.PopAtStack(index);
  */
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	obj := Constructor(3)
+	obj.Push(3)
+}
