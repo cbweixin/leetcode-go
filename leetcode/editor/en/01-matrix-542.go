@@ -50,7 +50,7 @@ package main
 // 2021-01-22 10:34:19
 
 //leetcode submit region begin(Prohibit modification and deletion)
-func updateMatrix(matrix [][]int) [][]int {
+func updateMatrix2(matrix [][]int) [][]int {
 	dirs := [][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
 	x, y := len(matrix), len(matrix[0])
 	que := [][]int{}
@@ -79,7 +79,36 @@ func updateMatrix(matrix [][]int) [][]int {
 			}
 		}
 	}
+	return matrix
+}
 
+func updateMatrix(matrix [][]int) [][]int {
+	dirs := [][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}
+	x, y := len(matrix), len(matrix[0])
+	que := [][]int{}
+
+	for i := 0; i < x; i++ {
+		for j := 0; j < y; j++ {
+			if matrix[i][j] == 0 {
+				que = append(que, []int{i, j})
+			} else {
+				matrix[i][j] = 100001
+			}
+		}
+	}
+
+	for len(que) > 0 {
+		val := que[0]
+		que = que[1:]
+		i, j := val[0], val[1]
+		for _, dir := range dirs {
+			n_i, n_j := i+dir[0], j+dir[1]
+			if n_i >= 0 && n_i < x && n_j >= 0 && n_j < y && matrix[n_i][n_j] > matrix[i][j] {
+				matrix[n_i][n_j] = matrix[i][j] + 1
+				que = append(que, []int{n_i, n_j})
+			}
+		}
+	}
 	return matrix
 }
 
