@@ -68,17 +68,16 @@ func updateMatrix(matrix [][]int) [][]int {
 	for len(que) > 0 {
 		tmp := que
 		que = nil
-		for _, val := range que {
+		for _, val := range tmp {
 			i, j := val[0], val[1]
 			for _, dir := range dirs {
 				n_i, n_j := i+dir[0], j+dir[1]
-				if n_i >= 0 && n_i < x && n_j >= 0 && n_j < y && matrix[n_i][n_j] > matrix[i][j]+1 {
+				if n_i >= 0 && n_i < x && n_j >= 0 && n_j < y && matrix[n_i][n_j] > matrix[i][j] {
 					matrix[n_i][n_j] = matrix[i][j] + 1
-					tmp = append(tmp, []int{n_i, n_j})
+					que = append(que, []int{n_i, n_j})
 				}
 			}
 		}
-		que = tmp
 	}
 
 	return matrix
