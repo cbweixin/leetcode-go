@@ -66,6 +66,7 @@ func crackSafe(n int, k int) string {
 			if _, ok := set[t]; !ok {
 				set[t] = true
 				res += string(j + '0')
+				break
 			}
 		}
 	}
