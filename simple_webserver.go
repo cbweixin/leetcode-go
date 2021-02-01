@@ -5,12 +5,12 @@ import (
 	"net/http"
 )
 
-const form = `
+const form2 = `
 	<html><body>
-		<form action="#" method="post" name="bar">
+		<form2 action="#" method="post" name="bar">
 			<input type="text" name="in" />
 			<input type="submit" value="submit"/>
-		</form>
+		</form2>
 	</body></html>
 `
 
@@ -23,11 +23,11 @@ func FormServer(w http.ResponseWriter, request *http.Request) {
 	w.Header().Set("Content-Type", "text/html")
 	switch request.Method {
 	case "GET":
-		/* display the form to the user */
-		io.WriteString(w, form)
+		/* display the form2 to the user */
+		io.WriteString(w, form2)
 	case "POST":
-		/* handle the form data, note that ParseForm must
-		   be called before we can extract form data */
+		/* handle the form2 data, note that ParseForm must
+		   be called before we can extract form2 data */
 		//request.ParseForm();
 		//io.WriteString(w, request.Form["in"][0])
 		io.WriteString(w, request.FormValue("in"))

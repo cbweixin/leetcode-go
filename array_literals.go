@@ -16,7 +16,7 @@ func main() {
 	array := [3]float64{7.0, 8.5, 9.1}
 	x := Sum_1(&array) // Note the explicit address-of operator
 	// to pass a pointer to the array
-	fmt.Printf("The sum of the array is: %f", x)
+	fmt.Printf("The sum2 of the array is: %f", x)
 }
 
 func Sum_1(a *[3]float64) (sum float64) {
