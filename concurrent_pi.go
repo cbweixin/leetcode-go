@@ -28,7 +28,7 @@ func term(ch chan float64, k float64) {
 
 func main() {
 	start := time.Now()
-	fmt.Println(CalculatePi(5000))
+	fmt.Println(CalculatePi(10000))
 	end := time.Now()
 	delta := end.Sub(start)
 	fmt.Printf("longCalculation took this amount of time: %s\n", delta)
