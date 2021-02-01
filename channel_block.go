@@ -13,7 +13,7 @@ func main() {
 	c := make(chan int)
 	// block the main for 15s
 	go func() {
-		time.Sleep(15 * 1e9)
+		time.Sleep(5 * 1e9)
 		x := <-c
 		fmt.Println("received", x)
 	}()

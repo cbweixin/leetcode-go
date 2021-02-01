@@ -22,7 +22,17 @@ func main() {
 	time.Sleep(2 * 1e9)
 
 	d := make(chan int)
-	go sum(12, 13, d)
-	fmt.Println(<-d) // 25
+	out := func() {
+		x := <-d
+		fmt.Println("got", x)
+
+	}
+	for i := 1; i < 10; i++ {
+		for j := 0; j <= i; j++ {
+			go sum(i, j, d)
+			go out()
+			//fmt.Println(<-d)
+		}
+	}
 
 }
