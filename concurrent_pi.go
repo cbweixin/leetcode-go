@@ -15,7 +15,7 @@ func CalculatePi(n int) float64 {
 		go term(ch, float64(k))
 	}
 	f := 0.0
-	//wait for all goroutines to complete, get and sum up their results:
+	//wait for all goroutines to complete, get and sum2 up their results:
 	for k := 0; k <= n; k++ {
 		f += <-ch
 	}
