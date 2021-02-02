@@ -21,7 +21,7 @@ const form = `<html><body><form action="/" method="POST">
 <input type="submit" value="Calculate">
 </form2></html></body>`
 
-const error = `<p class="error">%s</p>`
+const error_literal = `<p class="error_literal">%s</p>`
 
 var pageTop = ""
 var pageBottom = ""
@@ -38,13 +38,13 @@ func homePage(writer http.ResponseWriter, request *http.Request) {
 	err := request.ParseForm() // Must be called before writing response
 	fmt.Fprint(writer, pageTop, form)
 	if err != nil {
-		fmt.Fprintf(writer, error, err)
+		fmt.Fprintf(writer, error_literal, err)
 	} else {
 		if numbers, message, ok := processRequest(request); ok {
 			stats := getStats(numbers)
 			fmt.Fprint(writer, formatStats(stats))
 		} else if message != "" {
-			fmt.Fprintf(writer, error, message)
+			fmt.Fprintf(writer, error_literal, message)
 		}
 	}
 	fmt.Fprint(writer, pageBottom)
