@@ -78,6 +78,7 @@ func movesToStamp(stamp string, target string) []int {
 			changed = true
 		}
 		if changed {
+			// knowledge how to do string replace and string.repeat
 			target = strings.Replace(target, target[i:i+L], strings.Repeat("?", L), 1)
 			res = append(res, i)
 		}
