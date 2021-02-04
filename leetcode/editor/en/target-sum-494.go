@@ -44,7 +44,7 @@ func findTargetSumWays(nums []int, S int) int {
 	for i := 0; i < len(nums); i++ {
 		temp := make(map[int]int)
 		for k, v := range lookup {
-			c, ok := temp[v+nums[i]]
+			c, ok := temp[k+nums[i]]
 			if ok {
 				temp[k+nums[i]] = c + v
 			} else {
@@ -52,7 +52,7 @@ func findTargetSumWays(nums []int, S int) int {
 
 			}
 
-			c2, ok2 := temp[v+nums[i]]
+			c2, ok2 := temp[k-nums[i]]
 			if ok2 {
 				temp[k-nums[i]] = c2 + v
 			} else {
