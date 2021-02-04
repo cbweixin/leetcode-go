@@ -8,4 +8,9 @@ func main() {
 		fmt.Printf("%d:%c ", i, c)
 	}
 
+	t := "abc"
+	fmt.Println(t)
+	t = t[:1] + "d" + t[2:]
+	fmt.Println(t)
+
 }
