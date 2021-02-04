@@ -22,4 +22,8 @@ func main() {
 		log.Fatal("Args error:", err)
 	}
 	fmt.Printf("Args: %d * %d = %d", args.N, args.M, reply)
+
+	// asynchronous call
+	//call1 := client.Go("Args.Multiply", args, &reply, nil)
+	//replyCall := <- call1.Done
 }
