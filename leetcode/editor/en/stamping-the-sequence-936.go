@@ -85,6 +85,16 @@ func movesToStamp(stamp string, target string) []int {
 		return changed
 	}
 
+	reverse := func(arr []int) {
+		i, j := 0, len(arr)-1
+
+		for i < j {
+			arr[i], arr[j] = arr[j], arr[i]
+			i++
+			j--
+		}
+	}
+
 	need_change := true
 
 	for need_change {
@@ -94,6 +104,7 @@ func movesToStamp(stamp string, target string) []int {
 		}
 	}
 	if target == strings.Repeat("?", M) {
+		reverse(res)
 		return res
 	} else {
 		return []int{}
