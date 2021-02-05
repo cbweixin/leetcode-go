@@ -6312,7 +6312,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "494",
-    "status": "",
+    "status": "ac",
     "title": "Target Sum",
     "titleSlug": "target-sum"
   },
@@ -14512,7 +14512,8 @@
     "titleSlug": "connecting-cities-with-minimum-cost"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "parallel-courses",
     "formTitle": "[1136]Parallel Courses",
     "frontendQuestionId": "1136",
     "leaf": true,
