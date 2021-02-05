@@ -1,7 +1,6 @@
 package main
 
 import (
-	"math"
 	"sort"
 )
 
@@ -66,19 +65,25 @@ import (
 //leetcode submit region begin(Prohibit modification and deletion)
 func numSubseq(nums []int, target int) int {
 	left, right := 0, len(nums)-1
-	res, MOD := 0, int(math.Pow10(9))+7
+	res := 0
 	sort.Ints(nums)
+	pow := map[int]int{0: 1}
 
-	for left < right {
+	for i := 1; i < right+1; i++ {
+		pow[i] = (pow[i-1] * 2) % (1e9 + 7)
+	}
+
+	for left <= right {
 		if nums[left]+nums[right] > target {
 			right -= 1
 		} else {
-			res += int(math.Pow(float64(2), float64(right-left))) % MOD
+			res += pow[right-left]
+			res %= 1e9 + 7
 			left++
 		}
 	}
 
-	return res % MOD
+	return res
 
 }
 
