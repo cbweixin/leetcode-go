@@ -102,6 +102,11 @@ func (this *ZeroEvenOdd) Zero(zero func(n int)) {
 		}
 	}
 
+	/**
+	这一句十分重要， 因为我们希望Zero协程总是最后一个结束。 比如 n=3，我们希望看到 010203， 如果没有这一句，那么当Zero线程loop三次（0,1,2）
+	然后送出3时， this.oddStream <- 3, i自增成3,跳出for循环， 没有这一句他将不等待Odd协程打印出3, 直接 this.endStream <- 1,
+	然后main程序被解除封锁，退出。 所以我就只看到 01020
+	*/
 	<-this.zeroStream
 	this.endStream <- 1
 
