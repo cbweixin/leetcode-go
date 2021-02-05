@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 //Suppose you are given the following code:
 //
@@ -50,15 +52,21 @@ import "fmt"
 //There is no code of Go type for this problem
 
 type ZeroEvenOdd struct {
-	n          int
-	zeroStream chan struct{}
-	evenStream chan struct{}
-	oddStream  chan struct{}
-	endStream  chan struct{}
+	n int
+	/*	zeroStream chan struct{}
+		evenStream chan struct{}
+		oddStream  chan struct{}
+		endStream  chan struct{}
+	*/
+	zeroStream chan int
+	evenStream chan int
+	oddStream  chan int
+	endStream  chan int
 }
 
-func (this *ZeroEvenOdd) Zero(zero func(n int)) {
-	for i := 0; i < this.n; {
+/*func (this *ZeroEvenOdd) Zero_not_working(zero func(n int)) {
+	i := 0
+	for i < this.n {
 		<-this.zeroStream
 		zero(0)
 		i++
@@ -69,10 +77,37 @@ func (this *ZeroEvenOdd) Zero(zero func(n int)) {
 		}
 	}
 
+	if i == this.n {
+		if i%2 == 0 {
+			this.evenStream <- struct{}{}
+		} else {
+			this.oddStream <- struct{}{}
+		}
+
+	}
+	this.endStream <- struct{}{}
 	<-this.zeroStream
 }
+*/
+func (this *ZeroEvenOdd) Zero(zero func(n int)) {
+	for i := 0; i < this.n; i++ {
+		select {
+		case num := <-this.zeroStream:
+			zero(0)
+			if num%2 == 0 {
+				this.evenStream <- num
+			} else {
+				this.oddStream <- num
+			}
+		}
+	}
 
-func (this *ZeroEvenOdd) Even(even func(n int)) {
+	<-this.zeroStream
+	this.endStream <- 1
+
+}
+
+/*func (this *ZeroEvenOdd) Even_not_working(even func(n int)) {
 	i := 0
 	for i < this.n {
 		<-this.evenStream
@@ -83,53 +118,95 @@ func (this *ZeroEvenOdd) Even(even func(n int)) {
 	}
 	if i >= this.n {
 		this.zeroStream <- struct{}{}
-		this.endStream <- struct{}{}
+		//this.endStream <- struct{}{}
+	}
+}
+*/
+func (this *ZeroEvenOdd) Odd(odd func(n int)) {
+	for i := 1; i <= this.n; i += 2 {
+		select {
+		case num := <-this.oddStream:
+			odd(num)
+			num++
+			this.zeroStream <- num
+		}
 	}
 }
 
-func (this *ZeroEvenOdd) Odd(odd func(n int)) {
+/*func (this *ZeroEvenOdd) Odd_not_working(odd func(n int)) {
 	i := 1
-	for i < this.n {
-		<-this.evenStream
+	for i <= this.n {
+		<-this.oddStream
 		odd(i)
 		i += 2
 		this.zeroStream <- struct{}{}
 
 	}
-	if i >= this.n {
+	if i > this.n {
 		this.zeroStream <- struct{}{}
-		this.endStream <- struct{}{}
+		//this.endStream <- struct{}{}
+	}
+} */
+
+func (this *ZeroEvenOdd) Even(even func(n int)) {
+	for i := 1; i <= this.n; i += 2 {
+		select {
+		case num := <-this.evenStream:
+			even(num)
+			num++
+			this.zeroStream <- num
+		}
 	}
 }
 
 func main() {
+	/*	var printZeo = func(num int) {
+
+			zeo := &ZeroEvenOdd{
+				n:          num,
+				zeroStream: make(chan struct{}),
+				evenStream: make(chan struct{}),
+				oddStream:  make(chan struct{}),
+				endStream:  make(chan struct{}),
+			}
+
+			go zeo.Zero(func(n int) { fmt.Print(n) })
+			go zeo.Odd(func(n int) { fmt.Print(n) })
+			go zeo.Even(func(n int) { fmt.Print(n) })
+
+			zeo.zeroStream <- struct{}{}
+			<-zeo.endStream
+			fmt.Println()
+
+		}
+	*/
+
 	var printZeo = func(num int) {
 
 		zeo := &ZeroEvenOdd{
 			n:          num,
-			zeroStream: make(chan struct{}),
-			evenStream: make(chan struct{}),
-			oddStream:  make(chan struct{}),
-			endStream:  make(chan struct{}),
+			zeroStream: make(chan int),
+			evenStream: make(chan int),
+			oddStream:  make(chan int),
+			endStream:  make(chan int),
 		}
 
 		go zeo.Zero(func(n int) { fmt.Print(n) })
 		go zeo.Odd(func(n int) { fmt.Print(n) })
 		go zeo.Even(func(n int) { fmt.Print(n) })
+		zeo.zeroStream <- 1
 
-		zeo.zeroStream <- struct{}{}
+		//time.Sleep(10 * time.Second)
+
 		<-zeo.endStream
 		fmt.Println()
 
 	}
+	testCase := []int{1, 2, 3, 4, 5, 7, 8, 9, 10}
 
-	/*	testCase := []int{1, 2, 3, 4, 5, 7,8,9,10}
+	for _, repeat := range testCase {
+		fmt.Printf("Repeat %d: ", repeat)
+		printZeo(repeat)
+	}
 
-		for _, repeat := range testCase {
-			fmt.Printf("Repeat %d: ", repeat)
-			printZeo(repeat)
-		}
-	*/
-
-	printZeo(1)
 }
