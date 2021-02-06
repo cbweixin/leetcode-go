@@ -64,7 +64,7 @@ package main
 //2021-02-05 17:01:09
 
 //leetcode submit region begin(Prohibit modification and deletion)
-func backspaceCompare(S string, T string) bool {
+func backspaceCompare_2(S string, T string) bool {
 	i, j, back_s, back_t := len(S)-1, len(T)-1, 0, 0
 
 	for true {
@@ -93,8 +93,45 @@ func backspaceCompare(S string, T string) bool {
 		j--
 
 	}
-
 	return false
+}
+
+func backspaceCompare(S string, T string) bool {
+	s_ch, t_ch := make(chan bool), make(chan byte)
+	go func(ch1 chan bool, ch2 chan byte) {
+		back := 0
+		for i := len(S) - 1; i >= 0; i-- {
+			if S[i] == '#' {
+				back++
+			} else if back > 0 {
+				back--
+			} else {
+				c, ok := <-ch2
+				if !ok || (c != S[i]) {
+					ch1 <- false
+				}
+			}
+		}
+		_, ok := <-ch2
+		ch1 <- !ok
+	}(s_ch, t_ch)
+
+	go func(ch chan byte) {
+		back := 0
+		for i := len(T) - 1; i >= 0; i-- {
+			if T[i] == '#' {
+				back++
+			} else if back > 0 {
+				back--
+			} else {
+				ch <- T[i]
+			}
+		}
+		close(ch)
+
+	}(t_ch)
+
+	return <-s_ch
 
 }
 
