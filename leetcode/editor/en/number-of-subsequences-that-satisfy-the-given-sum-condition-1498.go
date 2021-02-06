@@ -66,6 +66,7 @@ import (
 func numSubseq(nums []int, target int) int {
 	left, right := 0, len(nums)-1
 	res := 0
+	// knowledge how to sort an int array
 	sort.Ints(nums)
 	pow := map[int]int{0: 1}
 

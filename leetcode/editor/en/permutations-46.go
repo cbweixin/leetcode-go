@@ -58,7 +58,11 @@ func permuteRec(currComb, left []int, res *[][]int) {
 
 func permute(nums []int) [][]int {
 	c, done := make(chan []int, len(nums)), make(chan struct{})
-	// I don't think this makes sense
+	// I don't think this makes sense. p runs in a goroutine, p is doing the permuting job. then another goroutine
+	// is waiting for the 'done' signal. once it is done, then loop the 'c' channel to get the reuslts. but problem
+	// 1. these 2 function running in goroutine, but still in sequential order, one wait another, doesn't make sense
+	// 2. function p is still running in one goroutine, no parellel computing
+	// based on my test, this code , compared with permute2, at least 3 times slower. 8s vs 24s when permute 10 nums.
 	go p(nums, c, done)
 	go func(done <-chan struct{}) {
 		<-done
@@ -94,7 +98,7 @@ func perm(a []int, i int, c chan<- []int) {
 }
 
 func main() {
-	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	arr := []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11}
 	start := time.Now()
 	permute2(arr)
 	end1 := time.Now()
