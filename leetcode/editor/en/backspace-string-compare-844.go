@@ -78,7 +78,7 @@ func backspaceCompare(S string, T string) bool {
 		}
 
 		for j >= 0 && (back_t > 0 || T[j] == '#') {
-			if S[j] == '#' {
+			if T[j] == '#' {
 				back_t++
 			} else {
 				back_t--
