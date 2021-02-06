@@ -98,6 +98,12 @@ func backspaceCompare_2(S string, T string) bool {
 
 func backspaceCompare(S string, T string) bool {
 	s_ch, t_ch := make(chan bool), make(chan byte)
+	// review, this 2 goroutine work together. reverse loop S and T,if we saw '#', we know we could do backspace,
+	// so if backspace > 0, we can ignore one char if the char is not '#'. but if back == 0 , and S[i] != '#', at this
+	// time, we need to compare S[i] and T[j], T[j] would be read from channel t_ch. if S[i] != T[j] or T[j] is nil,
+	// then we could return false
+	// use 2 goroutine to loop S and T seperatelly, in this case, still doesn't make much sense, because then run alter-
+	// natively, not faster than run it on single routine.
 	go func(ch1 chan bool, ch2 chan byte) {
 		back := 0
 		for i := len(S) - 1; i >= 0; i-- {
