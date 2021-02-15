@@ -15,7 +15,7 @@ func missingElement(nums []int, k int) int {
 
 	}
 
-	return nums[0] + k + 1
+	return nums[0] + k + left
 
 }
 
