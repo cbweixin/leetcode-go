@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 //You are given an m * n matrix, mat, and an integer k, which has its rows sorte
 //d in non-decreasing order.
@@ -62,7 +65,14 @@ import "sort"
 //leetcode submit region begin(Prohibit modification and deletion)
 func kthSmallest(mat [][]int, k int) int {
 	m := len(mat)
+	// knowledge, how to copy an array
 	temp := mat[0]
+	min := func(x, y int) int {
+		if x < y {
+			return x
+		}
+		return y
+	}
 
 	for i := 1; i < m; i++ {
 		t := []int{}
@@ -72,10 +82,15 @@ func kthSmallest(mat [][]int, k int) int {
 			}
 		}
 		sort.Ints(t)
-		temp = t[:k]
+		temp = t[:min(k, len(t))]
 	}
 
 	return temp[k-1]
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	// knowledge, how to construct and intialize an multi-dimensional array
+	var a = [][]int{{1, 10, 10}, {1, 4, 5}, {2, 3, 6}}
+	fmt.Println(kthSmallest(a, 14))
+}
