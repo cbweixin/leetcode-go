@@ -82,6 +82,9 @@ func kthSmallest(mat [][]int, k int) int {
 			}
 		}
 		sort.Ints(t)
+		// bugfixed, t is a slice, so len and capacity is different. for test case below, [1,10,10] and [1,4,5]
+		// can only construct 9 elements, but t is a slice, it fill 0 to cell 9 - 15, which cause the wrong results
+		// not like python, if arr[:k] when k > len(arr) you won't get extra elements
 		temp = t[:min(k, len(t))]
 	}
 
