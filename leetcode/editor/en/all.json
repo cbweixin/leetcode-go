@@ -10836,7 +10836,7 @@
     "level": 1,
     "nodeType": "def",
     "questionId": "874",
-    "status": "",
+    "status": "ac",
     "title": "Backspace String Compare",
     "titleSlug": "backspace-string-compare"
   },
@@ -11265,7 +11265,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "909",
-    "status": "",
+    "status": "ac",
     "title": "Stone Game",
     "titleSlug": "stone-game"
   },
@@ -13337,7 +13337,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "1111",
-    "status": "",
+    "status": "ac",
     "title": "Minimum Score Triangulation of Polygon",
     "titleSlug": "minimum-score-triangulation-of-polygon"
   },
@@ -14865,7 +14865,8 @@
     "titleSlug": "product-price-at-a-given-date"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "single-row-keyboard",
     "formTitle": "[1165]Single-Row Keyboard",
     "frontendQuestionId": "1165",
     "leaf": true,
@@ -18918,7 +18919,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "1621",
-    "status": "",
+    "status": "ac",
     "title": "Number of Subsequences That Satisfy the Given Sum Condition",
     "titleSlug": "number-of-subsequences-that-satisfy-the-given-sum-condition"
   },
@@ -21929,5 +21930,125 @@
     "status": "lock",
     "title": "Maximum Subarray Sum After One Operation",
     "titleSlug": "maximum-subarray-sum-after-one-operation"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1747]Leetflex Banned Accounts",
+    "frontendQuestionId": "1747",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1898",
+    "status": "lock",
+    "title": "Leetflex Banned Accounts",
+    "titleSlug": "leetflex-banned-accounts"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1748]Sum of Unique Elements",
+    "frontendQuestionId": "1748",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1848",
+    "status": "",
+    "title": "Sum of Unique Elements",
+    "titleSlug": "sum-of-unique-elements"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1749]Maximum Absolute Sum of Any Subarray",
+    "frontendQuestionId": "1749",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1849",
+    "status": "",
+    "title": "Maximum Absolute Sum of Any Subarray",
+    "titleSlug": "maximum-absolute-sum-of-any-subarray"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1750]Minimum Length of String After Deleting Similar Ends",
+    "frontendQuestionId": "1750",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1850",
+    "status": "",
+    "title": "Minimum Length of String After Deleting Similar Ends",
+    "titleSlug": "minimum-length-of-string-after-deleting-similar-ends"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1751]Maximum Number of Events That Can Be Attended II",
+    "frontendQuestionId": "1751",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1851",
+    "status": "",
+    "title": "Maximum Number of Events That Can Be Attended II",
+    "titleSlug": "maximum-number-of-events-that-can-be-attended-ii"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1752]Check if Array Is Sorted and Rotated",
+    "frontendQuestionId": "1752",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1878",
+    "status": "",
+    "title": "Check if Array Is Sorted and Rotated",
+    "titleSlug": "check-if-array-is-sorted-and-rotated"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1753]Maximum Score From Removing Stones",
+    "frontendQuestionId": "1753",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1879",
+    "status": "",
+    "title": "Maximum Score From Removing Stones",
+    "titleSlug": "maximum-score-from-removing-stones"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1754]Largest Merge Of Two Strings",
+    "frontendQuestionId": "1754",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1880",
+    "status": "",
+    "title": "Largest Merge Of Two Strings",
+    "titleSlug": "largest-merge-of-two-strings"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1755]Closest Subsequence Sum",
+    "frontendQuestionId": "1755",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1881",
+    "status": "",
+    "title": "Closest Subsequence Sum",
+    "titleSlug": "closest-subsequence-sum"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1756]Design Most Recently Used Queue",
+    "frontendQuestionId": "1756",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1903",
+    "status": "lock",
+    "title": "Design Most Recently Used Queue",
+    "titleSlug": "design-most-recently-used-queue"
   }
 ]
