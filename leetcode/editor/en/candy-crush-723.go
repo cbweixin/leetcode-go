@@ -7,7 +7,7 @@ type Key struct {
 func candyCrush(board [][]int) [][]int {
 	m, n := len(board), len(board[0])
 	for {
-		// review, how to create a composite key
+		// knowledge, how to create a composite key
 		crush := map[Key]bool{}
 		for i := 0; i < m; i++ {
 			for j := 0; j < n; j++ {

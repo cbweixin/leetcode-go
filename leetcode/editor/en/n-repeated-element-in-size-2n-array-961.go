@@ -53,7 +53,7 @@ package main
 
 //leetcode submit region begin(Prohibit modification and deletion)
 func repeatedNTimes1(A []int) int {
-	// review, use map as set
+	// knowledge, use map as set
 	set := make(map[int]bool)
 
 	for _, a := range A {
