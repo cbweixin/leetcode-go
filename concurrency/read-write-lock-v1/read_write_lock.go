@@ -1,4 +1,4 @@
-package main
+package read_write_lock_v1
 
 import (
 	"errors"
@@ -160,8 +160,4 @@ func (df *myDataFile) Close() error {
 		return nil
 	}
 	return df.f.Close()
-}
-
-func main() {
-
 }
