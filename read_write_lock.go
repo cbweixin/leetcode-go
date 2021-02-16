@@ -37,6 +37,21 @@ type myDataFile struct {
 	dataLen uint32       // 数据块长度。
 }
 
+// NewDataFile 会新建一个数据文件的实例。
+func NewDataFile(path string, dataLen uint32) (DataFile, error) {
+	f, err := os.Create(path)
+	if err != nil {
+		return nil, err
+	}
+	if dataLen == 0 {
+		return nil, errors.New("Invalid data length!")
+	}
+	// 把变量df的值作为NewDataFile函数的第一个结果值体现了我们的设计意图。但要想使*myDataFile类型真正成为DataFile类型的一个实现类型，
+	// 我们还需要为*myDataFile类型编写出已在DataFile接口类型中声明的所有方法。其中最重要的当属Read方法和Write方法。
+	df := &myDataFile{f: f, dataLen: dataLen}
+	return df, nil
+}
+
 func (df *myDataFile) Read() (rsn int64, d Data, err error) {
 	// 读取并更新读偏移量。
 	var offset int64
@@ -45,10 +60,38 @@ func (df *myDataFile) Read() (rsn int64, d Data, err error) {
 	df.roffset += int64(df.dataLen)
 	df.rmutex.Unlock()
 
+	// 另一方面，在读取一个数据块的时候，我们适时的进行了fmutex字段的读锁定和读解锁操作。fmutex字段的这两个操作可以保证我们在这里读取
+	// 到的是完整的数据块。不过，这个完整的数据块却并不一定是正确的。为什么会这样说呢？
+	//
+	//请想象这样一个场景。在我们的程序中，有3个Goroutine来并发的执行某个*myDataFile类型值的Read方法，并有2个Goroutine来并发的执行
+	// 该值的Write方法。通过前3个Goroutine的运行，数据文件中的数据块被依次的读取了出来。但是，由于进行写操作的Goroutine比进行读操作
+	// 的Goroutine少，所以过不了多久读偏移量roffset的值就会等于甚至大于写偏移量woffset的值。也就是说，读操作很快就会没有数据可读了。
+	// 这种情况会使上面的df.f.ReadAt方法返回的第二个结果值为代表错误的非nil且会与io.EOF相等的值。实际上，我们不应该把这样的值看成错误
+	// 的代表，而应该把它看成一种边界情况。但不幸的是，我们在这个版本的Read方法中并没有对这种边界情况做出正确的处理。该方法在遇到这种
+	// 情况时会直接把错误值返回给它的调用方。该调用方会得到读取出错的数据块的序列号，但却无法再次尝试读取这个数据块。由于其他正在或后续
+	// 执行的Read方法会继续增加读偏移量roffset的值，所以当该调用方再次调用这个Read方法的时候只可能读取到在此数据块后面的其他数据块。
+	// 注意，执行Read方法时遇到上述情况的次数越多，被漏读的数据块也就会越多。
+
+	/*	rsn = offset / int64(df.dataLen)
+		df.fmutex.RLock()
+		defer df.fmutex.RUnlock()
+		bytes := make([]byte, df.dataLen)
+		_, err = df.f.ReadAt(bytes, offset)
+		if err != nil {
+			return
+		}
+		d = bytes
+		return
+
+	*/
+
+	// below is version 2, which is correct
 	//读取一个数据块。
 	rsn = offset / int64(df.dataLen)
 	bytes := make([]byte, df.dataLen)
+
 	for {
+
 		df.fmutex.RLock()
 		_, err = df.f.ReadAt(bytes, offset)
 		if err != nil {
@@ -108,19 +151,6 @@ func (df *myDataFile) Close() error {
 		return nil
 	}
 	return df.f.Close()
-}
-
-// NewDataFile 会新建一个数据文件的实例。
-func NewDataFile(path string, dataLen uint32) (DataFile, error) {
-	f, err := os.Create(path)
-	if err != nil {
-		return nil, err
-	}
-	if dataLen == 0 {
-		return nil, errors.New("Invalid data length!")
-	}
-	df := &myDataFile{f: f, dataLen: dataLen}
-	return df, nil
 }
 
 func main() {
