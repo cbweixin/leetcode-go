@@ -45,7 +45,7 @@ type Key2 struct {
 	X, Y int
 }
 
-func strangePrinter(s string) int {
+func strangePrinter2(s string) int {
 	l := len(s)
 	memo := make(map[Key2]int)
 	min := func(x, y int) int {
@@ -77,6 +77,49 @@ func strangePrinter(s string) int {
 	}
 
 	return dfs(0, l-1)
+
+}
+
+func strangePrinter(s string) int {
+	l := len(s)
+	if l == 0 {
+		return 0
+	}
+	dp := make([][]int, l)
+	for i := range dp {
+		dp[i] = make([]int, l)
+		for j := 0; j < l; j++ {
+			dp[i][j] = 0
+		}
+	}
+
+	for i := 0; i < l; i++ {
+		dp[i][i] = 1
+	}
+
+	min := func(x, y int) int {
+		if x < y {
+			return x
+		}
+
+		return y
+	}
+
+	for gap := 1; gap < l; gap++ {
+		for i := 0; i < l-gap; i++ {
+			j := i + gap
+			dp[i][j] = gap + 1
+			for k := i + 1; k <= j; k++ {
+				total := dp[i][k-1] + dp[k][j]
+				if s[i] == s[k] {
+					total -= 1
+				}
+				dp[i][j] = min(dp[i][j], total)
+			}
+		}
+	}
+
+	return dp[0][l-1]
 
 }
 

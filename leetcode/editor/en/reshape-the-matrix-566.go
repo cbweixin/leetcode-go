@@ -63,7 +63,7 @@ func matrixReshape(nums [][]int, r int, c int) [][]int {
 	if m*n != r*c {
 		return nums
 	}
-	// review, how to create a 2-dimension slice
+	// knowledge, how to create a 2-dimension slice
 	arr := make([][]int, r)
 	for i := range arr {
 		arr[i] = make([]int, c)
