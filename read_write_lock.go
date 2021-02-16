@@ -126,6 +126,8 @@ func (df *myDataFile) Write(d Data) (wsn int64, err error) {
 	//写入一个数据块。
 	wsn = offset / int64(df.dataLen)
 	var bytes []byte
+	// 这里需要注意的是，当参数d的值的长度大于数据块的最大长度的时候，我们会先进行截短处理再将数据写入文件。如果没有这个截短处理，
+	// 我们在后面计算的已读数据块的序列号和已写数据块的序列号就会不正确。
 	if len(d) > int(df.dataLen) {
 		bytes = d[0:df.dataLen]
 	} else {
