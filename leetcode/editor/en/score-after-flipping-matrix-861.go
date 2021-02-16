@@ -47,7 +47,7 @@ func matrixScore(A [][]int) int {
 	// review, need to convert int to unsigned int
 	ans := (1 << uint(N-1)) * M
 
-	// review, how to define a lambda function
+	// knowledge, how to define a lambda function
 	max := func(x, y int) int {
 		if x < y {
 			return y
