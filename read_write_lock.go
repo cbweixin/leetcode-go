@@ -87,11 +87,18 @@ func (df *myDataFile) Read() (rsn int64, d Data, err error) {
 
 	// below is version 2, which is correct
 	//读取一个数据块。
+
 	rsn = offset / int64(df.dataLen)
 	bytes := make([]byte, df.dataLen)
 
 	for {
-
+		// 第二个版本的Read方法使用for语句是为了达到这样一个目的：在其中的df.f.ReadAt方法返回io.EOF错误的时候继续尝试获取同一个数据块，
+		// 直到获取成功为止。注意，如果在该for代码块被执行期间一直让读写锁fmutex处于读锁定状态，那么针对它的写锁定操作将永远不会成功，
+		// 且相应的Goroutine也会被一直阻塞。因为它们是互斥的。所以，我们不得不在该for语句块中的每条return语句和continue语句的前面都加入
+		// 一个针对该读写锁的读解锁操作，并在每次迭代开始时都对fmutex进行一次读锁定。显然，这样的代码看起来很丑陋。冗余的代码会使代码的维护
+		// 成本和出错几率大大增加。并且，当for代码块中的代码引发了运行时恐慌的时候，我们是很难及时的对读写锁fmutex进行读解锁的。
+		// 即便可以这样做，那也会使Read方法的实现更加丑陋。我们因为要处理一种边界情况而去掉了defer df.fmutex.RUnlock()语句。
+		// 这种做法利弊参半。
 		df.fmutex.RLock()
 		_, err = df.f.ReadAt(bytes, offset)
 		if err != nil {
