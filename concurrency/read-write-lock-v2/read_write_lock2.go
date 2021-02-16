@@ -48,6 +48,8 @@ func NewDataFile(path string, dataLen uint32) (DataFile, error) {
 		return nil, errors.New("Invalid data length!")
 	}
 	df := &myDataFile{f: f, dataLen: dataLen}
+	// 我们一直在说，条件变量rcond是与读写锁fmutex的“读锁”关联的。这是怎样做到的呢？读者还记得我们在上一节提到读写锁的RLocker方法吗？
+	// 它会返回当前读写锁中的“读锁”。这个结果值同时也是sync.Locker接口的实现。因此，我们可以把它作为参数值传给sync.NewCond函数。
 	df.rcond = sync.NewCond(df.fmutex.RLocker())
 	return df, nil
 }
