@@ -35,7 +35,8 @@ func str2tree(s string) *TreeNode {
 			st = st[:len(st)-1]
 		} else if is_digit(s[i]) || s[i] == '-' {
 			k := i + 1
-			for is_digit(s[k]) {
+			// bugfixed
+			for k < l && is_digit(s[k]) {
 				k++
 			}
 
