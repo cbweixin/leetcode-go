@@ -21,6 +21,9 @@ type TreeNode struct {
 
 func str2tree(s string) *TreeNode {
 	l, st, i := len(s), []*TreeNode{}, 0
+	if l == 0 {
+		return nil
+	}
 
 	is_digit := func(x uint8) bool {
 		return x >= '0' && x <= '9'
