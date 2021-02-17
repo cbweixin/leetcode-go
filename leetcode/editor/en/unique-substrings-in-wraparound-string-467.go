@@ -103,7 +103,6 @@ func findSubstringInWraproundString(p string) int {
 		} else {
 			l = 1
 		}
-		// this is wrong, because for "cac", 'c' would be calcuated twice
 		dp[p[i]] = max(dp[p[i]], l)
 	}
 
