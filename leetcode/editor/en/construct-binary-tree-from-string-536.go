@@ -20,6 +20,8 @@ type TreeNode struct {
 }
 
 func str2tree(s string) *TreeNode {
+	// review, notice the st - stack type, it should be pointer type, otherwise, st = append(st, node)
+	// it would pass by value, the change won't be preserved.
 	l, st, i := len(s), []*TreeNode{}, 0
 	if l == 0 {
 		return nil
