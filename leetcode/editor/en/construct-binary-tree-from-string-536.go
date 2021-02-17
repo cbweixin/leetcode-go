@@ -1,6 +1,9 @@
 package main
 
-import "strconv"
+import (
+	"fmt"
+	"strconv"
+)
 
 /**
  * Definition for a binary tree node.
@@ -17,7 +20,7 @@ type TreeNode struct {
 }
 
 func str2tree(s string) *TreeNode {
-	l, st, i := len(s), []TreeNode{}, 0
+	l, st, i := len(s), []*TreeNode{}, 0
 
 	is_digit := func(x uint8) bool {
 		return x >= '0' && x <= '9'
@@ -42,16 +45,17 @@ func str2tree(s string) *TreeNode {
 					st[len(st)-1].Right = node
 				}
 			}
-			st = append(st, *node)
+			st = append(st, node)
 			i = k - 1
 		}
 		i++
 	}
 
-	return &st[0]
+	return st[0]
 
 }
 
 func main() {
+	fmt.Println(str2tree("4(2(3)(1))(6(5))"))
 
 }
