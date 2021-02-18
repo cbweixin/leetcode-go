@@ -19,6 +19,8 @@ func main() {
 	channel_sample.Chan_Conv()
 	channel_sample.Chan_With_For()
 	channel_sample.Select_test()
+	channel_sample.Select_test2()
+	channel_sample.Select_test3()
 
 	// without this still works fine, weird.
 	//time.Sleep(5*time.Second)
