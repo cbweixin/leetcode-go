@@ -9,4 +9,5 @@ func main() {
 	channel_sample.Channel_test()
 	context_sample.Exit_test()
 	channel_sample.Send_Recieve()
+	channel_sample.Chan_With_Map()
 }
