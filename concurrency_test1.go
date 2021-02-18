@@ -15,6 +15,7 @@ func main() {
 	channel_sample.Chan_With_Map2()
 	channel_sample.Chan_With_Map3()
 	channel_sample.Close_test()
+	channel_sample.Single_Direction_Channel()
 
 	// without this still works fine, weird.
 	//time.Sleep(5*time.Second)
