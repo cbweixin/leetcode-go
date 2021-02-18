@@ -1,6 +1,8 @@
 package main
 
-import "./concurrency/wait_group_sample"
+import (
+	"./concurrency/wait_group_sample"
+)
 import "./concurrency/channel_sample"
 import "./concurrency/context_sample"
 
@@ -11,4 +13,9 @@ func main() {
 	channel_sample.Send_Recieve()
 	channel_sample.Chan_With_Map()
 	channel_sample.Chan_With_Map2()
+	channel_sample.Chan_With_Map3()
+	channel_sample.Close_test()
+
+	// without this still works fine, weird.
+	//time.Sleep(5*time.Second)
 }
