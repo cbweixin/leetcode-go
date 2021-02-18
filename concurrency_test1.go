@@ -17,6 +17,7 @@ func main() {
 	channel_sample.Close_test()
 	channel_sample.Single_Direction_Channel()
 	channel_sample.Chan_Conv()
+	channel_sample.Chan_With_For()
 
 	// without this still works fine, weird.
 	//time.Sleep(5*time.Second)
