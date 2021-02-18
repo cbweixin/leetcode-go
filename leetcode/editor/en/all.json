@@ -485,7 +485,7 @@
     "formTitle": "[38]Count and Say",
     "frontendQuestionId": "38",
     "leaf": true,
-    "level": 1,
+    "level": 2,
     "nodeType": "def",
     "questionId": "38",
     "status": "ac",
@@ -5731,7 +5731,7 @@
     "level": 1,
     "nodeType": "def",
     "questionId": "448",
-    "status": "",
+    "status": "ac",
     "title": "Find All Numbers Disappeared in an Array",
     "titleSlug": "find-all-numbers-disappeared-in-an-array"
   },
@@ -8498,7 +8498,7 @@
     "level": 3,
     "nodeType": "def",
     "questionId": "664",
-    "status": "",
+    "status": "ac",
     "title": "Strange Printer",
     "titleSlug": "strange-printer"
   },
@@ -17670,7 +17670,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "1511",
-    "status": "",
+    "status": "ac",
     "title": "Count Number of Teams",
     "titleSlug": "count-number-of-teams"
   },
@@ -18204,7 +18204,7 @@
     "level": 3,
     "nodeType": "def",
     "questionId": "1550",
-    "status": "",
+    "status": "ac",
     "title": "Find the Kth Smallest Sum of a Matrix With Sorted Rows",
     "titleSlug": "find-the-kth-smallest-sum-of-a-matrix-with-sorted-rows"
   },
@@ -22050,5 +22050,77 @@
     "status": "lock",
     "title": "Design Most Recently Used Queue",
     "titleSlug": "design-most-recently-used-queue"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1757]Recyclable and Low Fat Products",
+    "frontendQuestionId": "1757",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1908",
+    "status": "lock",
+    "title": "Recyclable and Low Fat Products",
+    "titleSlug": "recyclable-and-low-fat-products"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1758]Minimum Changes To Make Alternating Binary String",
+    "frontendQuestionId": "1758",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1884",
+    "status": "",
+    "title": "Minimum Changes To Make Alternating Binary String",
+    "titleSlug": "minimum-changes-to-make-alternating-binary-string"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1759]Count Number of Homogenous Substrings",
+    "frontendQuestionId": "1759",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1885",
+    "status": "",
+    "title": "Count Number of Homogenous Substrings",
+    "titleSlug": "count-number-of-homogenous-substrings"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1760]Minimum Limit of Balls in a Bag",
+    "frontendQuestionId": "1760",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1886",
+    "status": "",
+    "title": "Minimum Limit of Balls in a Bag",
+    "titleSlug": "minimum-limit-of-balls-in-a-bag"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1761]Minimum Degree of a Connected Trio in a Graph",
+    "frontendQuestionId": "1761",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1887",
+    "status": "",
+    "title": "Minimum Degree of a Connected Trio in a Graph",
+    "titleSlug": "minimum-degree-of-a-connected-trio-in-a-graph"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1762]Buildings With an Ocean View",
+    "frontendQuestionId": "1762",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1909",
+    "status": "lock",
+    "title": "Buildings With an Ocean View",
+    "titleSlug": "buildings-with-an-ocean-view"
   }
 ]
