@@ -21,6 +21,7 @@ func main() {
 	channel_sample.Select_test()
 	channel_sample.Select_test2()
 	channel_sample.Select_test3()
+	channel_sample.Blocking_Channel()
 
 	// without this still works fine, weird.
 	//time.Sleep(5*time.Second)
