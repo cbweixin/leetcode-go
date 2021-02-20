@@ -57,3 +57,25 @@ type CallResult struct {
 	Msg    string
 	Elapse time.Duration
 }
+
+// 声明代表载荷发生器状态的常量。
+const (
+	// STATUS_ORIGINAL 代表原始。
+	STATUS_ORIGINAL uint32 = 0
+	// STATUS_STARTING 代表正在启动。
+	STATUS_STARTING uint32 = 1
+	// STATUS_STARTED 代表已启动。
+	STATUS_STARTED uint32 = 2
+	// STATUS_STOPPING 代表正在停止。
+	STATUS_STOPPING uint32 = 3
+	// STATUS_STOPPED 代表已停止。
+	STATUS_STOPPED uint32 = 4
+)
+
+type Generator interface {
+	Start() bool
+	Stop() bool
+	Status() uint32
+	// call count, every time load gen start, it would reset to 0
+	CallCount() int64
+}
