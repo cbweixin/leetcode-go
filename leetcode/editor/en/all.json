@@ -1376,7 +1376,7 @@
     "formTitle": "[107]Binary Tree Level Order Traversal II",
     "frontendQuestionId": "107",
     "leaf": true,
-    "level": 1,
+    "level": 2,
     "nodeType": "def",
     "questionId": "107",
     "status": "ac",
@@ -5490,7 +5490,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "764",
-    "status": "",
+    "status": "ac",
     "title": "N-ary Tree Level Order Traversal",
     "titleSlug": "n-ary-tree-level-order-traversal"
   },
@@ -15646,7 +15646,8 @@
     "titleSlug": "missing-number-in-arithmetic-progression"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "meeting-scheduler",
     "formTitle": "[1229]Meeting Scheduler",
     "frontendQuestionId": "1229",
     "leaf": true,
