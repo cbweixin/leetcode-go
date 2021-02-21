@@ -17,6 +17,8 @@ type ParamSet struct {
 	ResultCh   chan *lib.CallResult // 调用结果通道。
 }
 
+// Check 会检查当前值的所有字段的有效性。
+// 若存在无效字段则返回值非nil。
 func (pset *ParamSet) Check() error {
 	var errMsgs []string
 
