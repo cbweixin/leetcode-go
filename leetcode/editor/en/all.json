@@ -22171,5 +22171,65 @@
     "status": "",
     "title": "Tree of Coprimes",
     "titleSlug": "tree-of-coprimes"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1767]Find the Subtasks That Did Not Execute",
+    "frontendQuestionId": "1767",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1914",
+    "status": "lock",
+    "title": "Find the Subtasks That Did Not Execute",
+    "titleSlug": "find-the-subtasks-that-did-not-execute"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1768]Merge Strings Alternately",
+    "frontendQuestionId": "1768",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1894",
+    "status": "",
+    "title": "Merge Strings Alternately",
+    "titleSlug": "merge-strings-alternately"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1769]Minimum Number of Operations to Move All Balls to Each Box",
+    "frontendQuestionId": "1769",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1895",
+    "status": "",
+    "title": "Minimum Number of Operations to Move All Balls to Each Box",
+    "titleSlug": "minimum-number-of-operations-to-move-all-balls-to-each-box"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1770]Maximum Score from Performing Multiplication Operations",
+    "frontendQuestionId": "1770",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1896",
+    "status": "",
+    "title": "Maximum Score from Performing Multiplication Operations",
+    "titleSlug": "maximum-score-from-performing-multiplication-operations"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1771]Maximize Palindrome Length From Subsequences",
+    "frontendQuestionId": "1771",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1897",
+    "status": "",
+    "title": "Maximize Palindrome Length From Subsequences",
+    "titleSlug": "maximize-palindrome-length-from-subsequences"
   }
 ]
