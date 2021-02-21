@@ -4657,7 +4657,7 @@
     "level": 3,
     "nodeType": "def",
     "questionId": "363",
-    "status": "",
+    "status": "ac",
     "title": "Max Sum of Rectangle No Larger Than K",
     "titleSlug": "max-sum-of-rectangle-no-larger-than-k"
   },
@@ -14959,7 +14959,7 @@
     "level": 3,
     "nodeType": "def",
     "questionId": "1270",
-    "status": "",
+    "status": "notac",
     "title": "Dinner Plate Stacks",
     "titleSlug": "dinner-plate-stacks"
   },
@@ -20661,7 +20661,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "1762",
-    "status": "",
+    "status": "notac",
     "title": "Furthest Building You Can Reach",
     "titleSlug": "furthest-building-you-can-reach"
   },
