@@ -5,8 +5,10 @@ import (
 	"./lib"
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
 	"math"
+	"sync/atomic"
 	"time"
 )
 
@@ -38,7 +40,7 @@ func NewGenerator(pset ParamSet) (lib.Generator, error) {
 		lps:        pset.LPS,
 		durationNS: pset.DurationNS,
 		status:     lib.STATUS_ORIGINAL,
-		resutCh:    pset.ResultCh,
+		resultCh:   pset.ResultCh,
 	}
 
 	if err := gen.init(); err != nil {
@@ -66,4 +68,33 @@ func (gen *myGenerator) init() error {
 	buf.WriteString(fmt.Sprintf("Done. (concrrency=%D)", gen.concurrency))
 	logger.Infoln(buf.String())
 	return nil
+}
+
+// callOne 会向载荷承受方发起一次调用。
+func (gen *myGenerator) callOne(rawReq *lib.RawReq) *lib.RawResp {
+	atomic.AddInt64(&gen.callCount, 1)
+	if rawReq == nil {
+		return &lib.RawResp{ID: -1, Err: errors.New("Invalid raw request.")}
+	}
+	start := time.Now().UnixNano()
+	resp, err := gen.caller.Call(rawReq.Req, gen.timeoutNS)
+	end := time.Now().UnixNano()
+	elaspsedTime := time.Duration(end - start)
+	var rawResp lib.RawResp
+	if err != nil {
+		errMsg := fmt.Sprintf("Sync call Error: %s.", err)
+		rawResp = lib.RawResp{
+			ID:     rawReq.ID,
+			Err:    errors.New(errMsg),
+			Elapse: elaspsedTime,
+		}
+	} else {
+		rawResp = lib.RawResp{
+			ID:     rawReq.ID,
+			Resp:   resp,
+			Elapse: elaspsedTime,
+		}
+	}
+
+	return &rawResp
 }
