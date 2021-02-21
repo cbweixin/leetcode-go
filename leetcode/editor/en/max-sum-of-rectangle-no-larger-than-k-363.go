@@ -58,7 +58,7 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 
 		for _, v := range arr {
 			i := sort.Search(len(brr), func(idx int) bool { return v-brr[idx] <= k })
-			if i < len(arr) && i >= 0 {
+			if i < len(brr) && i >= 0 {
 				ans = max(ans, v-brr[i])
 			}
 
@@ -96,8 +96,10 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 
 //leetcode submit region end(Prohibit modification and deletion)
 func main() {
+	matrix := [][]int{{5, -4, -3, 4}, {-3, -4, 4, 5}, {5, 1, 5, -4}}
+	fmt.Println(maxSumSubmatrix(matrix, 10))
 
-	matrix := [][]int{{2, 2, -1}}
+	matrix = [][]int{{2, 2, -1}}
 	fmt.Println(maxSumSubmatrix(matrix, 0))
 	//Input: matrix = [[1,0,1],[0,-2,3]], k = 2
 	//Output: 2
