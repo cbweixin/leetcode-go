@@ -49,7 +49,7 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 	}
 
 	find_rect := func(arr []int) int {
-		brr, ans := make([]int, 0, M), math.MinInt32
+		brr, ans := []int{}, math.MinInt32
 		brr = append(brr, 0)
 
 		// knowledge how to deep copy an slice, if I do crr := arr, that's assign another pointer crr refer to arr
@@ -70,6 +70,7 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 			if i == len(brr) {
 				brr = append(brr, v)
 			} else {
+				brr = append(brr, 0)
 				copy(brr[i+1:], brr[i:])
 				brr[i] = v
 			}
@@ -101,6 +102,9 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 //leetcode submit region end(Prohibit modification and deletion)
 func main() {
 	matrix := [][]int{{5, -4, -3, 4}, {-3, -4, 4, 5}, {5, 1, 5, -4}}
+	fmt.Println(maxSumSubmatrix(matrix, 8))
+
+	matrix = [][]int{{5, -4, -3, 4}, {-3, -4, 4, 5}, {5, 1, 5, -4}}
 	fmt.Println(maxSumSubmatrix(matrix, 10))
 
 	matrix = [][]int{{2, 2, -1}}
