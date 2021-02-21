@@ -61,15 +61,18 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 		}
 
 		for _, v := range crr {
+			// knowledge, how to do bisect.bisect_left()
 			i := sort.Search(len(brr), func(idx int) bool { return v-brr[idx] <= k })
 			if i < len(brr) && i >= 0 {
 				ans = max(ans, v-brr[i])
 			}
 
+			// knowledge, how to do bisect.insort()
 			i = sort.Search(len(brr), func(idx int) bool { return brr[idx] >= v })
 			if i == len(brr) {
 				brr = append(brr, v)
 			} else {
+				// knowledge, need to append a dummy element before copy
 				brr = append(brr, 0)
 				copy(brr[i+1:], brr[i:])
 				brr[i] = v

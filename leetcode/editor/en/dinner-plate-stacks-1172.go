@@ -136,6 +136,7 @@ func (this *DinnerPlates) PopAtStack(index int) int {
 	}
 	// review, how to do bisect.insort(arr, ele) in go
 	i := sort.Search(l, func(k int) bool { return this.notFull[k] > index })
+	this.notFull = append(this.notFull, 0)
 	copy(this.notFull[i+1:], this.notFull[i:])
 	this.notFull[i] = index
 
