@@ -74,7 +74,7 @@ func furthestBuilding(heights []int, bricks int, ladders int) int {
 	left, right := 0, l-1
 
 	can_move := func(idx int) bool {
-		temp := make([]int, idx+1)
+		temp := []int{}
 
 		for i := 0; i < idx; i++ {
 			d := heights[i+1] - heights[i]
@@ -83,12 +83,13 @@ func furthestBuilding(heights []int, bricks int, ladders int) int {
 			}
 		}
 		sort.Ints(temp)
+		s := 0
 
 		for i := 0; i < len(temp)-ladders; i++ {
-			if temp[i] > bricks {
+			s += temp[i]
+			if s > bricks {
 				return false
 			}
-			bricks -= temp[i]
 		}
 
 		return true
@@ -104,7 +105,7 @@ func furthestBuilding(heights []int, bricks int, ladders int) int {
 		}
 	}
 
-	return left
+	return right
 
 }
 
@@ -122,4 +123,8 @@ func main() {
 	ladders = 1
 	fmt.Println(furthestBuilding(heights, bricks, ladders))
 
+	heights = []int{17, 16, 5, 10, 10, 14, 7}
+	bricks = 74
+	ladders = 6
+	fmt.Println(furthestBuilding(heights, bricks, ladders))
 }
