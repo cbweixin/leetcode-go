@@ -52,11 +52,15 @@ func maxSumSubmatrix(matrix [][]int, k int) int {
 		brr, ans := make([]int, 0, M), math.MinInt32
 		brr = append(brr, 0)
 
+		// knowledge how to deep copy an slice, if I do crr := arr, that's assign another pointer crr refer to arr
+		crr := make([]int, len(arr))
+		copy(crr, arr)
+
 		for i := 1; i < len(arr); i++ {
-			arr[i] += arr[i-1]
+			crr[i] += crr[i-1]
 		}
 
-		for _, v := range arr {
+		for _, v := range crr {
 			i := sort.Search(len(brr), func(idx int) bool { return v-brr[idx] <= k })
 			if i < len(brr) && i >= 0 {
 				ans = max(ans, v-brr[i])
