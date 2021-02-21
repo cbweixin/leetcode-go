@@ -22123,5 +22123,53 @@
     "status": "lock",
     "title": "Buildings With an Ocean View",
     "titleSlug": "buildings-with-an-ocean-view"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1763]Longest Nice Substring",
+    "frontendQuestionId": "1763",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1873",
+    "status": "",
+    "title": "Longest Nice Substring",
+    "titleSlug": "longest-nice-substring"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1764]Form Array by Concatenating Subarrays of Another Array",
+    "frontendQuestionId": "1764",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1874",
+    "status": "",
+    "title": "Form Array by Concatenating Subarrays of Another Array",
+    "titleSlug": "form-array-by-concatenating-subarrays-of-another-array"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1765]Map of Highest Peak",
+    "frontendQuestionId": "1765",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1876",
+    "status": "",
+    "title": "Map of Highest Peak",
+    "titleSlug": "map-of-highest-peak"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1766]Tree of Coprimes",
+    "frontendQuestionId": "1766",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1875",
+    "status": "",
+    "title": "Tree of Coprimes",
+    "titleSlug": "tree-of-coprimes"
   }
 ]
