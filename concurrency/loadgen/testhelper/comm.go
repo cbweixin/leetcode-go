@@ -2,6 +2,8 @@ package testhelper
 
 import (
 	"../lib"
+	"bufio"
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"math/rand"
@@ -102,4 +104,36 @@ func (comm *TCPComm) CheckResp(rawReq lib.RawReq, rawResp lib.RawResp) *lib.Call
 
 	return &commResult
 
+}
+
+func read(conn net.Conn, delim byte) ([]byte, error) {
+	readBytes := make([]byte, 1)
+	var buffer bytes.Buffer
+	for {
+		_, err := conn.Read(readBytes)
+		if err != nil {
+			return nil, err
+		}
+		readByte := readBytes[0]
+		if readByte == delim {
+			break
+		}
+
+		buffer.WriteByte(readByte)
+	}
+
+	return buffer.Bytes(), nil
+}
+
+func write(conn net.Conn, content []byte, delim byte) (int, error) {
+	writer := bufio.NewWriter(conn)
+	n, err := writer.Write(content)
+	if err == nil {
+		writer.WriteByte(delim)
+	}
+	if err == nil {
+		err = writer.Flush()
+	}
+
+	return n, err
 }
