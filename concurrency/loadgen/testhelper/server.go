@@ -109,10 +109,12 @@ func reqHandler(conn net.Conn) {
 	if errMsg != "" {
 		sresp.Err = errors.New(errMsg)
 	}
+	// serialize server response to json format and get bytes from it
 	bytes, err := json.Marshal(sresp)
 	if err != nil {
 		logger.Errorf("Server: Resp Marshal Error: %s", err)
 	}
+	// write response stream back to connection
 	_, err = write(conn, bytes, DELIM)
 	if err != nil {
 		logger.Errorf("Server: Resp Write error: %s", err)
