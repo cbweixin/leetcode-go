@@ -65,7 +65,7 @@ func (gen *myGenerator) init() error {
 		return err
 	}
 	gen.tickets = tickets
-	buf.WriteString(fmt.Sprintf("Done. (concrrency=%D)", gen.concurrency))
+	buf.WriteString(fmt.Sprintf("Done. (concrrency=%d)", gen.concurrency))
 	logger.Infoln(buf.String())
 	return nil
 }
