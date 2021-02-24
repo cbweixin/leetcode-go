@@ -7,13 +7,13 @@ import (
 	"time"
 )
 
-var printDetail = false
+var printDetail = true
 
 func TestStart(t *testing.T) {
 	server := helper.NewTCPServer()
 	defer server.Close()
 
-	serverAddr := "192.168.1.4:8080"
+	serverAddr := "127.0.0.1:8080"
 	t.Logf("Startup TCP server(%s)...\n", serverAddr)
 	err := server.Listen(serverAddr)
 	if err != nil {
@@ -67,7 +67,7 @@ func TestStop(t *testing.T) {
 	server := helper.NewTCPServer()
 	defer server.Close()
 
-	serverAddr := "192.168.1.4:8881"
+	serverAddr := "127.0.0.1:8881"
 	t.Logf("Startup TCP server(%s)...\n", serverAddr)
 	err := server.Listen(serverAddr)
 	if err != nil {
