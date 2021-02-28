@@ -2,6 +2,7 @@ package read_write_lock_v3
 
 import (
 	"errors"
+	"io"
 	"os"
 	"sync"
 	"sync/atomic"
@@ -52,9 +53,76 @@ func NewDataFile(path string, dataLen uint32) (DataFile, error) {
 	return df, nil
 }
 
-func (df *myDataFile) read() (rsn int64, d Data, err error) {
+func (df *myDataFile) Read() (rsn int64, d Data, err error) {
 	var offset int64
+	// 原子量 + 自旋 取代锁
 	for {
 		offset = atomic.LoadInt64(&df.roffset)
+		if atomic.CompareAndSwapInt64(&df.roffset, offset, offset+int64(df.dataLen)) {
+			break
+		}
 	}
+
+	//读取一个数据块
+	rsn = offset / int64(df.dataLen)
+	bytes := make([]byte, df.dataLen)
+	df.fmutex.RLock()
+	defer df.fmutex.RUnlock()
+	for {
+		_, err = df.f.ReadAt(bytes, offset)
+		if err != nil {
+			if err == io.EOF {
+				df.rcond.Wait()
+				continue
+			}
+			return
+		}
+		d = bytes
+		return
+	}
+}
+
+func (df *myDataFile) Write(d Data) (wsn int64, err error) {
+	var offset int64
+	for {
+		offset = atomic.LoadInt64(&df.woffset)
+		if atomic.CompareAndSwapInt64(&df.woffset, offset, offset+int64(df.dataLen)) {
+			break
+		}
+	}
+	//写入一个数据块
+	wsn = offset / int64(df.dataLen)
+	var bytes []byte
+	if len(d) > int(df.dataLen) {
+		bytes = d[0:df.dataLen]
+	} else {
+		bytes = d
+	}
+	df.fmutex.Lock()
+	defer df.fmutex.Unlock()
+	_, err = df.f.Write(bytes)
+	df.rcond.Signal()
+	return
+
+}
+
+func (df *myDataFile) RSN() int64 {
+	offset := atomic.LoadInt64(&df.roffset)
+	return offset / int64(df.dataLen)
+}
+
+func (df *myDataFile) WSN() int64 {
+	offset := atomic.LoadInt64(&df.woffset)
+	return offset / int64(df.dataLen)
+}
+
+func (df *myDataFile) DataLen() uint32 {
+	return df.dataLen
+}
+
+func (df *myDataFile) Close() error {
+	if df.f == nil {
+		return nil
+	}
+	return df.f.Close()
 }
