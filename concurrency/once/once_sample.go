@@ -12,6 +12,7 @@ func main() {
 	max := rand.Intn(100)
 
 	for i := 0; i < max; i++ {
+		// review check the implementation of `once.Do`, is very inspiring
 		once.Do(func() {
 			count++
 		})
