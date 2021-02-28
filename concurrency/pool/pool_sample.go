@@ -28,6 +28,7 @@ func main() {
 	v2 := pool.Get()
 	fmt.Printf("value 2 : %v\n", v2)
 
+	// trigger gc, but when I ran the code, it actually didn't trigger gc, so it is not guranteed
 	debug.SetGCPercent(100)
 	runtime.GC()
 	v3 := pool.Get()
