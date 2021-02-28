@@ -1,7 +1,7 @@
 package current_map
 
 // ConcurrentMap 代表并发安全的字典的接口。
-type CouncurrentMap interface {
+type ConcurrentMap interface {
 	// Concurrency 会返回并发量。
 	Concurrency() int
 	// Put 会推送一个键-元素对。
@@ -17,4 +17,29 @@ type CouncurrentMap interface {
 	Delete(key string) bool
 	// Len 会返回当前字典中键-元素对的数量。
 	Len() uint64
+}
+
+// myConcurrentMap 代表ConcurrentMap接口的实现类型。
+type myConcurrentMap struct {
+	concurrency int
+	segments    []Segment
+	total       uint64
+}
+
+func NewConcurrentMap(concurrency int, pairRedistributor PairRedistributor) (ConcurrentMap, error) {
+	if concurrency <= 0 {
+		return nil, newIllegalParameterError("concurrency is too small")
+	}
+	if concurrency > MAX_CONCURRENCY {
+		return nil, newIllegalParameterError("concurrency is too large")
+	}
+	cmap := &myConcurrentMap{}
+	cmap.concurrency = concurrency
+	cmap.segments = make([]Segment, concurrency)
+	for i := 0; i < concurrency; i++ {
+		cmap.segments[i] =
+			newSegment(DEFAULT_BUCKET_NUMBER, pairRedistributor)
+	}
+	return cmap, nil
+
 }
