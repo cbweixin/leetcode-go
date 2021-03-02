@@ -38,3 +38,23 @@ type pair struct {
 	element unsafe.Pointer
 	next    unsafe.Pointer
 }
+
+func newPair(key string, element interface{}) (Pair, error) {
+	p := &pair{
+		key:  key,
+		hash: hash(key),
+	}
+
+	if element == nil {
+		return nil, newIllegalParameterError("element is nil")
+	}
+	return p, nil
+}
+
+func (p *pair) Key() string {
+	return p.key
+}
+
+func (p *pair) Hash() uint64 {
+	return p.hash
+}
