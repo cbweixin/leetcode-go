@@ -1,6 +1,9 @@
 package current_map
 
-import "unsafe"
+import (
+	"sync/atomic"
+	"unsafe"
+)
 
 // linkedPair 代表单向链接的键-元素对的接口。
 type linkedPair interface {
@@ -57,4 +60,45 @@ func (p *pair) Key() string {
 
 func (p *pair) Hash() uint64 {
 	return p.hash
+}
+
+func (p *pair) Element() interface{} {
+	pointer := atomic.LoadPointer(&p.element)
+	if pointer == nil {
+		return nil
+	}
+
+	return *(*interface{})(pointer)
+}
+
+func (p *pair) SetElement(element interface{}) error {
+	if element == nil {
+		return newIllegalParameterError("element is nil")
+	}
+	atomic.StorePointer(&p.element, unsafe.Pointer(&element))
+	return nil
+}
+
+func (p *pair) Next() Pair {
+	pointer := atomic.LoadPointer(&p.next)
+	if pointer == nil {
+		return nil
+	}
+
+	return (*pair)(pointer)
+}
+
+func (p *pair) SetNext(nextPair Pair) error {
+	if nextPair == nil {
+		atomic.StorePointer(&p.next, nil)
+		return nil
+	}
+
+	pp, ok := nextPair.(*pair)
+	if !ok {
+		return newIllegalPairTypeError(nextPair)
+	}
+
+	atomic.StorePointer(&p.next, unsafe.Pointer(pp))
+	return nil
 }
