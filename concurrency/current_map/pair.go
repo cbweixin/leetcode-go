@@ -1,6 +1,8 @@
 package current_map
 
 import (
+	"bytes"
+	"fmt"
 	"sync/atomic"
 	"unsafe"
 )
@@ -94,6 +96,7 @@ func (p *pair) SetNext(nextPair Pair) error {
 		return nil
 	}
 
+	// knowledge type assertion - https://tour.golang.org/methods/15
 	pp, ok := nextPair.(*pair)
 	if !ok {
 		return newIllegalPairTypeError(nextPair)
@@ -101,4 +104,44 @@ func (p *pair) SetNext(nextPair Pair) error {
 
 	atomic.StorePointer(&p.next, unsafe.Pointer(pp))
 	return nil
+}
+
+func (p *pair) Copy() Pair {
+	pCopy, _ := newPair(p.Key(), p.element)
+	return pCopy
+}
+
+func (p *pair) String() string {
+	return p.genString(false)
+}
+
+// genString 用于生成并返回当前键-元素对的字符串形式。
+func (p *pair) genString(nextDetail bool) string {
+	var buf bytes.Buffer
+	buf.WriteString("pair{key:")
+	buf.WriteString(p.Key())
+	buf.WriteString(", hash:")
+	buf.WriteString(fmt.Sprintf("%d", p.Hash()))
+	buf.WriteString(", element:")
+	buf.WriteString(fmt.Sprintf("%+v", p.Element()))
+
+	if nextDetail {
+		buf.WriteString(", next:")
+		if next := p.Next(); next != nil {
+			if npp, ok := next.(*pair); ok {
+				buf.WriteString(npp.genString(nextDetail))
+			} else {
+				buf.WriteString("<ignore>")
+			}
+		}
+	} else {
+		buf.WriteString(", nextKey:")
+		if next := p.Next(); next != nil {
+			buf.WriteString(next.Key())
+		}
+	}
+
+	buf.WriteString("}")
+	return buf.String()
+
 }
