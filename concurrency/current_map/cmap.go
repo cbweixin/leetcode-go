@@ -1,5 +1,7 @@
 package current_map
 
+import "sync/atomic"
+
 // ConcurrentMap 代表并发安全的字典的接口。
 type ConcurrentMap interface {
 	// Concurrency 会返回并发量。
@@ -42,4 +44,21 @@ func NewConcurrentMap(concurrency int, pairRedistributor PairRedistributor) (Con
 	}
 	return cmap, nil
 
+}
+
+func (cmap *myConcurrentMap) Concurrency() int {
+	return cmap.concurrency
+}
+
+func (cmap *myConcurrentMap) Put(key string, element interface{}) (bool, error) {
+	p, err := newPair(key, element)
+	if err != nil {
+		return false, err
+	}
+
+	s := cmap.findSegment(p.Hash())
+	ok, err := s.Put(p)
+	if ok {
+		atomic.AddUint64(&cmap.total, 1)
+	}
 }
