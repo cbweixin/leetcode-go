@@ -75,3 +75,25 @@ func (cmap *myConcurrentMap) Get(key string) interface{} {
 
 	return pair.Element()
 }
+
+func (cmap *myConcurrentMap) Delete(key string) bool {
+	s := cmap.findSegment(hash(key))
+	if s.Delete(key) {
+		atomic.AddInt64(&cmap.total, ^uint64(0))
+		return true
+	}
+
+	return false
+}
+
+func (cmap *myConcurrentMap) Len() uint64 {
+	return atomic.LoadUint64(&cmap.total)
+}
+
+func (cmap *myConcurrentMap) findSegment(keyHash uint64) Segment {
+	if cmap.concurrency == 1 {
+		return cmap.segments[0]
+	}
+	var keyHashHigh int
+
+}
