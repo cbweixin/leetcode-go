@@ -61,4 +61,17 @@ func (cmap *myConcurrentMap) Put(key string, element interface{}) (bool, error) 
 	if ok {
 		atomic.AddUint64(&cmap.total, 1)
 	}
+
+	return ok, err
+}
+
+func (cmap *myConcurrentMap) Get(key string) interface{} {
+	keyHash := hash(key)
+	s := cmap.findSegment(keyHash)
+	pair := s.GetWithHash(key, keyHash)
+	if pair == nil {
+		return nil
+	}
+
+	return pair.Element()
 }
