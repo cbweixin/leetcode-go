@@ -22,9 +22,20 @@ type Segment interface {
 
 // segment 代表并发安全的散列段的类型。
 type segment struct {
-	buckets           []Bucket
-	bucketsLen        int
-	pairTotal         uint64
+	// buckets 代表散列桶切片。
+	buckets []Bucket
+	// bucketsLen 代表散列桶切片的长度。
+	bucketsLen int
+	// pairTotal 代表键-元素对总数。
+	pairTotal uint64
+	// pairRedistributor 代表键-元素对的再分布器。
 	pairRedistributor PairRedistributor
 	lock              sync.Mutex
+}
+
+func newSegment(bucketNumber int, pairRedistributor PairRedistributor) Segment {
+	if bucketNumber <= 0 {
+		bucketNumber = DEFAULT_BUCKET_NUMBER
+	}
+
 }
