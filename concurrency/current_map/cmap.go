@@ -1,6 +1,9 @@
 package current_map
 
-import "sync/atomic"
+import (
+	"math"
+	"sync/atomic"
+)
 
 // ConcurrentMap 代表并发安全的字典的接口。
 type ConcurrentMap interface {
@@ -95,5 +98,12 @@ func (cmap *myConcurrentMap) findSegment(keyHash uint64) Segment {
 		return cmap.segments[0]
 	}
 	var keyHashHigh int
+	if keyHash > math.MaxUint32 {
+		keyHashHigh = int(keyHash >> 48)
+	} else {
+		keyHashHigh = int(keyHash >> 16)
+	}
+
+	return cmap.segments[keyHashHigh%cmap.concurrency]
 
 }
