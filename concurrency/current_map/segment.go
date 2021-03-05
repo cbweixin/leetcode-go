@@ -38,4 +38,19 @@ func newSegment(bucketNumber int, pairRedistributor PairRedistributor) Segment {
 		bucketNumber = DEFAULT_BUCKET_NUMBER
 	}
 
+	if pairRedistributor == nil {
+		pairRedistributor = newDefaultPairRedistributor(DEFAULT_BUCKET_LOAD_FACTOR, bucketNumber)
+	}
+
+	buckets := make([]Bucket, bucketNumber)
+	for i := 0; i < bucketNumber; i++ {
+		buckets[i] = newBucket()
+	}
+
+	return &segment{
+		buckets:           buckets,
+		bucketsLen:        bucketNumber,
+		pairRedistributor: pairRedistributor,
+	}
+
 }
