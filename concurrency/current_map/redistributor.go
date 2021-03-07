@@ -35,3 +35,29 @@ type myPairRedistributor struct {
 	// emptyBucketCount 代表空的散列桶的计数。
 	emptyBucketCount uint64
 }
+
+// newDefaultPairRedistributor 会创建一个PairRedistributor类型的实例。
+// 参数loadFactor代表散列桶的负载因子。
+// 参数bucketNumber代表散列桶的数量。
+func newDefaultPairRedistributor(loadFactor float64, bucketNumber int) PairRedistrubited {
+	if loadFactor <= 0 {
+		loadFactor = DEFAULT_BUCKET_LOAD_FACTOR
+	}
+
+	pr := &myPairRedistributor{}
+	pr.loadFactor = loadFactor
+	pr.UpdateThreshold(0, bucketNumber)
+	return pr
+}
+
+// bucketCountTemplate 代表调试用散列桶状态信息模板。
+var bucketCountTemplate = `Bucket count: 
+    pairTotal: %d
+    bucketNumber: %d
+    average: %f
+    upperThreshold: %d
+    emptyBucketCount: %d
+
+func (pr *myPairRedistributor) UpdateThreshold(pairTotal uint64, bucketNumber int) {
+	
+}

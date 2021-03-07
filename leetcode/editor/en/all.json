@@ -5333,7 +5333,8 @@
     "titleSlug": "partition-equal-subset-sum"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "pacific-atlantic-water-flow",
     "formTitle": "[417]Pacific Atlantic Water Flow",
     "frontendQuestionId": "417",
     "leaf": true,
@@ -6833,7 +6834,8 @@
     "titleSlug": "encode-and-decode-tinyurl"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "construct-binary-tree-from-string",
     "formTitle": "[536]Construct Binary Tree from String",
     "frontendQuestionId": "536",
     "leaf": true,
@@ -15194,7 +15196,8 @@
     "titleSlug": "k-concatenation-maximum-sum"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "critical-connections-in-a-network",
     "formTitle": "[1192]Critical Connections in a Network",
     "frontendQuestionId": "1192",
     "leaf": true,
@@ -22303,5 +22306,125 @@
     "status": "lock",
     "title": "Product's Price for Each Store",
     "titleSlug": "products-price-for-each-store"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1778]Shortest Path in a Hidden Grid",
+    "frontendQuestionId": "1778",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1931",
+    "status": "lock",
+    "title": "Shortest Path in a Hidden Grid",
+    "titleSlug": "shortest-path-in-a-hidden-grid"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1779]Find Nearest Point That Has the Same X or Y Coordinate",
+    "frontendQuestionId": "1779",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1888",
+    "status": "",
+    "title": "Find Nearest Point That Has the Same X or Y Coordinate",
+    "titleSlug": "find-nearest-point-that-has-the-same-x-or-y-coordinate"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1780]Check if Number is a Sum of Powers of Three",
+    "frontendQuestionId": "1780",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1889",
+    "status": "",
+    "title": "Check if Number is a Sum of Powers of Three",
+    "titleSlug": "check-if-number-is-a-sum-of-powers-of-three"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1781]Sum of Beauty of All Substrings",
+    "frontendQuestionId": "1781",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1890",
+    "status": "",
+    "title": "Sum of Beauty of All Substrings",
+    "titleSlug": "sum-of-beauty-of-all-substrings"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1782]Count Pairs Of Nodes",
+    "frontendQuestionId": "1782",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1891",
+    "status": "",
+    "title": "Count Pairs Of Nodes",
+    "titleSlug": "count-pairs-of-nodes"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1783]Grand Slam Titles",
+    "frontendQuestionId": "1783",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1932",
+    "status": "lock",
+    "title": "Grand Slam Titles",
+    "titleSlug": "grand-slam-titles"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1784]Check if Binary String Has at Most One Segment of Ones",
+    "frontendQuestionId": "1784",
+    "leaf": true,
+    "level": 1,
+    "nodeType": "def",
+    "questionId": "1910",
+    "status": "",
+    "title": "Check if Binary String Has at Most One Segment of Ones",
+    "titleSlug": "check-if-binary-string-has-at-most-one-segment-of-ones"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1785]Minimum Elements to Add to Form a Given Sum",
+    "frontendQuestionId": "1785",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1911",
+    "status": "",
+    "title": "Minimum Elements to Add to Form a Given Sum",
+    "titleSlug": "minimum-elements-to-add-to-form-a-given-sum"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1786]Number of Restricted Paths From First to Last Node",
+    "frontendQuestionId": "1786",
+    "leaf": true,
+    "level": 2,
+    "nodeType": "def",
+    "questionId": "1912",
+    "status": "",
+    "title": "Number of Restricted Paths From First to Last Node",
+    "titleSlug": "number-of-restricted-paths-from-first-to-last-node"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1787]Make the XOR of All Segments Equal to Zero",
+    "frontendQuestionId": "1787",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1913",
+    "status": "",
+    "title": "Make the XOR of All Segments Equal to Zero",
+    "titleSlug": "make-the-xor-of-all-segments-equal-to-zero"
   }
 ]
