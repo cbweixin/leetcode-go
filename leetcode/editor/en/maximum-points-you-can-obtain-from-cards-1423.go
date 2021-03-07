@@ -100,6 +100,7 @@ func maxScore(cardPoints []int, k int) int {
 		res = min(res, s)
 		s += cardPoints[right] - cardPoints[left]
 		left++
+		right += 1
 	}
 
 	return arr_s(0, len(cardPoints)) - res
