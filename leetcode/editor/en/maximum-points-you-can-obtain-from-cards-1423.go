@@ -1,7 +1,7 @@
 package main
 
 import (
-	"math"
+	"fmt"
 )
 
 //There are several cards arranged in a row, and each card has an associated num
@@ -78,7 +78,6 @@ func maxScore(cardPoints []int, k int) int {
 	// sliding window
 	l := len(cardPoints) - k
 	left, right := 0, l
-	res := math.MaxInt32
 
 	min := func(x, y int) int {
 		if x <= y {
@@ -95,12 +94,13 @@ func maxScore(cardPoints []int, k int) int {
 		return ret
 	}
 	s := arr_s(left, right)
+	res := s
 
 	for right < len(cardPoints) {
-		res = min(res, s)
 		s += cardPoints[right] - cardPoints[left]
+		res = min(res, s)
 		left++
-		right += 1
+		right++
 	}
 
 	return arr_s(0, len(cardPoints)) - res
@@ -108,3 +108,7 @@ func maxScore(cardPoints []int, k int) int {
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	arr := []int{96, 90, 41, 82, 39, 74, 64, 50, 30}
+	fmt.Print(maxScore(arr, 8))
+}
