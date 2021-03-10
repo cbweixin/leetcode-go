@@ -83,5 +83,18 @@ var bucketStatusTemplate = `Check bucket status:
 
 `
 
+func (pr *myPairRedistributor) CheckBucketStatus(pairTotal uint64, bucketSize uint64) (bucketStatus BucketStatus) {
+	if bucketSize > DEFAULT_BUCKET_MAX_SIZE || bucketSize >= atomic.LoadUint64(&pr.upperThreshold) {
+		atomic.AddUint64(&pr.overweightBucketCount, 1)
+		bucketStatus = BUCKET_STATUS_OVERWEIGHT
+		return
+	}
+	if bucketSize == 0 {
+		atomic.AddUint64(&pr.emptyBucketCount,1)
+	}
+
+	return
+}
+
 
 
