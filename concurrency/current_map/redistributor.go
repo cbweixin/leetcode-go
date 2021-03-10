@@ -90,11 +90,16 @@ func (pr *myPairRedistributor) CheckBucketStatus(pairTotal uint64, bucketSize ui
 		return
 	}
 	if bucketSize == 0 {
-		atomic.AddUint64(&pr.emptyBucketCount,1)
+		atomic.AddUint64(&pr.emptyBucketCount, 1)
 	}
 
 	return
 }
 
+// redistributionTemplate 代表重新分配信息模板。
+var redistributionTemplate = `Redistributing: 
+    bucketStatus: %d
+    currentNumber: %d
+    newNumber: %d
 
-
+`
