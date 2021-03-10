@@ -103,3 +103,67 @@ var redistributionTemplate = `Redistributing:
     newNumber: %d
 
 `
+
+func (pr *myPairRedistributor) Redistribe(
+	bucketStatus BucketStatus, buckets []Bucket) (newBuckets []Bucket, changed bool) {
+	currentNumber := uint64(len(buckets))
+	newNumber := currentNumber
+	// defer func() {
+	// 	fmt.Printf(redistributionTemplate,
+	// 		bucketStatus,
+	// 		currentNumber,
+	// 		newNumber)
+	// }()
+	switch bucketStatus {
+	case BUCKET_STATUS_OVERWEIGHT:
+		if atomic.LoadUint64(&pr.overweightBucketCount)*4 < currentNumber {
+			return nil, false
+		}
+		newNumber = currentNumber << 1
+	case BUCKET_STATUS_UNDERWEIGHT:
+		if currentNumber < 100 ||
+			atomic.LoadUint64(&pr.emptyBucketCount)*4 < currentNumber {
+			return nil, false
+		}
+		newNumber = currentNumber >> 1
+		if newNumber < 2 {
+			newNumber = 2
+		}
+	default:
+		return nil, false
+	}
+	if newNumber == currentNumber {
+		atomic.StoreUint64(&pr.overweightBucketCount, 0)
+		atomic.StoreUint64(&pr.emptyBucketCount, 0)
+		return nil, false
+	}
+	var pairs []Pair
+	for _, b := range buckets {
+		for e := b.GetFirstPair(); e != nil; e = e.Next() {
+			pairs = append(pairs, e)
+		}
+	}
+	if newNumber > currentNumber {
+		for i := uint64(0); i < currentNumber; i++ {
+			buckets[i].Clear(nil)
+		}
+		for j := newNumber - currentNumber; j > 0; j-- {
+			buckets = append(buckets, newBucket())
+		}
+	} else {
+		buckets = make([]Bucket, newNumber)
+		for i := uint64(0); i < newNumber; i++ {
+			buckets[i] = newBucket()
+		}
+	}
+	var count int
+	for _, p := range pairs {
+		index := int(p.Hash() % newNumber)
+		b := buckets[index]
+		b.Put(p, nil)
+		count++
+	}
+	atomic.StoreUint64(&pr.overweightBucketCount, 0)
+	atomic.StoreUint64(&pr.emptyBucketCount, 0)
+	return buckets, true
+}
