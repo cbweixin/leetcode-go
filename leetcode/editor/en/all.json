@@ -575,7 +575,7 @@
     "formTitle": "[45]Jump Game II",
     "frontendQuestionId": "45",
     "leaf": true,
-    "level": 3,
+    "level": 2,
     "nodeType": "def",
     "questionId": "45",
     "status": "ac",
@@ -18011,7 +18011,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "1538",
-    "status": "",
+    "status": "ac",
     "title": "Maximum Points You Can Obtain from Cards",
     "titleSlug": "maximum-points-you-can-obtain-from-cards"
   },

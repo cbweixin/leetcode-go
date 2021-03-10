@@ -1,5 +1,7 @@
 package current_map
 
+import "sync/atomic"
+
 // BucketStatus 代表散列桶状态的类型。
 type BucketStatus uint8
 
@@ -51,13 +53,31 @@ func newDefaultPairRedistributor(loadFactor float64, bucketNumber int) PairRedis
 }
 
 // bucketCountTemplate 代表调试用散列桶状态信息模板。
-var bucketCountTemplate = `Bucket count: 
+var bucketCountTemplate = `Bucket count:
     pairTotal: %d
     bucketNumber: %d
     average: %f
     upperThreshold: %d
     emptyBucketCount: %d
+`
 
 func (pr *myPairRedistributor) UpdateThreshold(pairTotal uint64, bucketNumber int) {
-	
+	var average float64
+	average = float64(pairTotal / uint64(bucketNumber))
+	if average < 100 {
+		average = 100
+	}
+
+	atomic.StoreUint64(&pr.upperThreshold, uint64(average*pr.loadFactor))
+
 }
+
+// bucketStatusTemplate 代表调试用散列桶状态信息模板。
+var bucketStatusTemplate = `Check bucket status: 
+    pairTotal: %d
+    bucketSize: %d
+    upperThreshold: %d
+    overweightBucketCount: %d
+    emptyBucketCount: %d
+    bucketStatus: %d
+`
