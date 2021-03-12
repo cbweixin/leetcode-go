@@ -1,6 +1,7 @@
 package current_map
 
 import (
+	"fmt"
 	"sync"
 	"sync/atomic"
 )
@@ -91,4 +92,21 @@ func (s *segment) Delete(key string) bool {
 	}
 	s.lock.Unlock()
 	return ok
+}
+
+func (s *segment) Size() uint64 {
+	return atomic.LoadUint64(&s.pairTotal)
+}
+
+func (s *segment) redistribute(pairTotal uint64, bucketSize uint64) (err error) {
+	defer func() {
+		if p := recover(); p != nil {
+			if pErr, ok := p.(error); ok {
+				err = newPairRedistributorError(pErr.Error())
+			} else {
+				err = newPairRedistributorError(fmt.Sprintf("%s", p))
+			}
+		}
+	}()
+
 }
