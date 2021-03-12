@@ -8812,7 +8812,7 @@
     "level": 2,
     "nodeType": "def",
     "questionId": "688",
-    "status": "",
+    "status": "ac",
     "title": "Knight Probability in Chessboard",
     "titleSlug": "knight-probability-in-chessboard"
   },
@@ -14476,7 +14476,8 @@
     "titleSlug": "reported-posts-ii"
   },
   {
-    "articleLive": 0,
+    "articleLive": 1,
+    "articleSlug": "largest-unique-number",
     "formTitle": "[1133]Largest Unique Number",
     "frontendQuestionId": "1133",
     "leaf": true,
@@ -22426,5 +22427,17 @@
     "status": "",
     "title": "Make the XOR of All Segments Equal to Zero",
     "titleSlug": "make-the-xor-of-all-segments-equal-to-zero"
+  },
+  {
+    "articleLive": 0,
+    "formTitle": "[1788]Maximize the Beauty of the Garden",
+    "frontendQuestionId": "1788",
+    "leaf": true,
+    "level": 3,
+    "nodeType": "def",
+    "questionId": "1937",
+    "status": "lock",
+    "title": "Maximize the Beauty of the Garden",
+    "titleSlug": "maximize-the-beauty-of-the-garden"
   }
 ]

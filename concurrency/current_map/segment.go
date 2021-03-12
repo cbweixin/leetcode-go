@@ -1,6 +1,9 @@
 package current_map
 
-import "sync"
+import (
+	"sync"
+	"sync/atomic"
+)
 
 // Segment 代表并发安全的散列段的接口。
 type Segment interface {
@@ -53,4 +56,27 @@ func newSegment(bucketNumber int, pairRedistributor PairRedistributor) Segment {
 		pairRedistributor: pairRedistributor,
 	}
 
+}
+
+func (s *segment) Put(p Pair) (bool, error) {
+	s.lock.Lock()
+	b := s.buckets[int(p.Hash()%uint64(s.bucketsLen))]
+	ok, err := b.Put(p, nil)
+	if ok {
+		newTotal := atomic.AddUint64(&s.pairTotal, 1)
+		s.redistribute(newTotal, b.Size())
+	}
+	s.lock.Unlock()
+	return ok, err
+}
+
+func (s *segment) Get(key string) Pair {
+	return s.GetWithHash(key, hash(key))
+}
+
+func (s *segment) GetWithHash(key string, keyHash uint64) Pair {
+	s.lock.Lock()
+	b := s.buckets[int(keyHash%uint64(s.bucketsLen))]
+	s.lock.Unlock()
+	return b.Get(key)
 }
