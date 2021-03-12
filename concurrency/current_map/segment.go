@@ -80,3 +80,15 @@ func (s *segment) GetWithHash(key string, keyHash uint64) Pair {
 	s.lock.Unlock()
 	return b.Get(key)
 }
+
+func (s *segment) Delete(key string) bool {
+	s.lock.Lock()
+	b := s.buckets[int(hash(key)%uint64(s.bucketsLen))]
+	ok := b.Delete(key, nil)
+	if ok {
+		newTotal := atomic.AddUint64(&s.pairTotal, ^uint64(0))
+		s.redistribute(newTotal, b.Size())
+	}
+	s.lock.Unlock()
+	return ok
+}
