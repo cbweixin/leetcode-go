@@ -109,5 +109,4 @@ func (s *segment) redistribute(pairTotal uint64, bucketSize uint64) (err error) 
 		}
 	}()
 	s.pairRedistributor.UpdateThreshold(pairTotal, s.bucketsLen)
-
 }
