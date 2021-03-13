@@ -48,9 +48,6 @@ func findPaths(m int, n int, N int, i int, j int) int {
 	dp := make([][]int, m)
 	for x := range dp {
 		dp[x] = make([]int, n)
-		for y := 0; y < n; y++ {
-			dp[x][y] = 0
-		}
 	}
 
 	dp[i][j] = 1
@@ -73,8 +70,8 @@ func findPaths(m int, n int, N int, i int, j int) int {
 					}
 				}
 			}
-			dp = temp
 		}
+		dp = temp
 	}
 
 	return res
