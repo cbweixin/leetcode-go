@@ -99,6 +99,10 @@ func (s *segment) Size() uint64 {
 }
 
 func (s *segment) redistribute(pairTotal uint64, bucketSize uint64) (err error) {
+
+	// redistribute 会检查给定参数并设置相应的阈值和计数，
+	// 并在必要时重新分配所有散列桶中的所有键-元素对。
+	// 注意！必须在互斥锁的保护下调用本方法！
 	defer func() {
 		if p := recover(); p != nil {
 			if pErr, ok := p.(error); ok {
@@ -108,5 +112,14 @@ func (s *segment) redistribute(pairTotal uint64, bucketSize uint64) (err error) 
 			}
 		}
 	}()
+
 	s.pairRedistributor.UpdateThreshold(pairTotal, s.bucketsLen)
+	bucketStatus := s.pairRedistributor.CheckBucketStatus(pairTotal, bucketSize)
+	newBuckets, changed := s.pairRedistributor.Redistribe(bucketStatus, s.buckets)
+	if changed {
+		s.buckets = newBuckets
+		s.bucketsLen = len(s.buckets)
+	}
+	return nil
+
 }
