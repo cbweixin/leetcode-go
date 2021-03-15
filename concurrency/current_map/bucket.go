@@ -103,5 +103,50 @@ func (b *bucket) GetFirstPair() Pair {
 	} else {
 		return p
 	}
+}
+
+func (b *bucket) Delete(key string, lock sync.Locker) bool {
+	if lock != nil {
+		lock.Lock()
+		defer lock.Unlock()
+	}
+
+	firstPair := b.GetFirstPair()
+	if firstPair == nil {
+		return false
+	}
+
+	var prevPairs []Pair
+	var target Pair
+	var breakpoint Pair
+
+	for v := firstPair; v != nil; v = v.Next() {
+		if v.Key() == key {
+			target = v
+			breakpoint = v.Next()
+			break
+		}
+
+		prevPairs = append(prevPairs, v)
+	}
+
+	if target == nil {
+		return false
+	}
+
+	newFirstPair := breakpoint
+	for i := len(prevPairs) - 1; i >= 0; i-- {
+		pairCopy := prevPairs[i].Copy()
+		pairCopy.SetNext(newFirstPair)
+		newFirstPair = pairCopy
+	}
+
+	if newFirstPair != nil {
+		b.firstValue.Store(newFirstPair)
+	} else {
+		b.firstValue.Store(placeholder)
+	}
+	atomic.AddUint64(&b.size, ^uint64(0))
+	return true
 
 }
