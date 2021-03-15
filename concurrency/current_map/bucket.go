@@ -94,3 +94,14 @@ func (b *bucket) Get(key string) Pair {
 	}
 	return nil
 }
+
+func (b *bucket) GetFirstPair() Pair {
+	if v := b.firstValue.Load(); v == nil {
+		return nil
+	} else if p, ok := v.(Pair); !ok || p == placeholder {
+		return nil
+	} else {
+		return p
+	}
+
+}
