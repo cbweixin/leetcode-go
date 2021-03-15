@@ -33,3 +33,51 @@ type bucket struct {
 	firstValue atomic.Value
 	size       uint64
 }
+
+// 占位符。
+// 由于原子值不能存储nil，所以当散列桶空时用此符占位。
+var placeholder Pair = &pair{}
+
+// newBucket 会创建一个Bucket类型的实例。
+func newBucket() Bucket {
+	b := &bucket{}
+	b.firstValue.Store(placeholder)
+	return b
+}
+
+func (b *bucket) Put(p Pair, lock sync.Locker) (bool, error) {
+	if p == nil {
+		return false, newIllegalParameterError("pair is nil")
+	}
+	if lock != nil {
+		lock.Lock()
+		defer lock.Unlock()
+	}
+
+	firstPair := b.GetFirstPair()
+	if firstPair == nil {
+		b.firstValue.Store(p)
+		atomic.AddUint64(&b.size, 1)
+		return true, nil
+	}
+
+	var target Pair
+	key := p.Key()
+	for v := firstPair; v != nil; v = v.Next() {
+		if v.Key() == key {
+			target = v
+			break
+		}
+	}
+
+	if target != nil {
+		target.SetElement(p.Element())
+		return false, nil
+	}
+
+	p.SetNext(firstPair)
+	b.firstValue.Store(p)
+	atomic.AddUint64(&b.size, 1)
+	return true, nil
+
+}
