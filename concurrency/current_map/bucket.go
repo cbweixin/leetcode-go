@@ -81,3 +81,16 @@ func (b *bucket) Put(p Pair, lock sync.Locker) (bool, error) {
 	return true, nil
 
 }
+
+func (b *bucket) Get(key string) Pair {
+	firstPair := b.GetFirstPair()
+	if firstPair == nil {
+		return nil
+	}
+	for v := firstPair; v != nil; v = v.Next() {
+		if v.Key() == key {
+			return v
+		}
+	}
+	return nil
+}
