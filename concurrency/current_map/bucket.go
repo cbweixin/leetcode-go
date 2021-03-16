@@ -150,3 +150,12 @@ func (b *bucket) Delete(key string, lock sync.Locker) bool {
 	return true
 
 }
+
+func (b *bucket) Clear(lock sync.Locker) {
+	if lock != nil {
+		lock.Lock()
+		defer lock.Unlock()
+	}
+	atomic.StoreUint64(&b.size, 0)
+	b.firstValue.Store(placeholder)
+}
