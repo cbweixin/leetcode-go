@@ -1,6 +1,7 @@
 package current_map
 
 import (
+	"bytes"
 	"sync"
 	"sync/atomic"
 )
@@ -158,4 +159,19 @@ func (b *bucket) Clear(lock sync.Locker) {
 	}
 	atomic.StoreUint64(&b.size, 0)
 	b.firstValue.Store(placeholder)
+}
+
+func (b *bucket) Size() uint64 {
+	return atomic.LoadUint64(&b.size)
+}
+
+func (b *bucket) String() string {
+	var buf bytes.Buffer
+	buf.WriteString("[ ")
+	for v := b.GetFirstPair(); v != nil; v = v.Next() {
+		buf.WriteString(v.String())
+		buf.WriteString(" ")
+	}
+	buf.WriteString("]")
+	return buf.String()
 }
