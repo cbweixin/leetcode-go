@@ -82,7 +82,7 @@ func (cmap *myConcurrentMap) Get(key string) interface{} {
 func (cmap *myConcurrentMap) Delete(key string) bool {
 	s := cmap.findSegment(hash(key))
 	if s.Delete(key) {
-		atomic.AddInt64(&cmap.total, ^uint64(0))
+		atomic.AddUint64(&cmap.total, ^uint64(0))
 		return true
 	}
 

@@ -17,7 +17,7 @@ const (
 // PairRedistributor 代表针对键-元素对的再分布器。
 // 用于当散列段内的键-元素对分布不均时进行重新分布。
 
-type PairRedistrubited interface {
+type PairRedistributor interface {
 	//UpdateThreshold 会根据键-元素对总数和散列桶总数计算并更新阈值。
 	UpdateThreshold(pairTotal uint64, bucketNumber int) //
 	//CheckBucketStatus 用于检查散列桶的状态
@@ -41,7 +41,7 @@ type myPairRedistributor struct {
 // newDefaultPairRedistributor 会创建一个PairRedistributor类型的实例。
 // 参数loadFactor代表散列桶的负载因子。
 // 参数bucketNumber代表散列桶的数量。
-func newDefaultPairRedistributor(loadFactor float64, bucketNumber int) PairRedistrubited {
+func newDefaultPairRedistributor(loadFactor float64, bucketNumber int) PairRedistributor {
 	if loadFactor <= 0 {
 		loadFactor = DEFAULT_BUCKET_LOAD_FACTOR
 	}
