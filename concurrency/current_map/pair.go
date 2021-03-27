@@ -108,7 +108,7 @@ func (p *pair) SetNext(nextPair Pair) error {
 }
 
 func (p *pair) Copy() Pair {
-	pCopy, _ := newPair(p.Key(), p.element)
+	pCopy, _ := newPair(p.Key(), p.Element())
 	return pCopy
 }
 
