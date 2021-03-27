@@ -53,6 +53,7 @@ func newPair(key string, element interface{}) (Pair, error) {
 	if element == nil {
 		return nil, newIllegalParameterError("element is nil")
 	}
+	p.element = unsafe.Pointer(&element)
 	return p, nil
 }
 
