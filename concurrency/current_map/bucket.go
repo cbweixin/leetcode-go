@@ -76,6 +76,7 @@ func (b *bucket) Put(p Pair, lock sync.Locker) (bool, error) {
 		return false, nil
 	}
 
+	// 头插法
 	p.SetNext(firstPair)
 	b.firstValue.Store(p)
 	atomic.AddUint64(&b.size, 1)
