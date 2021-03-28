@@ -289,7 +289,7 @@ func TestCmapAllInParallel(t *testing.T) {
 		})
 		t.Run("Get2", func(t *testing.T) {
 			t.Parallel()
-			for _, p := range testCases1 {
+			for _, p := range testCases2 {
 				actualElement := cm.Get(p.Key())
 				if actualElement == nil {
 					continue
