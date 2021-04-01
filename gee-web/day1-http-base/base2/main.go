@@ -25,6 +25,7 @@ func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
 			fmt.Fprintf(w, "header [%q] = %q\n", k, v)
 		}
 	default:
+		w.WriteHeader(http.StatusNotFound)
 		fmt.Fprintf(w, "404 NOT FOUND %s\n", req.URL)
 	}
 }
