@@ -6,6 +6,14 @@ import (
 	"net/http"
 )
 
+// ❯ curl localhost:9999/
+//url path = "/"
+//❯ curl localhost:9999/hello
+//header ["User-Agent"] = ["curl/7.64.1"]
+//header ["Accept"] = ["*/*"]
+//❯ curl localhost:9999/hellow
+//404 NOT FOUND /hellow
+
 type Engine struct{}
 
 func (engine *Engine) ServeHTTP(w http.ResponseWriter, req *http.Request) {
