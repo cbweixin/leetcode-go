@@ -13,6 +13,25 @@ import (
 //
 //<h1>Hello Gee</h1>%
 
+//❯ curl -i http://localhost:9999/hello\?name\=xin
+//HTTP/1.1 200 OK
+//Content-Type: text/plain
+//Date: Mon, 05 Apr 2021 04:46:38 GMT
+//Content-Length: 28
+//
+//hello xin, you're at /hello
+
+// ❯ curl "http://localhost:9999/login" -X POST -d 'username=geektutu&password=1234'
+//{"password":"1234","username":"geektutu"}
+
+// ❯ curl -i http://localhost:9999/hellooo\?name\=xin
+//HTTP/1.1 404 Not Found
+//Content-Type: text/plain
+//Date: Mon, 05 Apr 2021 04:48:11 GMT
+//Content-Length: 24
+//
+//404 Not Found: /hellooo
+
 func main() {
 	r := gee.New()
 	r.GET("/", func(c *gee.Context) {
