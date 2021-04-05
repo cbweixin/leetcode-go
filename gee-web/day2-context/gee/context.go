@@ -3,6 +3,7 @@ package gee
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -65,6 +66,7 @@ func (c *Context) Data(code int, data []byte) {
 }
 
 func (c *Context) HTML(code int, html string) {
+	log.Printf(html)
 	c.SetHeader("Content-Type", "text/html")
 	c.Status(code)
 	c.Writer.Write([]byte(html))
