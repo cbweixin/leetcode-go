@@ -45,6 +45,40 @@ func TestGetRoute(t *testing.T) {
 
 }
 
+func TestGetRoute3(t *testing.T) {
+	r := newTestRouter()
+	n, _ := r.getRoute("GET", "/hello/geektutu/c")
+
+	if n == nil {
+		t.Fatal("nil shouldn't be returned")
+	}
+
+	if n.pattern != "/hello/b/c" {
+		t.Fatal("should match /hello/b/c")
+	}
+
+}
+
+func TestGetRoute4(t *testing.T) {
+	r := newTestRouter()
+	n, ps := r.getRoute("GET", "/hello/b/c")
+
+	if n == nil {
+		t.Fatal("nil shouldn't be returned")
+	}
+
+	if n.pattern != "/hello/b/c" {
+		t.Fatal("should match /hello/b/c")
+	}
+
+	if ps["name"] != "geektutu" {
+		t.Fatal("name should be equal to 'geektutu'")
+	}
+
+	fmt.Printf("matched path: %s, params['name']: %s\n", n.pattern, ps["name"])
+
+}
+
 func TestGetRoute2(t *testing.T) {
 	r := newTestRouter()
 	n1, ps1 := r.getRoute("GET", "/assets/file1.txt")
