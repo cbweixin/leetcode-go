@@ -47,7 +47,7 @@ func TestGetRoute(t *testing.T) {
 
 func TestGetRoute3(t *testing.T) {
 	r := newTestRouter()
-	n, _ := r.getRoute("GET", "/hello/geektutu/c")
+	n, ps := r.getRoute("GET", "/hello/geektutu/c")
 
 	if n == nil {
 		t.Fatal("nil shouldn't be returned")
@@ -55,6 +55,10 @@ func TestGetRoute3(t *testing.T) {
 
 	if n.pattern != "/hello/b/c" {
 		t.Fatal("should match /hello/b/c")
+	}
+
+	if len(ps) != 0 {
+		t.Fatal("should not have parameters")
 	}
 
 }
@@ -71,12 +75,9 @@ func TestGetRoute4(t *testing.T) {
 		t.Fatal("should match /hello/b/c")
 	}
 
-	if ps["name"] != "geektutu" {
-		t.Fatal("name should be equal to 'geektutu'")
+	if len(ps) > 0 {
+		t.Fatal("should not have parameters")
 	}
-
-	fmt.Printf("matched path: %s, params['name']: %s\n", n.pattern, ps["name"])
-
 }
 
 func TestGetRoute2(t *testing.T) {
@@ -92,7 +93,6 @@ func TestGetRoute2(t *testing.T) {
 	if !ok2 {
 		t.Fatal("pattern shoule be /assets/*filepath & filepath shoule be css/test.css")
 	}
-
 }
 
 func TestGetRoutes(t *testing.T) {
