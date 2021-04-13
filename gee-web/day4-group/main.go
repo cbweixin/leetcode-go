@@ -5,6 +5,33 @@ import (
 	"net/http"
 )
 
+//  curl -i http://localhost:9999/index
+//HTTP/1.1 200 OK
+//Content-Type: text/html
+//Date: Tue, 13 Apr 2021 14:02:01 GMT
+//Content-Length: 19
+//
+//<h1>Index Page</h1>%
+
+// ❯ curl -i http://localhost:9999/indexx
+//HTTP/1.1 404 Not Found
+//Content-Type: text/plain
+//Date: Tue, 13 Apr 2021 14:02:42 GMT
+//Content-Length: 23
+//
+//404 NOT FOUND: /indexx
+
+// ❯ curl -i http://localhost:9999/v1/
+//HTTP/1.1 200 OK
+//Content-Type: text/html
+//Date: Tue, 13 Apr 2021 14:03:25 GMT
+//Content-Length: 18
+//
+//<h1>Hello Gee</h1>%
+
+// <h1>Hello Gee</h1>%                                                                                                                     ❯ curl "http://localhost:9999/v1/hello?name=geektutu"
+//hello geektutu, you're at /v1/hello
+
 func main() {
 	r := gee.New()
 	r.GET("/index", func(c *gee.Context) {
