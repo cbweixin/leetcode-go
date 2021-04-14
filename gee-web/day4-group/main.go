@@ -32,6 +32,12 @@ import (
 // <h1>Hello Gee</h1>%                                                                                                                     ❯ curl "http://localhost:9999/v1/hello?name=geektutu"
 //hello geektutu, you're at /v1/hello
 
+// ❯ curl "http://localhost:9999/v2/hello/geektutu"
+//hello geektutu, you're at /v2/hello/geektutu
+
+// ❯ curl "http://localhost:9999/v2/login" -X POST -d 'username=geektutu&password=1234'
+//{"password":"1234","username":"geektutu"}
+
 func main() {
 	r := gee.New()
 	r.GET("/index", func(c *gee.Context) {
