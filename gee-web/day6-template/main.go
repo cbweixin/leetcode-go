@@ -18,6 +18,47 @@ func FormatAsDate(t time.Time) string {
 	return fmt.Sprintf("%d-%02d-%02d", year, month, day)
 }
 
+// ❯ curl -i http://localhost:9999/students
+//HTTP/1.1 200 OK
+//Content-Type: text/html
+//Date: Tue, 20 Apr 2021 14:29:03 GMT
+//Content-Length: 141
+//
+//
+//<html>
+//<body>
+//    <p>hello, gee</p>
+//
+//    <p>0: Geektutu is 20 years old</p>
+//
+//    <p>1: Jack is 22 years old</p>
+//
+//</body>
+//</html>%
+
+// ❯ curl -i http://localhost:9999/date
+//HTTP/1.1 200 OK
+//Content-Type: text/html
+//Date: Tue, 20 Apr 2021 14:27:24 GMT
+//Content-Length: 80
+//
+//
+//<html>
+//<body>
+//    <p>hello, gee</p>
+//    <p>Date: 2019-08-17</p>
+//</body>
+
+// ❯ curl -i http://localhost:9999/
+//HTTP/1.1 200 OK
+//Content-Type: text/html
+//Date: Tue, 20 Apr 2021 14:26:07 GMT
+//Content-Length: 108
+//
+//<html>
+//    <link rel="stylesheet" href="/assets/css/geektutu.css">
+//    <p>geektutu.css is loaded</p>
+//</html>%
 func main() {
 	r := gee.New()
 	r.Use(gee.Logger())
