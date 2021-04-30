@@ -59,6 +59,32 @@ func FormatAsDate(t time.Time) string {
 //    <link rel="stylesheet" href="/assets/css/geektutu.css">
 //    <p>geektutu.css is loaded</p>
 //</html>%
+
+// ❯ curl -i http://localhost:9999/assets/css/geektutu.css
+//HTTP/1.1 200 OK
+//Accept-Ranges: bytes
+//Content-Length: 67
+//Content-Type: text/css; charset=utf-8
+//Last-Modified: Mon, 19 Apr 2021 14:56:29 GMT
+//Date: Tue, 20 Apr 2021 14:50:35 GMT
+//
+//p {
+//    color: orange;
+//    font-weight: 700;
+//    font-size: 20px;
+//}%
+
+// ❯ curl -i http://localhost:9999/assets/file1.txt
+//HTTP/1.1 200 OK
+//Accept-Ranges: bytes
+//Content-Length: 29
+//Content-Type: text/plain; charset=utf-8
+//Last-Modified: Mon, 19 Apr 2021 14:57:13 GMT
+//Date: Tue, 20 Apr 2021 14:52:19 GMT
+//
+//I'm file1
+//I'm file1
+//I'm file1%
 func main() {
 	r := gee.New()
 	r.Use(gee.Logger())
