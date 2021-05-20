@@ -69,6 +69,10 @@ func shortestSubarray(nums []int, k int) int {
 		queue = append(queue, i)
 	}
 
+	if res == l+1 {
+		return -1
+	}
+
 	return res
 }
 
