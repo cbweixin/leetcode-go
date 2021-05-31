@@ -63,7 +63,7 @@ import (
 // 2021-02-15 10:59:12
 
 //leetcode submit region begin(Prohibit modification and deletion)
-func kthSmallest(mat [][]int, k int) int {
+func kthSmallest2(mat [][]int, k int) int {
 	m := len(mat)
 	// knowledge, how to copy an array
 	temp := mat[0]
@@ -75,7 +75,7 @@ func kthSmallest(mat [][]int, k int) int {
 	}
 
 	for i := 1; i < m; i++ {
-		t := []int{}
+		var t []int
 		for _, v := range mat[i] {
 			for _, v2 := range temp {
 				t = append(t, v+v2)
@@ -89,6 +89,21 @@ func kthSmallest(mat [][]int, k int) int {
 	}
 
 	return temp[k-1]
+}
+
+func kthSmallest(mat [][]int, k int) int {
+	if len(mat) == 0 || len(mat[0]) == 0 || k == 0 {
+		return 0
+	}
+	prev := mat[0]
+	for i := 1; i < len(mat); i++ {
+		prev = kthSmallestPairs(prev, mat[i], k)
+	}
+	if k < len(prev) {
+		return -1
+	}
+
+	return prev[k-1]
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
