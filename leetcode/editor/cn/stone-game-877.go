@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //亚历克斯和李用几堆石子在做游戏。偶数堆石子排成一行，每堆都有正整数颗石子 piles[i] 。
 //
 // 游戏以谁手中的石子最多来决出胜负。石子的总数是奇数，所以没有平局。
@@ -38,8 +40,34 @@ package main
 
 // 2021-08-27 08:34:52
 //leetcode submit region begin(Prohibit modification and deletion)
-func stoneGame(piles []int) bool {
 
+func stoneGame(piles []int) bool {
+	l := len(piles)
+	dp := make([][]int, l)
+	for i := 0; i < l; i++ {
+		dp[i] = make([]int, l)
+		dp[i][i] = piles[i]
+	}
+
+	max := func(x, y int) int {
+		if x < y {
+			return y
+		}
+		return x
+	}
+
+	for d := 1; d < l; d++ {
+		for i := 0; i < l-d; i++ {
+			j := i + d
+			dp[i][j] = max(piles[i]-dp[i+1][j], piles[j]-dp[i][j-1])
+		}
+	}
+
+	return dp[0][l-1] > 0
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	stones := []int{5, 3, 4, 5}
+	fmt.Print(stoneGame(stones))
+}
