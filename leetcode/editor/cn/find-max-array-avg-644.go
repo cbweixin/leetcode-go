@@ -44,7 +44,7 @@ func findMaxAverage(nums []int, k int) float64 {
 	}
 
 	delta := 1.0
-	for delta > 0.0001 {
+	for delta > 0.000005 {
 		mid := (max + min) * 0.5
 		if hasAvg(mid) {
 			min = mid
