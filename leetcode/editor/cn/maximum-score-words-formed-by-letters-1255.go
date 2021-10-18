@@ -65,6 +65,8 @@ import "fmt"
 
 // 2021-10-06 06:53:08
 //leetcode submit region begin(Prohibit modification and deletion)
+
+// bit_manipulation
 func maxScoreWords(words []string, letters []byte, score []int) int {
 	l := len(words)
 	m := make(map[int]int)
