@@ -65,8 +65,7 @@ package main
 func addRungs(rungs []int, dist int) (ans int) {
 	pre := 0
 	for _, h := range rungs {
-		d := h - pre
-		if d > dist {
+		if d := h - pre; d > dist {
 			ans += (d - 1) / dist
 		}
 		pre = h
