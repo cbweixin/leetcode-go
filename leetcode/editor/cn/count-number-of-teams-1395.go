@@ -61,6 +61,7 @@ func numTeams(rating []int) int {
 	res := 0
 
 	for i := 1; i < l-1; i++ {
+		// bugfix
 		less := [2]int{0, 0}
 		great := [2]int{0, 0}
 		for j := 0; j < l; j++ {
