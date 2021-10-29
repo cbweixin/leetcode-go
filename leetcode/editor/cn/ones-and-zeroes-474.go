@@ -54,7 +54,7 @@ func findMaxForm(strs []string, m int, n int) int {
 	}
 
 	for i := 0; i <= m; i++ {
-		dp[i] = make([]int, n)
+		dp[i] = make([]int, n+1)
 		for j := 0; j <= n; j++ {
 			dp[i][j] = 0
 		}
@@ -69,8 +69,8 @@ func findMaxForm(strs []string, m int, n int) int {
 				ones++
 			}
 		}
-		for i := m; i >= 0; i-- {
-			for j := n; j >= 0; j-- {
+		for i := m; i >= zeros; i-- {
+			for j := n; j >= ones; j-- {
 				dp[i][j] = max(dp[i][j], dp[i-zeros][j-ones]+1)
 			}
 		}
