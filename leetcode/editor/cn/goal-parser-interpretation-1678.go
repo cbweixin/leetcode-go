@@ -46,6 +46,7 @@ import "strings"
 // 2021-10-30 09:09:09
 //leetcode submit region begin(Prohibit modification and deletion)
 func interpret(command string) string {
+	// knowledge, how to replace string
 	res := strings.Replace(command, "()", "o", -1)
 	res = strings.Replace(res, "(al)", "al", -1)
 	return res
