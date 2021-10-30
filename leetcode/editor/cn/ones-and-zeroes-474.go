@@ -63,6 +63,7 @@ func findMaxForm(strs []string, m int, n int) int {
 	for _, s := range strs {
 		ones, zeros := 0, 0
 		for _, c := range s {
+			// knowledge how to iterate over a string and compare chars
 			if string(c) == "0" {
 				zeros++
 			} else {
