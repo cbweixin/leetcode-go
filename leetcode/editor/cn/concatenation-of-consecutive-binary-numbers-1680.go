@@ -39,6 +39,7 @@ package main
 
 // 2021-10-30 11:06:36
 //leetcode submit region begin(Prohibit modification and deletion)
+// bit_manipulation
 func concatenatedBinary(n int) (ans int) {
 	shift, ans := 0, 0
 	mod := int(1e9 + 7)
