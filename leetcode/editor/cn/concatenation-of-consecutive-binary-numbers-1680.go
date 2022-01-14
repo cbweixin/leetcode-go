@@ -1,5 +1,7 @@
 package main
 
+import "math/bits"
+
 //给你一个整数 n ，请你将 1 到 n 的二进制表示连接起来，并返回连接结果对应的 十进制 数字对 10⁹ + 7 取余的结果。
 //
 //
@@ -40,7 +42,7 @@ package main
 // 2021-10-30 11:06:36
 //leetcode submit region begin(Prohibit modification and deletion)
 // bit_manipulation
-func concatenatedBinary(n int) (ans int) {
+func concatenatedBinary_2(n int) (ans int) {
 	shift, ans := 0, 0
 	mod := int(1e9 + 7)
 
@@ -51,6 +53,14 @@ func concatenatedBinary(n int) (ans int) {
 		ans = ((ans << shift) + i) % mod
 	}
 	return
+}
+
+func concatenatedBinary(n int) (ans int) {
+	for i := 1; i < n+1; i++ {
+		ans = (ans<<bits.Len(uint(i)) | i) % int(1e9+7)
+	}
+	return
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)

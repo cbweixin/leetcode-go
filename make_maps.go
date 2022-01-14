@@ -21,6 +21,7 @@ func main() {
 	fmt.Printf("Map literal at \"one\" is: %d\n", mapLit["one"])
 	fmt.Printf("Map created at \"key2\" is: %f\n", mapCreated["key2"])
 	fmt.Printf("Map assigned at \"two\" is: %d\n", mapLit["two"])
+	fmt.Printf("Map literal at \"two\" is: %d\n", mapLit["two"])
 	fmt.Printf("Map literal at \"ten\" is: %d\n", mapLit["ten"])
 
 	var value int
