@@ -77,14 +77,15 @@ func mincostTickets(days []int, costs []int) int {
 		return x
 	}
 
-	min := func(x, y int) int {
-		if x < y {
-			return x
+	// knowledge how to define a var length variable
+	findMin := func(a ...int) int {
+		res := a[0]
+		for _, v := range a {
+			if res > v {
+				res = v
+			}
 		}
-		return y
-	}
-	findMin := func(a, b, c int) int {
-		return min(a, min(b, c))
+		return res
 	}
 
 	for i := 1; i < n+1; i++ {
