@@ -76,6 +76,7 @@ func eventualSafeNodes(graph [][]int) []int {
 			}
 
 		}
+		graph[i] = nil
 		delete(path, i)
 
 		return false
@@ -88,7 +89,6 @@ func eventualSafeNodes(graph [][]int) []int {
 			dfs(i, path)
 		}
 	}
-
 	var res []int
 	for i := 0; i < n; i++ {
 		if _, ok := cycle[i]; !ok {
