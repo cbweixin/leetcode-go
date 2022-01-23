@@ -25,6 +25,9 @@ func main() {
 	go suck(ch1)
 	time.Sleep(1e3)
 
+	go pump(ch1)
+	go suck(ch1)
+	time.Sleep(1e3)
 }
 
 func pump(ch chan int) {
