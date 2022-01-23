@@ -37,6 +37,8 @@ func (p *Person3) Salary() float64 {
 
 func (p *Person3) String() string {
 	return "Person - name is: " + p.Name + " - salary is: " + strconv.FormatFloat(p.Salary(), 'f', 2, 64)
+	// check go study notes.md in wiz why below code would cause racing issue and not working
+	// return "Person - name is: " + p.Name + " - salary is: " + strconv.FormatFloat(p.salary, 'f', 2, 64)
 }
 
 func main() {
@@ -51,6 +53,7 @@ func main() {
 	fmt.Println(bs)
 	bs.SetSalary(4000.25)
 	fmt.Println("Salary changed:")
+	// time.Sleep(1e1)
 	fmt.Println(bs)
 
 }
