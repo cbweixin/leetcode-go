@@ -6,11 +6,13 @@ type Log struct {
 	msg string
 }
 
+// Customer 内嵌log，customer继承， 或者更像mixin  log 类型的所有方法
 type Customer struct {
 	Name string
 	log  *Log
 }
 
+// https://github.com/unknwon/the-way-to-go_ZH_CN/blob/master/eBook/10.6.md
 func main() {
 	c := new(Customer)
 	c.Name = "Barak Obama"

@@ -37,5 +37,4 @@ func main() {
 	end := time.Now()
 	delta := end.Sub(start)
 	fmt.Printf("longCalculation took this amount of time: %s\n", delta)
-
 }
