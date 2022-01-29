@@ -1,6 +1,10 @@
 package main
 
-import "strings"
+import (
+	"bytes"
+	"fmt"
+	"strings"
+)
 
 // 国际摩尔斯密码定义一种标准编码方式，将每个字母对应于一个由一系列点和短线组成的字符串， 比如:
 //
@@ -63,13 +67,14 @@ import "strings"
 
 // 2022-01-28 19:04:29
 // leetcode submit region begin(Prohibit modification and deletion)
-func uniqueMorseRepresentations(words []string) int {
+func uniqueMorseRepresentations1(words []string) int {
 	moses := [26]string{
 		".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.",
 		"---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..",
 	}
 	counter := make(map[string]bool, len(words))
 	for _, w := range words {
+		// knowledge how to append char to a string
 		var b strings.Builder
 		for _, c := range w {
 			b.WriteString(moses[c-'a'])
@@ -78,6 +83,25 @@ func uniqueMorseRepresentations(words []string) int {
 	}
 
 	return len(counter)
+}
+
+func uniqueMorseRepresentations(words []string) int {
+	moses := [26]string{
+		".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", "..", ".---", "-.-", ".-..", "--", "-.",
+		"---", ".--.", "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-", "-.--", "--..",
+	}
+	counter := make(map[string]bool, len(words))
+	for _, w := range words {
+		// knowledge how to append char to a string
+		var b bytes.Buffer
+		for _, c := range w {
+			fmt.Fprint(&b, moses[c-'a'])
+		}
+		counter[b.String()] = true
+	}
+
+	return len(counter)
+
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
