@@ -13,7 +13,7 @@ func main() {
 	go pump5(ch2)
 	go suck4(ch1, ch2)
 
-	time.Sleep(1e3)
+	time.Sleep(1e5)
 
 }
 
