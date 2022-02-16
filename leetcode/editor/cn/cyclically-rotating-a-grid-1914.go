@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //给你一个大小为 m x n 的整数矩阵 grid ，其中 m 和 n 都是 偶数 ；另给你一个整数 k 。
 //
 // 矩阵由若干层组成，如下图所示，每种颜色代表一层：
@@ -51,7 +53,7 @@ func rotateGrid(grid [][]int, k int) [][]int {
 		}
 		return b
 	}
-	layerDepth := min(r, c) << 1
+	layerDepth := min(r, c) >> 1
 	for layer := 0; layer < layerDepth; layer++ {
 		var arr []int
 		// clockwise record the element in arr
@@ -102,3 +104,7 @@ func rotateGrid(grid [][]int, k int) [][]int {
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	var grid = [][]int{{40, 10}, {30, 20}}
+	fmt.Println(rotateGrid(grid, 1))
+}
