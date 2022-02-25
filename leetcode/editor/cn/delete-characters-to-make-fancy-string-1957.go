@@ -88,9 +88,11 @@ func makeFancyString2(s string) string {
 }
 
 func makeFancyString(s string) string {
+	// create a byte array instead of a string
 	res := make([]byte, 0, len(s))
 	for i := 0; i < len(s); i++ {
 		l := len(res)
+		// s[i] is uint8, res[l] is byte (alias for uint8)
 		if l >= 2 && res[l-1] == s[i] && res[l-2] == s[i] {
 			continue
 		}
