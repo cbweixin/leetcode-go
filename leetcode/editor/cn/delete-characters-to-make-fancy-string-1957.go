@@ -68,7 +68,7 @@ func makeFancyString_tle(s string) string {
 	return b.String()
 }
 
-func makeFancyString(s string) string {
+func makeFancyString2(s string) string {
 	res := make([]byte, 0, len(s))
 	cur := 0
 	curChar := s[0]
@@ -85,6 +85,19 @@ func makeFancyString(s string) string {
 
 	return string(res)
 
+}
+
+func makeFancyString(s string) string {
+	res := make([]byte, 0, len(s))
+	for i := 0; i < len(s); i++ {
+		l := len(res)
+		if l >= 2 && res[l-1] == s[i] && res[l-2] == s[i] {
+			continue
+		}
+		res = append(res, s[i])
+	}
+
+	return string(res)
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
