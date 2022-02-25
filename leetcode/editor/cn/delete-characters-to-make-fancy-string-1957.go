@@ -1,6 +1,9 @@
 package main
 
-import "strings"
+import (
+	"fmt"
+	"strings"
+)
 
 //一个字符串如果没有 三个连续 相同字符，那么它就是一个 好字符串 。
 //
@@ -53,9 +56,10 @@ import "strings"
 //leetcode submit region begin(Prohibit modification and deletion)
 func makeFancyString(s string) string {
 	var b strings.Builder
-	for i, c := range s {
+	for _, c := range s {
 		chars := []rune(b.String())
-		if i >= 2 && chars[i-1] == c && chars[i-2] == c {
+		l := len(chars)
+		if l >= 2 && chars[l-1] == c && chars[l-2] == c {
 			continue
 		}
 		b.WriteString(string(c))
@@ -65,3 +69,7 @@ func makeFancyString(s string) string {
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	s := "leeetcode"
+	fmt.Println(makeFancyString(s))
+}
