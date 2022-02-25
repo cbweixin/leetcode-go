@@ -54,7 +54,7 @@ import (
 
 // 2022-02-25 09:06:40
 //leetcode submit region begin(Prohibit modification and deletion)
-func makeFancyString(s string) string {
+func makeFancyString_tle(s string) string {
 	var b strings.Builder
 	for _, c := range s {
 		chars := []rune(b.String())
@@ -66,6 +66,25 @@ func makeFancyString(s string) string {
 	}
 
 	return b.String()
+}
+
+func makeFancyString(s string) string {
+	res := make([]byte, 0, len(s))
+	cur := 0
+	curChar := s[0]
+	for i := 0; i < len(s); i++ {
+		if curChar != s[i] {
+			curChar = s[i]
+			cur = 0
+		}
+		cur++
+		if cur <= 2 {
+			res = append(res, curChar)
+		}
+	}
+
+	return string(res)
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
