@@ -30,6 +30,7 @@ func NewConcurrentArray(length uint32) ConcurrentArray {
 	return &array
 }
 
+// copy on write
 func (array *intArray) Set(index uint32, elem int) (err error) {
 	if err = array.checkIndex(index); err != nil {
 		return

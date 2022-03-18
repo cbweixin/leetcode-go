@@ -81,7 +81,7 @@ import (
 
 // 2022-03-10 10:06:59
 // leetcode submit region begin(Prohibit modification and deletion)
-func splitPainting(segments [][]int) [][]int64 {
+func splitPainting2(segments [][]int) [][]int64 {
 	countMap := make(map[int]int)
 	for _, arr := range segments {
 		s, e, c := arr[0], arr[1], arr[2]
@@ -97,7 +97,6 @@ func splitPainting(segments [][]int) [][]int64 {
 			countMap[e] = -c
 		}
 	}
-	var res [][]int64
 	// sort map keys
 	keys := make([]int, 0, len(countMap))
 	for key := range countMap {
@@ -105,6 +104,7 @@ func splitPainting(segments [][]int) [][]int64 {
 	}
 	sort.Ints(keys)
 
+	var res [][]int64
 	pre, color := 0, 0
 	for _, v := range keys {
 		if color > 0 {
@@ -115,6 +115,29 @@ func splitPainting(segments [][]int) [][]int64 {
 	}
 
 	return res
+}
+
+// line-sweep
+func splitPainting(segments [][]int) (res [][]int64) {
+	type event struct {
+		pos, color int
+	}
+	events := make([]event, 0, len(segments)<<1)
+	for _, seg := range segments {
+		events = append(events, event{seg[0], seg[2]}, event{seg[1], -seg[2]})
+	}
+	// knowledge how to use sort.Slice
+	sort.Slice(events, func(i, j int) bool {
+		return events[i].pos < events[j].pos
+	})
+	color := 0
+	for i, e := range events[:len(events)-1] {
+		color += e.color
+		if color > 0 && e.pos < events[i+1].pos {
+			res = append(res, []int64{int64(e.pos), int64(events[i+1].pos), int64(color)})
+		}
+	}
+	return
 }
 
 // leetcode submit region end(Prohibit modification and deletion)

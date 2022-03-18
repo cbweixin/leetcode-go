@@ -6,6 +6,7 @@ import (
 	"time"
 )
 
+// https://www.bilibili.com/video/BV17K411H7iw?t=3.1
 func A(ctx context.Context, name string) {
 	go B(ctx, name) //A调用了B
 	for {
