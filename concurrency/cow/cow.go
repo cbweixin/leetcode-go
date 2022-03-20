@@ -31,6 +31,7 @@ func NewConcurrentArray(length uint32) ConcurrentArray {
 }
 
 // copy on write
+// https://github.com/talkgo/night/issues/364
 func (array *intArray) Set(index uint32, elem int) (err error) {
 	if err = array.checkIndex(index); err != nil {
 		return
@@ -40,6 +41,7 @@ func (array *intArray) Set(index uint32, elem int) (err error) {
 	}
 
 	// 不要这样做！否则会形成竞态条件！
+	// 并发读写一个array会导致错误，在1.6和之后版本会直接报错
 	// oldArray := array.val.Load().([]int)
 	// oldArray[index] = elem
 	// array.val.Store(oldArray)

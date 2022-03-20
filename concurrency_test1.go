@@ -1,7 +1,7 @@
 package main
 
 import (
-	"./concurrency/wait_group_sample"
+	"wait_group_sample"
 )
 import "./concurrency/channel_sample"
 import "./concurrency/context_sample"

@@ -7,6 +7,7 @@ import (
 
 // https://www.bilibili.com/video/BV1NW41137jt?t=1.4
 // https://www.bilibili.com/video/BV1n4411b75w?t=1470.3
+// https://github.com/talkgo/night/issues/364
 
 func StoreValue() {
 	var countVal atomic.Value
