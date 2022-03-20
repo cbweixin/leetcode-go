@@ -69,8 +69,8 @@ func numFactoredBinaryTrees(arr []int) int {
 	}
 
 	res := 0
-	for i := 0; i < l; i++ {
-		res = (res + dp[i]) % mod
+	for _, v := range dp {
+		res = (res + v) % mod
 	}
 	return res
 
