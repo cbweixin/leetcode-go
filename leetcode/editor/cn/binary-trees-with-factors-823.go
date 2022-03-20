@@ -41,7 +41,7 @@ func numFactoredBinaryTrees(arr []int) int {
 	sort.Ints(arr)
 	l := len(arr)
 	dp := make([]int, l)
-	mod := int(10e9 + 7)
+	mod := 1000000007
 	for i := 0; i < l; i++ {
 		dp[i] = 1
 	}
@@ -57,15 +57,15 @@ func numFactoredBinaryTrees(arr []int) int {
 			} else if t > arr[i] {
 				k--
 			} else {
-				dp[i] += dp[j] * dp[k]
+				dp[i] = (dp[i] + dp[j]*dp[k]) % mod
 				if arr[j] != arr[k] {
-					dp[i] += dp[j] * dp[k]
+					dp[i] = (dp[i] + dp[j]*dp[k]) % mod
 				}
 				j++
 				k--
 			}
 		}
-		dp[i] %= mod
+		// dp[i] %= mod
 	}
 
 	res := 0
