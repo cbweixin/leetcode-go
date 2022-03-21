@@ -37,6 +37,7 @@ import "sort"
 
 // 2022-03-19 21:00:39
 // leetcode submit region begin(Prohibit modification and deletion)
+// dp
 func numFactoredBinaryTrees(arr []int) int {
 	sort.Ints(arr)
 	l := len(arr)
