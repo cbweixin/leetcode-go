@@ -50,8 +50,8 @@ func findRotation(mat [][]int, target [][]int) bool {
 	// rotate 270 : (x,y)->(n-y,x)
 
 	b1, b2, b3, b4 := true, true, true, true
-	for i := 0; i < (r >> 1); i++ {
-		for j := 0; j < ((c + 1) >> 1); j++ {
+	for i := 0; i < r; i++ {
+		for j := 0; j < c; j++ {
 			if mat[i][j] != target[i][j] {
 				b1 = false
 			}
