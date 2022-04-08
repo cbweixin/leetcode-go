@@ -64,6 +64,7 @@ import "sort"
 
 // 2022-04-06 20:40:37
 //leetcode submit region begin(Prohibit modification and deletion)
+// sort
 func eliminateMaximum(dist []int, speed []int) int {
 	l := len(dist)
 	times := make([]int, l)
