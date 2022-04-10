@@ -9,6 +9,7 @@ func fixedPoint1(arr []int) int {
 	return -1
 }
 
+// binary_search
 func fixedPoint(arr []int) int {
 	var l int = 0
 	var r int = len(arr) - 1
