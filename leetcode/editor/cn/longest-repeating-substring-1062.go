@@ -4,12 +4,14 @@ import "fmt"
 
 func longestRepeatingSubstring(s string) int {
 	var l = len(s)
-	var dp [][]int
-	for _, arr := range dp {
-		for j := range arr {
-			arr[j] = 0
+	dp := make([][]int, (l + 1))
+	for i := 0; i < l+1; i++ {
+		dp[i] = make([]int, l+1)
+		for j := 0; j < l+1; j++ {
+			dp[i][j] = 0
 		}
 	}
+
 	res := 0
 	max := func(x, y int) int {
 		if x < y {
@@ -31,5 +33,7 @@ func longestRepeatingSubstring(s string) int {
 }
 func main() {
 	s := "abcd"
+	fmt.Println(longestRepeatingSubstring(s))
+	s = "abbaba"
 	fmt.Println(longestRepeatingSubstring(s))
 }
