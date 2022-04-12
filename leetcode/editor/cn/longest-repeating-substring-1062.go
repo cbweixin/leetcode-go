@@ -7,9 +7,6 @@ func longestRepeatingSubstring(s string) int {
 	dp := make([][]int, (l + 1))
 	for i := 0; i < l+1; i++ {
 		dp[i] = make([]int, l+1)
-		for j := 0; j < l+1; j++ {
-			dp[i][j] = 0
-		}
 	}
 
 	res := 0
