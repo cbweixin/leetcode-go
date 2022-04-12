@@ -52,6 +52,7 @@ package main
 
 // 2022-04-11 09:59:11
 //leetcode submit region begin(Prohibit modification and deletion)
+// hashmap
 func fairCandySwap(aliceSizes []int, bobSizes []int) []int {
 	arrSum := func(arr []int, set map[int]bool) int {
 		res := 0
