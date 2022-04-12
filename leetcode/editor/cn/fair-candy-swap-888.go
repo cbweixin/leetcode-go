@@ -53,22 +53,17 @@ package main
 // 2022-04-11 09:59:11
 //leetcode submit region begin(Prohibit modification and deletion)
 func fairCandySwap(aliceSizes []int, bobSizes []int) []int {
-	arrSum := func(arr []int) int {
+	arrSum := func(arr []int, set map[int]bool) int {
 		res := 0
 		for _, v := range arr {
 			res += v
+			set[v] = true
 		}
 		return res
 	}
-	aS, bS := arrSum(aliceSizes), arrSum(bobSizes)
 	aSet, bSet := make(map[int]bool), make(map[int]bool)
+	aS, bS := arrSum(aliceSizes, aSet), arrSum(bobSizes, bSet)
 
-	for _, a := range aliceSizes {
-		aSet[a] = true
-	}
-	for _, b := range bobSizes {
-		bSet[b] = true
-	}
 	diff := (aS - bS) >> 1
 	for ak, _ := range aSet {
 		t := ak - diff
