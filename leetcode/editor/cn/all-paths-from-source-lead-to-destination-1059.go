@@ -4,10 +4,9 @@ func leadsToDestination(n int, edges [][]int, source int, destination int) bool 
 	colors := make([]int, n)
 	graph := make(map[int][]int)
 
-	for i := 0; i < len(edges); i++ {
-		for j := 0; j < len(edges[0]); j++ {
-			graph[i] = append(graph[i], j)
-		}
+	for _, arr := range edges {
+		s, d := arr[0], arr[1]
+		graph[s] = append(graph[s], d)
 	}
 
 	var dfs func(int) bool
