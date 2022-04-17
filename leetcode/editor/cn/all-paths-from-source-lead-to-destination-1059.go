@@ -37,6 +37,13 @@ func leadsToDestination(n int, edges [][]int, source int, destination int) bool 
 
 func leadsToDestination1(n int, edges [][]int, source int, destination int) bool {
 	colors := make([]int, n)
+	// notice here I can not do make(map[int] Adj), have to make it a pointer type
+	// https://stackoverflow.com/questions/40578646/golang-i-have-a-map-of-int-to-struct-why-cant-i-directly-modify-a-field-in-a
+	// You are storing a struct by value which means that accession of that struct in the map gives you a copy of the value. This is why when you modify it, the struct in the map remains unmutated until you overwrite it with the new copy.
+	//
+	// As RickyA pointed out in the comment, you can store the pointer to the struct instead and this allows direct modification of the struct being referenced by the stored struct pointer.
+	//
+	// i.e. map[whatever]*struct instead of map[whatever]struct
 	graph := make(map[int]*Adj)
 
 	for i := 0; i < n; i++ {
