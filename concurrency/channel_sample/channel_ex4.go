@@ -28,7 +28,7 @@ func Chan_With_Map2() {
 	}()
 	go func() { // 用于演示发送操作。
 		countMap := map[string]Counter{
-			"count": {},
+			"count": Counter{},
 		}
 		for i := 0; i < 5; i++ {
 			mapChan2 <- countMap
@@ -41,3 +41,12 @@ func Chan_With_Map2() {
 	<-syncChan
 	<-syncChan
 }
+
+/**
+The count map: map[count:{0}]. [sender]
+The count map: map[count:{0}]. [sender]
+The count map: map[count:{0}]. [sender]
+The count map: map[count:{0}]. [sender]
+The count map: map[count:{0}]. [sender]
+Stopped. [receiver]
+*/

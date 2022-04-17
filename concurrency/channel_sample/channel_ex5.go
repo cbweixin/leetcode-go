@@ -23,7 +23,7 @@ func Chan_With_Map3() {
 	}()
 	go func() { // 用于演示发送操作。
 		countMap := map[string]*Counter{
-			"count": {},
+			"count": &Counter{},
 		}
 		for i := 0; i < 5; i++ {
 			mapChan3 <- countMap
@@ -40,3 +40,12 @@ func Chan_With_Map3() {
 func (counter *Counter) String() string {
 	return fmt.Sprintf("{count : %d}", counter.count)
 }
+
+/**
+The count map: map[count:{count : 1}]. [sender]
+The count map: map[count:{count : 2}]. [sender]
+The count map: map[count:{count : 3}]. [sender]
+The count map: map[count:{count : 4}]. [sender]
+The count map: map[count:{count : 5}]. [sender]
+Stopped. [receiver]
+*/
