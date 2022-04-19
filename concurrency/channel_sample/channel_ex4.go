@@ -27,6 +27,9 @@ func Chan_With_Map2() {
 		syncChan <- struct{}{}
 	}()
 	go func() { // 用于演示发送操作。
+		// this won't work, Counter is a struct, when used in dict as value, it would be passed in `value` instead of
+		// `reference`, ie, the dict hold copy of Counter, so any change applied to copy, that's the reason why the
+		// `count` is always 0, as a comparision, check the channel_ex5.go for comparision
 		countMap := map[string]Counter{
 			"count": Counter{},
 		}
