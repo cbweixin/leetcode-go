@@ -22,7 +22,10 @@ func Chan_With_Map3() {
 		syncChan <- struct{}{}
 	}()
 	go func() { // 用于演示发送操作。
+		// Counter is a pointer
+		// compare with chanel_ex4.go, now Counter is a pointer, then its status can be mutated
 		countMap := map[string]*Counter{
+			// get the address of counter, ie reference
 			"count": &Counter{},
 		}
 		for i := 0; i < 5; i++ {
