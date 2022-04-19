@@ -35,3 +35,20 @@ func Close_test() {
 	<-syncChan2
 	<-syncChan2
 }
+
+/**
+Sent: 0 [sender]
+Sent: 1 [sender]
+Sent: 2 [sender]
+Sent: 3 [sender]
+Sent: 4 [sender]
+Done. [sender]
+Received: 0 [receiver]
+Received: 1 [receiver]
+Received: 2 [receiver]
+Received: 3 [receiver]
+Received: 4 [receiver]
+Done. [receiver]
+
+Program exited.
+*/

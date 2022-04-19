@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// bi-directional channel
 var strChan4 = make(chan string, 3)
 
 func Single_Direction_Channel() {
@@ -16,6 +17,9 @@ func Single_Direction_Channel() {
 	<-syncChan2
 }
 
+// notice, single direction channel, be aware of chan and <- position
+// <- chan means recieve, chan <- means send, `strchan4` is bi-directional channel,
+// but in this method, parameter strChan4 would be required as a singel directional chan
 func receive(strChan4 <-chan string, syncChan1 <-chan struct{}, syncChan2 chan<- struct{}) {
 	<-syncChan1
 	fmt.Println("Received a sync signal and wait a second... [receiver]")
@@ -27,6 +31,9 @@ func receive(strChan4 <-chan string, syncChan1 <-chan struct{}, syncChan2 chan<-
 			break
 		}
 	}
+
+	// you can not close a recieving channel, compile error
+	// close(strChan4)
 	fmt.Println("Stopped. [receiver]")
 	syncChan2 <- struct{}{}
 }
@@ -42,6 +49,25 @@ func send(strChan4 chan<- string, syncChan1 chan<- struct{}, syncChan2 chan<- st
 	}
 	fmt.Println("Wait 2 seconds... [sender]")
 	time.Sleep(time.Second * 2)
+	// strChan4 is sending channel, so it could be closed. but you can not close recieve channel, this would lead to
+	// a compile error
 	close(strChan4)
 	syncChan2 <- struct{}{}
 }
+
+/**
+Sent: a [sender]
+Sent: b [sender]
+Sent: c [sender]
+Sent a sync signal. [sender]
+Received a sync signal and wait a second... [receiver]
+Received: a [receiver]
+Received: b [receiver]
+Received: c [receiver]
+Received: d [receiver]
+Sent: d [sender]
+Wait 2 seconds... [sender]
+Stopped. [receiver]
+
+Program exited.
+*/
