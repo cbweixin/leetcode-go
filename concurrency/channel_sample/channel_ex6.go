@@ -24,6 +24,8 @@ func Close_test() {
 			fmt.Printf("Sent: %d [sender]\n", i)
 		}
 		// firstly close the channel
+		// channel can only be closed once, repeatly closing would cause panic
+		// if channel variable become nil, it would also caused panic.
 		close(dataChan)
 		// then start the receiver, but receiver still able to get all element in channel
 		syncChan1 <- struct{}{}
