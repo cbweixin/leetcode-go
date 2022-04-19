@@ -22,6 +22,7 @@ func receive2(strChan5 <-chan string,
 	<-syncChan1
 	fmt.Println("Received a sync signal and wait a second... [receiver]")
 	time.Sleep(time.Second)
+	// compare with the for loop in channel_ex6.go, for .. range a lot more concise
 	for elem := range strChan5 {
 		fmt.Println("Received:", elem, "[receiver]")
 	}
