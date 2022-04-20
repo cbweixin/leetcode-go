@@ -29,3 +29,11 @@ func getChan(i int) chan int {
 	fmt.Printf("channels[%d]\n", i)
 	return channels[i]
 }
+
+/**
+channels[0]
+numbers[0]
+channels[1]
+numbers[1]
+Default!
+*/
