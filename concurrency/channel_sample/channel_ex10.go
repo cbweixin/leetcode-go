@@ -10,6 +10,8 @@ var numbers = []int{1, 2, 3, 4, 5}
 
 func Select_test() {
 	// select's execution order, from left to right, from up to bottom
+	// intChan1 and intChan2 are not initialized yet, so it would be blocked
+	// but still 2 case related code got evaulated. and finally the default branch has bee selected
 	select {
 	case getChan(0) <- getNumber(0):
 		fmt.Println("The 1th case is selected.")
