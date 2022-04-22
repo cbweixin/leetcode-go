@@ -67,6 +67,8 @@ func Constructor(words []string) WordFilter {
 	}
 
 	for weight, word := range words {
+		// notice you have to use "{", because "{" is following "z", tried to use '#'
+		// but get a index out of boundary problem, '#' - 'a' = 194 > 27
 		key := word + "{" + word
 		for i := 0; i < len(word); i++ {
 			wf.add(key[i:], weight)
