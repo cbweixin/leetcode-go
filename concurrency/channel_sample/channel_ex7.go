@@ -70,4 +70,11 @@ Wait 2 seconds... [sender]
 Stopped. [receiver]
 
 Program exited.
+
+
+notice this :
+Received: d [receiver]
+Sent: d [sender]
+向此类通道发送元素值的操作会被阻塞，直到至少有一个针对该 通道的接收操作进行为止。该接收操作会先得到元素值的副本，
+然后在唤醒发送方所在的goroutine之后返回。也就是说，这时的 接收操作会在对应的发送操作完成之前完成
 */
