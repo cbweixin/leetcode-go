@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // 你有一个单词列表 words 和一个模式 pattern，你想知道 words 中的哪些单词与模式匹配。
 //
 // 如果存在字母的排列 p ，使得将模式中的每个字母 x 替换为 p(x) 之后，我们就得到了所需的单词，那么单词与模式是匹配的。
@@ -50,8 +52,6 @@ func findAndReplacePattern(words []string, pattern string) []string {
 				lookup2[pIdx]++
 			} else if lookup[wIdx] != pIdx {
 				return false
-			} else {
-				lookup2[pIdx]++
 			}
 		}
 		for i := 0; i < 26; i++ {
@@ -73,3 +73,9 @@ func findAndReplacePattern(words []string, pattern string) []string {
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	words := []string{"abc", "deq", "mee", "aqq", "dkd", "ccc"}
+	pattern := "abb"
+
+	fmt.Println(findAndReplacePattern(words, pattern))
+}
