@@ -10,6 +10,8 @@ func Timer_test() {
 	fmt.Printf("Present time: %v.\n", time.Now())
 	expirationTime := <-timer.C
 	fmt.Printf("Expiration time: %v.\n", expirationTime)
+	// time.Stop() return false in this case because the timer already stopped because of the timer.C blocking
+	// 2 seconds. so stop a stopped timer would give you false, otherwise you would get a true.
 	fmt.Printf("Stop timer: %v.\n", timer.Stop())
 }
 
