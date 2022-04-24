@@ -35,7 +35,7 @@ import "fmt"
 
 // 2022-04-23 15:49:35
 // leetcode submit region begin(Prohibit modification and deletion)
-func findAndReplacePattern(words []string, pattern string) []string {
+func findAndReplacePattern1(words []string, pattern string) []string {
 	get_int := func(c int) int {
 		return c - 'a'
 	}
@@ -68,6 +68,35 @@ func findAndReplacePattern(words []string, pattern string) []string {
 		}
 	}
 
+	return res
+
+}
+
+func findAndReplacePattern(words []string, pattern string) []string {
+	match := func(w string) bool {
+		lookup1 := make(map[byte]byte)
+		lookup2 := make(map[byte]byte)
+		for i := 0; i < len(w); i++ {
+			if _, ok := lookup1[w[i]]; !ok {
+				lookup1[w[i]] = pattern[i]
+			} else if lookup1[w[i]] != pattern[i] {
+				return false
+			}
+			if _, ok := lookup2[pattern[i]]; !ok {
+				lookup2[pattern[i]] = w[i]
+			} else if lookup2[pattern[i]] != w[i] {
+				return false
+			}
+		}
+
+		return true
+	}
+	res := make([]string, 0)
+	for _, w := range words {
+		if match(w) {
+			res = append(res, w)
+		}
+	}
 	return res
 
 }
