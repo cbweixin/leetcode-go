@@ -50,10 +50,10 @@ func GetRetCodePlain(code RetCode) string {
 }
 
 type CallResult struct {
-	ID     int64
-	Req    RawReq
-	Resp   RawResp
-	Code   RetCode
+	ID     int64   // id
+	Req    RawReq  // raw request
+	Resp   RawResp // raw response
+	Code   RetCode //
 	Msg    string
 	Elapse time.Duration
 }

@@ -10,11 +10,15 @@ import (
 )
 
 type ParamSet struct {
-	Caller     lib.Caller           // 调用器。
-	TimeoutNS  time.Duration        // 响应超时时间，单位：纳秒。
-	LPS        uint32               // 每秒载荷量。
-	DurationNS time.Duration        // 负载持续时间，单位：纳秒。
-	ResultCh   chan *lib.CallResult // 调用结果通道。
+	Caller     lib.Caller    // 调用器。
+	TimeoutNS  time.Duration // 响应超时时间，单位：纳秒。
+	LPS        uint32        // 每秒载荷量。
+	DurationNS time.Duration // 负载持续时间，单位：纳秒。
+	// why ResultCh is * pointer type? why not "chan lib.CallResult"?
+	// https://stackoverflow.com/questions/28447297/how-to-check-for-an-empty-struct
+	// 由于结构体类型的零值不是nil ，因此如果 这个通道的元素类型是lib.CallResult 的话，就会给后面对其中元素 值的零值判断带来小麻烦。
+	// 我使用它的指针类型作为通道的元素类型，既 可以消除麻烦，也可以减少元素值复制带来的开销
+	ResultCh chan *lib.CallResult // 调用结果通道。
 }
 
 // Check 会检查当前值的所有字段的有效性。
