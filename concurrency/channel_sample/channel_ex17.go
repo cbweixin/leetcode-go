@@ -27,5 +27,39 @@ func Ticker_test() {
 			break
 		}
 	}
+
+	/**
+	Received: 1
+	Received: 2
+	Received: 3
+	Received: 1
+	Received: 2
+	Received: 3
+	Got: 12
+	End. [receiver]
+	1,2,3 is randomly generated, but no matter stop ticker or not, I will always see "End. [receiver]"
+	*/
+	ticker.Stop()
 	fmt.Println("End. [receiver]")
 }
+
+/**
+Received: 1
+Received: 3
+Received: 3
+Received: 1
+Received: 3
+Got: 11
+End. [receiver]
+... OR
+Received: 2
+Received: 2
+Received: 2
+Received: 1
+Received: 1
+Received: 1
+Received: 2
+Got: 11
+End. [receiver]
+
+*/
