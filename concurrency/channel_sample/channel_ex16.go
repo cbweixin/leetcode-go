@@ -19,7 +19,7 @@ func Timer_test3() {
 	for {
 		if timer == nil {
 			timer = time.NewTimer(timeout)
-		} else {
+		} else { // re-use timer
 			timer.Reset(timeout)
 		}
 		select {
@@ -35,3 +35,22 @@ func Timer_test3() {
 	}
 
 }
+
+/**
+Timeout!
+Received: 0
+Timeout!
+Timeout!
+Timeout!
+Received: 1
+Timeout!
+Timeout!
+Received: 2
+Timeout!
+Timeout!
+Received: 3
+Timeout!
+Timeout!
+Received: 4
+End.
+*/
