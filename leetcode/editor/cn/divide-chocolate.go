@@ -1,26 +1,19 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"math"
+)
 
 func maximizeSweetness(sweetness []int, k int) int {
-	sum := func(arr []int) int {
-		res := 0
-		for _, v := range arr {
-			res += v
+	l, r := math.MaxInt, 0
+	for _, v := range sweetness {
+		if l > v {
+			l = v
 		}
-		return res
+		r += v
+
 	}
-	min := func(arr []int) int {
-		// max ele <= 10^4
-		res := 10001
-		for _, v := range arr {
-			if res > v {
-				res = v
-			}
-		}
-		return res
-	}
-	l, r := min(sweetness), sum(sweetness)
 
 	splitParts := func(mid int) int {
 		s, parts := 0, 0
