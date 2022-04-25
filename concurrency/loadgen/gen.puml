@@ -1,0 +1,144 @@
+@startuml
+namespace lib {
+    class CallResult << (S,Aquamarine) >> {
+        + ID int64
+        + Req RawReq
+        + Resp RawResp
+        + Code RetCode
+        + Msg string
+        + Elapse time.Duration
+
+    }
+    interface Caller  {
+        + BuildReq() RawReq
+        + Call(req []byte, timeoutNs time.Duration) ([]byte, error)
+        + CheckResp(rawReq RawReq, rawResp RawResp) *CallResult
+
+    }
+    interface Generator  {
+        + Start() bool
+        + Stop() bool
+        + Status() uint32
+        + CallCount() int64
+
+    }
+    interface GoTickets  {
+        + Take() 
+        + Return() 
+        + Active() bool
+        + Total() uint32
+        + Remaider() uint32
+
+    }
+    class RawReq << (S,Aquamarine) >> {
+        + ID int64
+        + Req []byte
+
+    }
+    class RawResp << (S,Aquamarine) >> {
+        + ID int64
+        + Resp []byte
+        + Err error
+        + Elapse time.Duration
+
+    }
+    class lib.RetCode << (T, #FF7700) >>  {
+    }
+    class myGotickets << (S,Aquamarine) >> {
+        - total uint32
+        - ticketCh <font color=blue>chan</font> <font color=blue>struct</font>{}
+        - active bool
+
+        - init(total uint32) bool
+
+        + Take() 
+        + Return() 
+        + Active() bool
+        + Total() uint32
+        + Remaider() uint32
+
+    }
+}
+
+"lib.GoTickets" <|-- "lib.myGotickets"
+
+namespace loadgen {
+    class ParamSet << (S,Aquamarine) >> {
+        + Caller lib.Caller
+        + TimeoutNS time.Duration
+        + LPS uint32
+        + DurationNS time.Duration
+        + ResultCh <font color=blue>chan</font> *lib.CallResult
+
+        + Check() error
+
+    }
+    class myGenerator << (S,Aquamarine) >> {
+        - caller lib.Caller
+        - timeoutNS time.Duration
+        - lps uint32
+        - durationNS time.Duration
+        - concurrency uint32
+        - tickets lib.GoTickets
+        - ctx context.Context
+        - cancelFunc context.CancelFunc
+        - callCount int64
+        - status uint32
+        - resultCh <font color=blue>chan</font> *lib.CallResult
+
+        - init() error
+        - callOne(rawReq *lib.RawReq) *lib.RawResp
+        - asyncCall() 
+        - sendResult(result *lib.CallResult) bool
+        - printIgnoredResult(result *lib.CallResult, cause string) 
+        - prepareToStop(ctxError error) 
+        - genLoad(throttle <font color=blue>chan</font> time.Time) 
+
+        + Start() bool
+        + Stop() bool
+        + Status() uint32
+        + CallCount() int64
+
+    }
+}
+
+"lib.Generator" <|-- "loadgen.myGenerator"
+
+namespace testhelper {
+    class ServerReq << (S,Aquamarine) >> {
+        + ID int64
+        + Operands []int
+        + Operator string
+
+    }
+    class ServerResp << (S,Aquamarine) >> {
+        + ID int64
+        + Formula string
+        + Result int
+        + Err error
+
+    }
+    class TCPComm << (S,Aquamarine) >> {
+        - addr string
+
+        + BuildReq() lib.RawReq
+        + Call(req []byte, timeoutNS time.Duration) ([]byte, error)
+        + CheckResp(rawReq lib.RawReq, rawResp lib.RawResp) *lib.CallResult
+
+    }
+    class TCPServer << (S,Aquamarine) >> {
+        - listener net.Listener
+        - active uint32
+
+        - init(addr string) error
+
+        + Listen(addr string) error
+        + Close() bool
+
+    }
+}
+
+"lib.Caller" <|-- "testhelper.TCPComm"
+
+"__builtin__.int" #.. "lib.RetCode"
+@enduml
