@@ -34,6 +34,7 @@ func NewGenerator(pset ParamSet) (lib.Generator, error) {
 		return nil, err
 	}
 
+	// gen is a pointer
 	gen := &myGenerator{
 		caller:     pset.Caller,
 		timeoutNS:  pset.TimeoutNS,
