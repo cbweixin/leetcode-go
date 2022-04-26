@@ -18,6 +18,9 @@ func assignBikes(workers [][]int, bikes [][]int) []int {
 	dist := func(w, b []int) int {
 		return abs(w[0]-b[0]) + abs(w[1]-b[1])
 	}
+	// knowledge try to compare with 1059, I also use struct as value in map, but the type is pointer, why we don't need
+	// pointer here?
+	// because we don't mutate the value here, otherwise we also need a pointer
 	dists := make(map[int][]Pair)
 
 	for i, w := range workers {
