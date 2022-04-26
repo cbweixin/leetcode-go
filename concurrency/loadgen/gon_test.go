@@ -10,21 +10,23 @@ import (
 var printDetail = true
 
 func TestStart(t *testing.T) {
-	server := helper.NewTCPServer()
-	defer server.Close()
+	// server := helper.NewTCPServer()
+	// defer server.Close()
+	//
+	// serverAddr := "127.0.0.1:8080"
+	// serverAddr := "https://reddit.becca-rosenthal.snoo.dev"
+	// t.Logf("Startup TCP server(%s)...\n", serverAddr)
+	// err := server.Listen(serverAddr)
+	// if err != nil {
+	// 	t.Fatalf("TCP server startup failing! (addr=%s)", serverAddr)
+	// 	t.FailNow()
+	// }
 
-	serverAddr := "127.0.0.1:8080"
-	t.Logf("Startup TCP server(%s)...\n", serverAddr)
-	err := server.Listen(serverAddr)
-	if err != nil {
-		t.Fatalf("TCP server startup failing! (addr=%s)", serverAddr)
-		t.FailNow()
-	}
-
+	serverAddr := "https://reddit.becca-rosenthal.snoo.dev"
 	pset := ParamSet{
 		Caller:     helper.NewTCPComm(serverAddr),
 		TimeoutNS:  50 * time.Millisecond,
-		LPS:        uint32(1000),
+		LPS:        uint32(100),
 		DurationNS: 10 * time.Second,
 		ResultCh:   make(chan *lib.CallResult, 50),
 	}

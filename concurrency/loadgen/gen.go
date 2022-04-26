@@ -101,6 +101,11 @@ func (gen *myGenerator) callOne(rawReq *lib.RawReq) *lib.RawResp {
 }
 
 func (gen *myGenerator) asyncCall() {
+	/**
+	asyncCall 方法在一开始就会启用一个专用的goroutine，因为对 asyncCall 方法的每一次调用都意味着会有一个专用goroutine被启 用。这里
+	的专用goroutine总数会由goroutine票池控制，后者由载荷 发生器的tickets 字段代表。因此，在该方法中，我们需要在适当的时候对goroutine票池
+	中的票进行“获得”和“归还”操作
+	 */
 	gen.tickets.Take()
 	go func() {
 		defer func() {
@@ -203,7 +208,11 @@ func (gen *myGenerator) genLoad(throttle <-chan time.Time) {
 		gen.asyncCall()
 		if gen.lps > 0 {
 			select {
+			// 如果lps 字段的值大于0 ，就表示节流阀是有效并需要使用的。 这时，利用select 语句等待节流阀的到期通知。一旦接收到了这样
+			// 一个通知，就立即开始下一次迭代(即开始生成并发送下一个载 荷)。
 			case <-throttle:
+				// 如果在等待节流阀到期通知的过程中接收到了上下文的 “信号”，就需要立即为停止载荷发生器做准备。gen.ctx 字段的 Done
+				// 方法会返回一个接收通道，该通道会在上下文超时或取消时关 闭，这时针对它的接收操作就会立即返回。
 			case <-gen.ctx.Done():
 				gen.prepareToStop(gen.ctx.Err())
 				return
