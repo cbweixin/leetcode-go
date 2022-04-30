@@ -41,6 +41,16 @@ func repeatedlyLock() {
 }
 
 func main() {
-	repeatedlyLock()
+	/**
+	Lock the lock. (G0)
+	The lock is locked. (G0)
+	Lock the lock. (G3)
+	Lock the lock. (G2)
+	Lock the lock. (G1)
+	Unlock the lock. (G0)
+	The lock is unlocked. (G0)
+	The lock is locked. (G3)
 
+	*/
+	repeatedlyLock()
 }
