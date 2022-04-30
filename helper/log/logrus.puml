@@ -1,0 +1,203 @@
+@startuml
+namespace base {
+    interface MyLogger  {
+        + Name() string
+        + Level() LogLevel
+        + Format() LogFormat
+        + Options() []Option
+        + Debug(v ...<font color=blue>interface</font>{}) 
+        + Debugf(format string, v ...<font color=blue>interface</font>{}) 
+        + Debugln(v ...<font color=blue>interface</font>{}) 
+        + Error(v ...<font color=blue>interface</font>{}) 
+        + Errorf(format string, v ...<font color=blue>interface</font>{}) 
+        + Errorln(v ...<font color=blue>interface</font>{}) 
+        + Fatal(v ...<font color=blue>interface</font>{}) 
+        + Fatalf(format string, v ...<font color=blue>interface</font>{}) 
+        + Fatalln(v ...<font color=blue>interface</font>{}) 
+        + Info(v ...<font color=blue>interface</font>{}) 
+        + Infof(format string, v ...<font color=blue>interface</font>{}) 
+        + Infoln(v ...<font color=blue>interface</font>{}) 
+        + Panic(v ...<font color=blue>interface</font>{}) 
+        + Panicf(format string, v ...<font color=blue>interface</font>{}) 
+        + Panicln(v ...<font color=blue>interface</font>{}) 
+        + Warn(v ...<font color=blue>interface</font>{}) 
+        + Warnf(format string, v ...<font color=blue>interface</font>{}) 
+        + Warnln(v ...<font color=blue>interface</font>{}) 
+        + WithFields(fields ...field.Field) MyLogger
+
+    }
+    class OptWithLocation << (S,Aquamarine) >> {
+        + Value bool
+
+        + Name() string
+
+    }
+    interface Option  {
+        + Name() string
+
+    }
+    class base.LogFormat << (T, #FF7700) >>  {
+    }
+    class base.LogLevel << (T, #FF7700) >>  {
+    }
+    class base.LoggerType << (T, #FF7700) >>  {
+    }
+}
+
+"base.Option" <|-- "base.OptWithLocation"
+
+
+namespace field {
+    interface Field  {
+        + Name() string
+        + Type() FieldType
+        + Value() <font color=blue>interface</font>{}
+
+    }
+    class boolField << (S,Aquamarine) >> {
+        - name string
+        - fieldType FieldType
+        - value bool
+
+        + Name() string
+        + Type() FieldType
+        + Value() <font color=blue>interface</font>{}
+
+    }
+    class field.FieldType << (T, #FF7700) >>  {
+    }
+    class float64Field << (S,Aquamarine) >> {
+        - name string
+        - fieldType FieldType
+        - value float64
+
+        + Name() string
+        + Type() FieldType
+        + Value() <font color=blue>interface</font>{}
+
+    }
+    class int64Field << (S,Aquamarine) >> {
+        - name string
+        - fieldType FieldType
+        - value int64
+
+        + Name() string
+        + Type() FieldType
+        + Value() <font color=blue>interface</font>{}
+
+    }
+    class objectField << (S,Aquamarine) >> {
+        - name string
+        - fieldType FieldType
+        - value <font color=blue>interface</font>{}
+
+        + Name() string
+        + Type() FieldType
+        + Value() <font color=blue>interface</font>{}
+
+    }
+    class stringField << (S,Aquamarine) >> {
+        - name string
+        - fieldType FieldType
+        - value string
+
+        + Name() string
+        + Type() FieldType
+        + Value() <font color=blue>interface</font>{}
+
+    }
+}
+
+"base.Option" <|-- "field.boolField"
+"field.Field" <|-- "field.boolField"
+"base.Option" <|-- "field.float64Field"
+"field.Field" <|-- "field.float64Field"
+"base.Option" <|-- "field.int64Field"
+"field.Field" <|-- "field.int64Field"
+"base.Option" <|-- "field.objectField"
+"field.Field" <|-- "field.objectField"
+"base.Option" <|-- "field.stringField"
+"field.Field" <|-- "field.stringField"
+
+"field.boolField" o-- "field.FieldType"
+"field.float64Field" o-- "field.FieldType"
+"field.int64Field" o-- "field.FieldType"
+"field.objectField" o-- "field.FieldType"
+"field.stringField" o-- "field.FieldType"
+
+namespace log {
+    class log.LoggerCreator << (T, #FF7700) >>  {
+    }
+    class "<font color=blue>func</font>(base.LogLevel, base.LogFormat, io.Writer, []base.Option) base.MyLogger" as fontcolorbluefuncfontbaseLogLevelbaseLogFormatioWriterbaseOptionbaseMyLogger {
+        'This class was created so that we can correctly have an alias pointing to this name. Since it contains dots that can break namespaces
+    }
+}
+
+
+
+namespace logrus {
+    class loggerLogrus << (S,Aquamarine) >> {
+        - level base.LogLevel
+        - format base.LogFormat
+        - optWithLocation base.OptWithLocation
+        - inner *logrus.Entry
+
+        - getInner() *logrus.Entry
+
+        + Name() string
+        + Level() base.LogLevel
+        + Format() base.LogFormat
+        + Options() []base.Option
+        + Debug(v ...<font color=blue>interface</font>{}) 
+        + Debugf(format string, v ...<font color=blue>interface</font>{}) 
+        + Debugln(v ...<font color=blue>interface</font>{}) 
+        + Error(v ...<font color=blue>interface</font>{}) 
+        + Errorf(format string, v ...<font color=blue>interface</font>{}) 
+        + Errorln(v ...<font color=blue>interface</font>{}) 
+        + Fatal(v ...<font color=blue>interface</font>{}) 
+        + Fatalf(format string, v ...<font color=blue>interface</font>{}) 
+        + Fatalln(v ...<font color=blue>interface</font>{}) 
+        + Info(v ...<font color=blue>interface</font>{}) 
+        + Infof(format string, v ...<font color=blue>interface</font>{}) 
+        + Infoln(v ...<font color=blue>interface</font>{}) 
+        + Panic(v ...<font color=blue>interface</font>{}) 
+        + Panicf(format string, v ...<font color=blue>interface</font>{}) 
+        + Panicln(v ...<font color=blue>interface</font>{}) 
+        + Warn(v ...<font color=blue>interface</font>{}) 
+        + Warnf(format string, v ...<font color=blue>interface</font>{}) 
+        + Warnln(v ...<font color=blue>interface</font>{}) 
+        + WithFields(fields ...field.Field) base.MyLogger
+
+    }
+}
+
+"base.MyLogger" <|-- "logrus.loggerLogrus"
+"base.Option" <|-- "logrus.loggerLogrus"
+
+"logrus.loggerLogrus" o-- "base.LogFormat"
+"logrus.loggerLogrus" o-- "base.LogLevel"
+"logrus.loggerLogrus" o-- "base.OptWithLocation"
+"logrus.loggerLogrus" o-- "logrus.Entry"
+
+namespace main {
+    class Generator << (S,Aquamarine) >> {
+        - buf bytes.Buffer
+
+        - reset() 
+        - generate(pkgName string, prefixes ...string) ([]byte, error)
+        - genHeader(pkgName string) 
+        - genFieldDecls(prefixes ...string) error
+        - format() ([]byte, error)
+
+    }
+}
+
+
+"main.Generator" o-- "bytes.Buffer"
+
+"__builtin__.int" #.. "field.FieldType"
+"__builtin__.string" #.. "base.LogFormat"
+"__builtin__.string" #.. "base.LoggerType"
+"__builtin__.uint8" #.. "base.LogLevel"
+"log.fontcolorbluefuncfontbaseLogLevelbaseLogFormatioWriterbaseOptionbaseMyLogger" #.. "log.LoggerCreator"
+@enduml
