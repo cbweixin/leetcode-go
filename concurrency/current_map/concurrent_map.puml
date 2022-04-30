@@ -1,0 +1,159 @@
+@startuml
+namespace current_map {
+    interface Bucket  {
+        + Put(p Pair, lock sync.Locker) (bool, error)
+        + Get(key string) Pair
+        + GetFirstPair() Pair
+        + Delete(key string, lock sync.Locker) bool
+        + Clear(lock sync.Locker) 
+        + Size() uint64
+        + String() string
+
+    }
+    interface ConcurrentMap  {
+        + Concurrency() int
+        + Put(key string, element <font color=blue>interface</font>{}) (bool, error)
+        + Get(key string) <font color=blue>interface</font>{}
+        + Delete(key string) bool
+        + Len() uint64
+
+    }
+    class IllegalPairTypeError << (S,Aquamarine) >> {
+        - msg string
+
+        + Error() string
+
+    }
+    class IllegalParameterError << (S,Aquamarine) >> {
+        - msg string
+
+        + Error() string
+
+    }
+    interface Pair  {
+        + Key() string
+        + Hash() uint64
+        + Element() <font color=blue>interface</font>{}
+        + SetElement(element <font color=blue>interface</font>{}) error
+        + Copy() Pair
+        + String() string
+
+    }
+    interface PairRedistributor  {
+        + UpdateThreshold(pairTotal uint64, bucketNumber int) 
+        + CheckBucketStatus(pairTotal uint64, bucketSize uint64) BucketStatus
+        + Redistribe(bucketStatus BucketStatus, buckets []Bucket) ([]Bucket, bool)
+
+    }
+    class PairRedistributorError << (S,Aquamarine) >> {
+        - msg string
+
+        + Error() string
+
+    }
+    interface Segment  {
+        + Put(p Pair) (bool, error)
+        + Get(key string) Pair
+        + GetWithHash(key string, keyHash uint64) Pair
+        + Delete(key string) bool
+        + Size() uint64
+
+    }
+    class bucket << (S,Aquamarine) >> {
+        - firstValue atomic.Value
+        - size uint64
+
+        + Put(p Pair, lock sync.Locker) (bool, error)
+        + Get(key string) Pair
+        + GetFirstPair() Pair
+        + Delete(key string, lock sync.Locker) bool
+        + Clear(lock sync.Locker) 
+        + Size() uint64
+        + String() string
+
+    }
+    class current_map.BucketStatus << (T, #FF7700) >>  {
+    }
+    interface linkedPair  {
+        + Next() Pair
+        + SetNext(nextPair Pair) error
+
+    }
+    class myConcurrentMap << (S,Aquamarine) >> {
+        - concurrency int
+        - segments []Segment
+        - total uint64
+
+        - findSegment(keyHash uint64) Segment
+
+        + Concurrency() int
+        + Put(key string, element <font color=blue>interface</font>{}) (bool, error)
+        + Get(key string) <font color=blue>interface</font>{}
+        + Delete(key string) bool
+        + Len() uint64
+
+    }
+    class myPairRedistributor << (S,Aquamarine) >> {
+        - loadFactor float64
+        - upperThreshold uint64
+        - overweightBucketCount uint64
+        - emptyBucketCount uint64
+
+        + UpdateThreshold(pairTotal uint64, bucketNumber int) 
+        + CheckBucketStatus(pairTotal uint64, bucketSize uint64) BucketStatus
+        + Redistribe(bucketStatus BucketStatus, buckets []Bucket) ([]Bucket, bool)
+
+    }
+    class pair << (S,Aquamarine) >> {
+        - key string
+        - hash uint64
+        - element unsafe.Pointer
+        - next unsafe.Pointer
+
+        - genString(nextDetail bool) string
+
+        + Key() string
+        + Hash() uint64
+        + Element() <font color=blue>interface</font>{}
+        + SetElement(element <font color=blue>interface</font>{}) error
+        + Next() Pair
+        + SetNext(nextPair Pair) error
+        + Copy() Pair
+        + String() string
+
+    }
+    class segment << (S,Aquamarine) >> {
+        - buckets []Bucket
+        - bucketsLen int
+        - pairTotal uint64
+        - pairRedistributor PairRedistributor
+        - lock sync.Mutex
+
+        - redistribute(pairTotal uint64, bucketSize uint64) error
+
+        + Put(p Pair) (bool, error)
+        + Get(key string) Pair
+        + GetWithHash(key string, keyHash uint64) Pair
+        + Delete(key string) bool
+        + Size() uint64
+
+    }
+}
+"current_map.linkedPair" *-- "current_map.Pair"
+
+"current_map.Bucket" <|-- "current_map.bucket"
+"current_map.ConcurrentMap" <|-- "current_map.myConcurrentMap"
+"current_map.PairRedistributor" <|-- "current_map.myPairRedistributor"
+"current_map.Pair" <|-- "current_map.pair"
+"current_map.linkedPair" <|-- "current_map.pair"
+"current_map.Segment" <|-- "current_map.segment"
+
+"current_map.bucket" o-- "atomic.Value"
+"current_map.myConcurrentMap" o-- "current_map.Segment"
+"current_map.pair" o-- "unsafe.Pointer"
+"current_map.segment" o-- "current_map.Bucket"
+"current_map.segment" o-- "current_map.PairRedistributor"
+"current_map.segment" o-- "sync.Mutex"
+
+"__builtin__.uint8" #.. "current_map.BucketStatus"
+@enduml
