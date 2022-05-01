@@ -1,0 +1,40 @@
+@startuml
+namespace read_write_lock_v1 {
+    interface DataFile  {
+        + Read() (int64, Data, error)
+        + Write(d Data) (int64, error)
+        + RSN() int64
+        + WSN() int64
+        + DataLen() uint32
+        + Close() error
+
+    }
+    class myDataFile << (S,Aquamarine) >> {
+        - f *os.File
+        - fmutex sync.RWMutex
+        - woffset int64
+        - roffset int64
+        - wmutex sync.Mutex
+        - rmutex sync.Mutex
+        - dataLen uint32
+
+        + Read() (int64, Data, error)
+        + Write(d Data) (int64, error)
+        + RSN() int64
+        + WSN() int64
+        + DataLen() uint32
+        + Close() error
+
+    }
+    class read_write_lock_v1.Data << (T, #FF7700) >>  {
+    }
+}
+
+"read_write_lock_v1.DataFile" <|-- "read_write_lock_v1.myDataFile"
+
+"read_write_lock_v1.myDataFile" o-- "os.File"
+"read_write_lock_v1.myDataFile" o-- "sync.Mutex"
+"read_write_lock_v1.myDataFile" o-- "sync.RWMutex"
+
+"__builtin__.[]byte" #.. "read_write_lock_v1.Data"
+@enduml
