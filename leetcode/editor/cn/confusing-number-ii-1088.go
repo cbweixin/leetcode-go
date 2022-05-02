@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 func confusingNumberII(n int) int {
 	res := 0
 	confusings := map[int]int{
@@ -17,14 +15,13 @@ func confusingNumberII(n int) int {
 			return
 		}
 		if normalNum != confusingNum {
-			fmt.Printf("%d ", normalNum)
 			res++
 		}
 		for k, e := range confusings {
 			if normalNum == 0 && k == 0 {
 				continue
 			}
-			dfs(normalNum*decimal+k, e*decimal+confusingNum, decimal*10)
+			dfs(normalNum*10+k, e*decimal+confusingNum, decimal*10)
 		}
 		return
 
