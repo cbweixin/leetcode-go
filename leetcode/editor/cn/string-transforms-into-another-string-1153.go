@@ -63,7 +63,6 @@ func canConvert(str1 string, str2 string) bool {
 		}
 	}
 	return true
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
