@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/heap"
 	"fmt"
 	"sort"
 )
@@ -56,7 +57,8 @@ import (
 
 // 2022-05-28 07:57:37
 // leetcode submit region begin(Prohibit modification and deletion)
-func connectSticks(sticks []int) int {
+//  sort
+func connectSticks2(sticks []int) int {
 	sort.Ints(sticks)
 	stack := make([]int, 0)
 
@@ -90,6 +92,36 @@ func connectSticks(sticks []int) int {
 	}
 	return res
 
+}
+
+func connectSticks(sticks []int) int {
+	h := IntHeap(sticks)
+	heap.Init(&h)
+	res := 0
+	for h.Len() > 1 {
+		a := heap.Pop(&h).(int)
+		b := heap.Pop(&h).(int)
+		res += a + b
+		heap.Push(&h, a+b)
+	}
+	return res
+}
+
+// knowledge how to implement heap
+type IntHeap []int
+
+func (h IntHeap) Len() int           { return len(h) }
+func (h IntHeap) Less(i, j int) bool { return h[i] < h[j] }
+func (h IntHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h *IntHeap) Push(x interface{}) {
+	*h = append(*h, x.(int))
+}
+func (h *IntHeap) Pop() interface{} {
+	old := *h
+	n := len(old)
+	x := old[n-1]
+	*h = old[0 : n-1]
+	return x
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
