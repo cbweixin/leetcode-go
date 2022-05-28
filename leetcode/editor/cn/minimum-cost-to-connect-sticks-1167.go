@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 // 你有一些长度为正整数的棍子。这些长度以数组 sticks 的形式给出， sticks[i] 是 第i个 木棍的长度。
 //
@@ -68,7 +71,7 @@ func connectSticks(sticks []int) int {
 		if len(*s1) == 0 {
 			res = pop(s2)
 		} else if len(*s2) == 0 {
-			res = pop(s2)
+			res = pop(s1)
 		} else if (*s1)[0] < (*s2)[0] {
 			res = pop(s1)
 		} else {
@@ -90,3 +93,8 @@ func connectSticks(sticks []int) int {
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	sticks := []int{2, 4, 3}
+	res := connectSticks(sticks)
+	fmt.Println(res)
+}
