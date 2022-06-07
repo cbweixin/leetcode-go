@@ -71,6 +71,7 @@ package main
 // 2022-05-21 12:38:08
 //leetcode submit region begin(Prohibit modification and deletion)
 func mostVisitedPattern(username []string, timestamp []int, website []string) []string {
+	// TODO
 
 }
 

@@ -1,0 +1,48 @@
+### 解题思路
+
+1. 本题需要同时考虑到`建点`和`建边`
+2. 思路：
+   - 建立一个`超级源点`，将所有点和超级源点连接成边
+   - 将所有边，按照从小到大排序，构造最小生成树
+3. 复杂度分析
+   - 时间复杂度：O($(n+e)*log(n+e)$)，n为点数，e为边数
+   - 空间复杂度：O($n+e)$)
+
+### 代码
+
+* python3
+
+```python3
+class Solution:
+    def minCostToSupplyWater(self, n: int, wells: List[int], pipes: List[List[int]]) -> int:
+        parent=list(range(n+1))
+        def find(x):
+            if x!=parent[x]:
+                parent[x]=find(parent[x])
+            return parent[x]
+        def union(x,y):
+            a,b=find(x),find(y)
+            if a!=b:
+                parent[b]=a
+
+        # 建立超级源点
+        for i in range(n):
+            pipes.append([0,i+1,wells[i]])
+
+        # 最小生成树
+        pipes.sort(key=lambda x:x[2])
+        edge=0
+        cnt=0
+        for h1,h2,c in pipes:
+            if find(h1)!=find(h2):
+                union(h1,h2)
+                cnt+=c
+                edge+=1
+            # 达到最小生成树的条件，退出
+            if edge==n:
+                break
+
+        return cnt
+
+```
+

@@ -25,6 +25,8 @@ package main
 
 // 2022-06-07 07:20:04
 //leetcode submit region begin(Prohibit modification and deletion)
+
+// bfs
 func countSteppingNumbers(low int, high int) []int {
 	que := make([]int, 0)
 	for i := 0; i < 10; i++ {
