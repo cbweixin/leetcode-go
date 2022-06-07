@@ -9,6 +9,7 @@ import (
 // https://www.bilibili.com/video/BV1n4411b75w?t=1470.3
 // https://github.com/talkgo/night/issues/364
 
+// The count value: [1 3 5 7]
 func StoreValue() {
 	var countVal atomic.Value
 	countVal.Store([]int{1, 3, 5, 7})
