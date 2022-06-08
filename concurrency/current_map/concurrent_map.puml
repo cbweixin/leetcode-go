@@ -139,21 +139,21 @@ namespace current_map {
 
     }
 }
-"current_map.linkedPair" *-- "current_map.Pair"
+"current_map.linkedPair" *-- "extends""current_map.Pair"
 
-"current_map.Bucket" <|-- "current_map.bucket"
-"current_map.ConcurrentMap" <|-- "current_map.myConcurrentMap"
-"current_map.PairRedistributor" <|-- "current_map.myPairRedistributor"
-"current_map.Pair" <|-- "current_map.pair"
-"current_map.linkedPair" <|-- "current_map.pair"
-"current_map.Segment" <|-- "current_map.segment"
+"current_map.Bucket" <|-- "implements""current_map.bucket"
+"current_map.ConcurrentMap" <|-- "implements""current_map.myConcurrentMap"
+"current_map.PairRedistributor" <|-- "implements""current_map.myPairRedistributor"
+"current_map.Pair" <|-- "implements""current_map.pair"
+"current_map.linkedPair" <|-- "implements""current_map.pair"
+"current_map.Segment" <|-- "implements""current_map.segment"
 
-"current_map.bucket" o-- "atomic.Value"
-"current_map.myConcurrentMap" o-- "current_map.Segment"
-"current_map.pair" o-- "unsafe.Pointer"
-"current_map.segment" o-- "current_map.Bucket"
-"current_map.segment" o-- "current_map.PairRedistributor"
-"current_map.segment" o-- "sync.Mutex"
+"current_map.bucket""uses" o-- "atomic.Value"
+"current_map.myConcurrentMap""uses" o-- "current_map.Segment"
+"current_map.pair""uses" o-- "unsafe.Pointer"
+"current_map.segment""uses" o-- "current_map.Bucket"
+"current_map.segment""uses" o-- "current_map.PairRedistributor"
+"current_map.segment""uses" o-- "sync.Mutex"
 
-"__builtin__.uint8" #.. "current_map.BucketStatus"
+"__builtin__.uint8" #.. "alias of""current_map.BucketStatus"
 @enduml
