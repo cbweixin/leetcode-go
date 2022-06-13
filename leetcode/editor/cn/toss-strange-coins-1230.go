@@ -32,6 +32,7 @@ package main
 
 // 2022-06-12 19:46:49
 //leetcode submit region begin(Prohibit modification and deletion)
+// dp
 func probabilityOfHeads(prob []float64, target int) float64 {
 	l := len(prob)
 	dp := make([]float64, l+1)
