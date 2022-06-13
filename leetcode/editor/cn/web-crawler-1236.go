@@ -149,7 +149,7 @@ func crawl(startUrl string, htmlParser HtmlParser) []string {
 			}
 
 		}
-
+		que = que[l:]
 	}
 
 	return res
