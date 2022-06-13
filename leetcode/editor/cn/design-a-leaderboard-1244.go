@@ -62,27 +62,27 @@ package main
 // import "math/rand"
 
 type Leaderboard struct {
-	Board *map[int]int
+	Board map[int]int
 }
 
 func Constructor() Leaderboard {
 	return Leaderboard{
-		Board: &map[int]int{},
+		Board: map[int]int{},
 	}
 }
 
 func (this *Leaderboard) AddScore(playerId int, score int) {
-	if v, ok := (*this.Board)[playerId]; ok {
-		(*this.Board)[playerId] = v + score
+	if v, ok := this.Board[playerId]; ok {
+		this.Board[playerId] = v + score
 	} else {
-		(*this.Board)[playerId] = score
+		this.Board[playerId] = score
 	}
 }
 
 func (this *Leaderboard) Top(K int) int {
-	arr := make([]int, len(*this.Board))
+	arr := make([]int, len(this.Board))
 	idx := 0
-	for _, v := range *this.Board {
+	for _, v := range this.Board {
 		arr[idx] = v
 		idx++
 	}
@@ -125,7 +125,7 @@ func (this *Leaderboard) Top(K int) int {
 }
 
 func (this *Leaderboard) Reset(playerId int) {
-	delete(*(this.Board), playerId)
+	delete(this.Board, playerId)
 }
 
 /**
