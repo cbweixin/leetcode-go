@@ -104,7 +104,7 @@ func (this *Leaderboard) Top(K int) int {
 	kth := func(k int) {
 		left, right := 0, len(arr)-1
 		for left <= right {
-			pivot := rand.Int() % K
+			pivot := left + rand.Int()%(right-left+1)
 			p := partition(left, right, pivot)
 			if p == K {
 				return
