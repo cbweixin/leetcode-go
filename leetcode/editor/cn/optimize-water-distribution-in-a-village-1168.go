@@ -61,6 +61,7 @@ package main
 // 2022-06-07 07:35:46
 //leetcode submit region begin(Prohibit modification and deletion)
 func minCostToSupplyWater(n int, wells []int, pipes [][]int) int {
+	// TODO
 
 }
 
