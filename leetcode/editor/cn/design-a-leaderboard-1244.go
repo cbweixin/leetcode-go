@@ -59,7 +59,7 @@ package main
 
 // 2022-06-13 06:56:50
 //leetcode submit region begin(Prohibit modification and deletion)
-import "math/rand"
+// import "math/rand"
 
 type Leaderboard struct {
 	Board *map[int]int
@@ -91,7 +91,7 @@ func (this *Leaderboard) Top(K int) int {
 		arr[pivot], arr[right] = arr[right], arr[pivot]
 
 		for i := left; i < right; i++ {
-			if arr[i] < arr[right] {
+			if arr[i] > arr[right] {
 				arr[i], arr[boundary] = arr[boundary], arr[i]
 				boundary++
 			}
@@ -104,9 +104,10 @@ func (this *Leaderboard) Top(K int) int {
 	kth := func(k int) {
 		left, right := 0, len(arr)-1
 		for left <= right {
-			pivot := left + rand.Int()%(right-left+1)
+			// pivot := left + rand.Int()%(right-left+1)
+			pivot := left
 			p := partition(left, right, pivot)
-			if p == K {
+			if p+1 == K {
 				return
 			} else if p > K {
 				right = pivot - 1
@@ -116,8 +117,8 @@ func (this *Leaderboard) Top(K int) int {
 		}
 	}
 	kth(K)
-	res, l := 0, len(arr)
-	for i := l - K; i < l; i++ {
+	res := 0
+	for i := 0; i < K; i++ {
 		res += arr[i]
 	}
 	return res
