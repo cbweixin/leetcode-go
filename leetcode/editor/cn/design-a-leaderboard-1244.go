@@ -87,7 +87,7 @@ func (this *Leaderboard) Top(K int) int {
 		idx++
 	}
 	partition := func(left, right, pivot int) int {
-		boundary := arr[left]
+		boundary := left
 		arr[pivot], arr[right] = arr[right], arr[pivot]
 
 		for i := left; i < right; i++ {
