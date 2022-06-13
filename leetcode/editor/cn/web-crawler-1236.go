@@ -99,7 +99,7 @@ import (
  * }
  */
 
-func crawl(startUrl string, htmlParser HtmlParser) []string {
+func crawll(startUrl string, htmlParser HtmlParser) []string {
 	hostName := strings.Split(startUrl, "/")[2]
 	que := []string{startUrl}
 	visited := make(map[string]bool)
@@ -119,6 +119,37 @@ func crawl(startUrl string, htmlParser HtmlParser) []string {
 				que = append(que, nextUrl)
 			}
 		}
+	}
+
+	return res
+
+}
+
+func crawl(startUrl string, htmlParser HtmlParser) []string {
+	hostName := strings.Split(startUrl, "/")[2]
+	que := []string{startUrl}
+	visited := make(map[string]bool)
+	visited[startUrl] = true
+	res := make([]string, 0)
+	res = append(res, startUrl)
+
+	for len(que) > 0 {
+		l := len(que)
+		for i := 0; i < l; i++ {
+			s := que[i]
+			for _, nextUrl := range htmlParser.GetUrls(s) {
+				if !strings.Contains(nextUrl, hostName) {
+					continue
+				}
+				if _, ok := visited[nextUrl]; !ok {
+					visited[nextUrl] = true
+					que = append(que, nextUrl)
+					res = append(res, nextUrl)
+				}
+			}
+
+		}
+
 	}
 
 	return res
