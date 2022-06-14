@@ -106,6 +106,8 @@ func (this *Leaderboard) Top(K int) int {
 		for left <= right {
 			pivot := left + rand.Int()%(right-left+1)
 			p := partition(left, right, pivot)
+			// notice when we say top k, k start from index 1, not zero, so we need do p+1
+			// or when call kth, we pass in kth(K-1), either way
 			if p+1 == K {
 				return
 			} else if p+1 > K {
