@@ -58,7 +58,7 @@ func minimumMoves(arr []int) int {
 	for gap := 1; gap < l; gap++ {
 		for i := l - 1 - gap; i >= 0; i-- {
 			j := i + gap
-			if arr[i] == arr[i] {
+			if arr[i] == arr[j] {
 				if gap == 1 {
 					dp[i][j] = 1
 				} else {
