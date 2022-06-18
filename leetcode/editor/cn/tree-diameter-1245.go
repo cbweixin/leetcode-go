@@ -43,18 +43,18 @@ package main
 // 2022-06-14 06:44:37
 //leetcode submit region begin(Prohibit modification and deletion)
 
-type TreeNode struct {
-	Var      int
-	Children []*TreeNode
+type MTreeNode struct {
+	Denomin  int
+	Children []MTreeNode
 }
 
 func treeDiameter(edges [][]int) int {
 	l := len(edges)
-	nodes := make([]*TreeNode, l+1)
+	nodes := make([]MTreeNode, l+1)
 	for i := 0; i < l; i++ {
-		nodes[i] = &TreeNode{
-			Var:      i,
-			Children: make([]*TreeNode, 0),
+		nodes[i] = MTreeNode{
+			Denomin:  i,
+			Children: make([]MTreeNode, 0),
 		}
 	}
 	for _, v := range edges {
@@ -70,23 +70,32 @@ func treeDiameter(edges [][]int) int {
 	}
 
 	res := 0
-	var dfs func(int) int
-	dfs = func(n int) int {
-		if len(nodes[n].Children) == 0 {
-			return 0
-		}
+	var dfs func(int, int) int
+	dfs = func(n, pre int) int {
 
-		tPath := 0
+		d1, d2 := 0, 0
 		for _, node := range nodes[n].Children {
-			tPath = max(tPath, dfs(node.Var))
+			if node.Denomin == pre {
+				continue
+			}
+			d := dfs(node.Denomin, n)
+			if d > d1 {
+				d1, d2 = d, d1
+			} else if d > d2 {
+				d2 = d
+			}
 		}
 
-		res = max(res, tPath+1)
-		return tPath + 1
+		res = max(res, d1+d2)
+		return d1 + 1
 	}
 
-	dfs(0)
+	dfs(0, -1)
 	return res
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	edges := [][]int{{0, 1}, {0, 2}}
+	println(treeDiameter(edges))
+}
