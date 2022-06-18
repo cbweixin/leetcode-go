@@ -45,16 +45,16 @@ package main
 
 type MTreeNode struct {
 	Denomin  int
-	Children []MTreeNode
+	Children []*MTreeNode
 }
 
 func treeDiameter(edges [][]int) int {
 	l := len(edges)
-	nodes := make([]MTreeNode, l+1)
+	nodes := make([]*MTreeNode, l+1)
 	for i := 0; i < l+1; i++ {
-		nodes[i] = MTreeNode{
+		nodes[i] = &MTreeNode{
 			Denomin:  i,
-			Children: make([]MTreeNode, 0),
+			Children: make([]*MTreeNode, 0),
 		}
 	}
 	for _, v := range edges {
