@@ -51,7 +51,7 @@ type MTreeNode struct {
 func treeDiameter(edges [][]int) int {
 	l := len(edges)
 	nodes := make([]MTreeNode, l+1)
-	for i := 0; i < l; i++ {
+	for i := 0; i < l+1; i++ {
 		nodes[i] = MTreeNode{
 			Denomin:  i,
 			Children: make([]MTreeNode, 0),
@@ -72,7 +72,6 @@ func treeDiameter(edges [][]int) int {
 	res := 0
 	var dfs func(int, int) int
 	dfs = func(n, pre int) int {
-
 		d1, d2 := 0, 0
 		for _, node := range nodes[n].Children {
 			if node.Denomin == pre {
