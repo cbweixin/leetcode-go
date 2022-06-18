@@ -35,7 +35,6 @@ import "strconv"
 //leetcode submit region begin(Prohibit modification and deletion)
 func encode(num int) string {
 	return strconv.FormatInt(int64(num+1), 2)[1:]
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
