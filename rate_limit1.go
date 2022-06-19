@@ -1,5 +1,7 @@
 package main
 
+import "./concurrency/ratelimiter"
+
 const MAXREQS = 50
 
 var sem = make(chan int, MAXREQS)
@@ -28,7 +30,8 @@ func server4(service chan *Request3) {
 
 func main() {
 
-	service := make(chan *Request3)
-	go server4(service)
+	// service := make(chan *Request3)
+	// go server4(service)
+	ratelimiter.Serve()
 
 }
