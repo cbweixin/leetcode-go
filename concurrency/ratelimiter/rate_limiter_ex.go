@@ -8,6 +8,7 @@ import (
 )
 
 func Serve() {
+	// 1 / (1 * time.Millisecond).Seconds() = 1000
 	r := rate.Every(1 * time.Millisecond)
 	limiter := rate.NewLimiter(r, 10)
 	http.HandleFunc("/", func(writer http.ResponseWriter, request *http.Request) {

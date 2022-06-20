@@ -38,6 +38,7 @@ package main
 // 2022-06-19 08:13:59
 //leetcode submit region begin(Prohibit modification and deletion)
 func generateSentences(synonyms [][]string, text string) []string {
+	// TODO
 
 }
 

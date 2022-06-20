@@ -1,7 +1,5 @@
 package main
 
-import "./concurrency/ratelimiter"
-
 const MAXREQS = 50
 
 var sem = make(chan int, MAXREQS)
@@ -13,6 +11,7 @@ type Request3 struct {
 
 func process(r *Request3) {
 	// do something
+	println("processing")
 }
 
 func handle(r *Request3) {
@@ -30,8 +29,8 @@ func server4(service chan *Request3) {
 
 func main() {
 
-	// service := make(chan *Request3)
-	// go server4(service)
-	ratelimiter.Serve()
+	service := make(chan *Request3)
+	go server4(service)
+	// ratelimiter.Serve()
 
 }
