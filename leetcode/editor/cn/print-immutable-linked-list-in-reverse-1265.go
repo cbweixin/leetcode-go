@@ -1,6 +1,6 @@
 package main
 
-//给您一个不可变的链表，使用下列接口逆序打印每个节点的值：
+// 给您一个不可变的链表，使用下列接口逆序打印每个节点的值：
 //
 //
 // ImmutableListNode: 描述不可变链表的接口，链表的头节点已给出。
@@ -20,22 +20,22 @@ package main
 // 示例 1：
 //
 //
-//输入：head = [1,2,3,4]
-//输出：[4,3,2,1]
+// 输入：head = [1,2,3,4]
+// 输出：[4,3,2,1]
 //
 //
 // 示例 2：
 //
 //
-//输入：head = [0,-4,-1,3,-5]
-//输出：[-5,3,-1,-4,0]
+// 输入：head = [0,-4,-1,3,-5]
+// 输出：[-5,3,-1,-4,0]
 //
 //
 // 示例 3：
 //
 //
-//输入：head = [-2,0,6,4,4,-6]
-//输出：[-6,4,4,6,0,-2]
+// 输入：head = [-2,0,6,4,4,-6]
+// 输出：[-6,4,4,6,0,-2]
 //
 //
 //
@@ -63,7 +63,7 @@ package main
 // Related Topics 栈 递归 链表 双指针 👍 30 👎 0
 
 // 2022-06-21 17:44:41
-//leetcode submit region begin(Prohibit modification and deletion)
+// leetcode submit region begin(Prohibit modification and deletion)
 /*   Below is the interface for ImmutableListNode, which is already defined for you.
  *
  *   type ImmutableListNode struct {
@@ -79,7 +79,7 @@ package main
  *   }
  */
 
-func printLinkedListInReverse(head ImmutableListNode) {
+func printLinkedListInReverse2(head ImmutableListNode) {
 	if head == nil {
 		return
 	}
@@ -88,4 +88,23 @@ func printLinkedListInReverse(head ImmutableListNode) {
 
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+func printLinkedListInReverse(head ImmutableListNode) {
+	var reversePrint func(ImmutableListNode, ImmutableListNode)
+	reversePrint = func(start, end ImmutableListNode) {
+		if start == end {
+			return
+		}
+		slow, fast := start, start
+		for fast.getNext() != end && fast.getNext().getNext() != end {
+			slow, fast = slow.getNext(), fast.getNext().getNext()
+		}
+		reversePrint(slow.getNext(), end)
+		slow.printValue()
+		reversePrint(start, slow)
+	}
+
+	reversePrint(head, nil)
+
+}
+
+// leetcode submit region end(Prohibit modification and deletion)
