@@ -65,7 +65,8 @@ func removeInterval(intervals [][]int, toBeRemoved []int) [][]int {
 		s, e := intervals[i][0], intervals[i][1]
 		if s < min(e, a) {
 			res = append(res, []int{s, min(e, a)})
-		} else if e > max(s, b) {
+		}
+		if e > max(s, b) {
 			res = append(res, []int{max(s, b), e})
 		}
 	}
