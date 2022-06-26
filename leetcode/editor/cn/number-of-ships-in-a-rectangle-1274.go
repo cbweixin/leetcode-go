@@ -63,7 +63,7 @@ func countShips(sea Sea, topRight, bottomLeft []int) int {
 		tx, ty := tr[0], tr[1]
 		bx, by := bo[0], bo[1]
 
-		if tx > bx || ty > by || !sea.hasShips(tr, bo) {
+		if tx < bx || ty < by || !sea.hasShips(tr, bo) {
 			return 0
 		}
 		if tx == bx && ty == by {
