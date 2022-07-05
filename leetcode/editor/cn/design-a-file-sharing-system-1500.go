@@ -132,9 +132,9 @@ func (this *FileSharing) Join(ownedChunks []int) int {
 func (this *FileSharing) Leave(userID int) {
 	this.NumUsers--
 	l := len(this.AvailIds)
-	if l == 0 {
-		this.AvailIds = append(this.AvailIds, userID)
-	}
+	// if l == 0 {
+	// 	this.AvailIds = append(this.AvailIds, userID)
+	// }
 	idx := sort.Search(l, func(i int) bool {
 		return this.AvailIds[i] > userID
 	})
