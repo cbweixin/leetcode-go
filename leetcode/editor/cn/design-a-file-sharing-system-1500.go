@@ -155,6 +155,12 @@ func (this *FileSharing) Request(userID int, chunkID int) []int {
 	if len(owners) == 0 {
 		return owners
 	}
+	if _, ok := this.FileUser[chunkID]; !ok {
+		this.FileUser[chunkID] = make(map[int]struct{})
+	}
+	if _, ok2 := this.UserFile[userID]; !ok2 {
+		this.UserFile[userID] = make(map[int]struct{})
+	}
 	this.UserFile[userID][chunkID] = null
 	this.FileUser[chunkID][userID] = null
 
