@@ -99,7 +99,8 @@ type FileSharing struct {
 
 func Constructor(m int) FileSharing {
 	return FileSharing{
-		Chunks:   m,
+		Chunks: m,
+		// knowledge how to create a defaultdict(set) like in go
 		FileUser: map[int]map[int]struct{}{},
 		UserFile: map[int]map[int]struct{}{},
 		NumUsers: 0,
