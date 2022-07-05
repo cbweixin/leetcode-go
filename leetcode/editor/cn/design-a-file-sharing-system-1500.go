@@ -116,6 +116,12 @@ func (this *FileSharing) Join(ownedChunks []int) int {
 		id, this.AvailIds = this.AvailIds[0], this.AvailIds[1:]
 	}
 	for _, c := range ownedChunks {
+		if _, ok := this.FileUser[c]; !ok {
+			this.FileUser[c] = make(map[int]struct{})
+		}
+		if _, ok2 := this.UserFile[id]; !ok2 {
+			this.UserFile[id] = make(map[int]struct{})
+		}
 		this.FileUser[c][id] = null
 		this.UserFile[id][c] = null
 	}
