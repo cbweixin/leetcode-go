@@ -12,6 +12,7 @@ func f2() {
 	<-ch
 }
 
+// 生产者和消费者出现在同一个 goroutine 中
 func f3() {
 	ch := make(chan int)
 	// producer blocked the routine, consumer has no opportunity to run
