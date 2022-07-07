@@ -68,8 +68,29 @@ func panic1() {
 	ch <- 1
 }
 
+func panic2() {
+	ch := make(chan int, 1)
+	done := make(chan struct{}, 1)
+
+	go func() {
+		<-time.After(2 * time.Second)
+		fmt.Println("close channel 2")
+		close(ch)
+		close(done)
+	}()
+
+	go func() {
+		<-time.After(1 * time.Second)
+		fmt.Println("close 1")
+		ch <- 1
+		close(ch)
+	}()
+	<-done
+
+}
+
 func main() {
-	panic1()
+	panic2()
 
 	// f2()
 	// f1()
