@@ -1,5 +1,11 @@
 package main
 
+import (
+	"fmt"
+	"runtime"
+	"time"
+)
+
 // 只有生产者，没有消费者
 func f1() {
 	ch := make(chan int)
@@ -22,9 +28,49 @@ func f3() {
 
 }
 
+func leak1() {
+	ch := make(chan int)
+	go func() {
+		time.Sleep(2 * time.Second)
+		ch <- 100
+	}()
+
+	select {
+	case <-time.After(2500 * time.Millisecond):
+		fmt.Println("timeout! exit...")
+	case result := <-ch:
+		fmt.Printf("result : %n\n", result)
+	}
+}
+
+func leak2() {
+	ch := make(chan int)
+
+	// consumer
+	go func() {
+		for result := range ch {
+			fmt.Printf("result : %d\n", result)
+		}
+	}()
+
+	// producer
+	ch <- 1
+	ch <- 2
+	time.Sleep(time.Second)
+	fmt.Println("producer close channel")
+	close(ch)
+
+}
+
 func main() {
-	go f2()
-	go f1()
-	f3()
-	print("hello")
+	// f2()
+	// f1()
+	// f3()
+	fmt.Printf("before goroutine num: %d\n", runtime.NumGoroutine())
+	for i := 0; i < 10; i++ {
+		leak2()
+	}
+	fmt.Printf("after goroutine num: %d\n", runtime.NumGoroutine())
+	//
+	// print("hello")
 }
