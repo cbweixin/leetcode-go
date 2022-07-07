@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"runtime"
 	"time"
 )
 
@@ -62,15 +61,25 @@ func leak2() {
 
 }
 
+func panic1() {
+	// panic, try to send to a closed channel
+	ch := make(chan int, 1)
+	close(ch)
+	ch <- 1
+}
+
 func main() {
+	panic1()
+
 	// f2()
 	// f1()
 	// f3()
-	fmt.Printf("before goroutine num: %d\n", runtime.NumGoroutine())
-	for i := 0; i < 10; i++ {
-		leak2()
-	}
-	fmt.Printf("after goroutine num: %d\n", runtime.NumGoroutine())
+	// fmt.Printf("before goroutine num: %d\n", runtime.NumGoroutine())
+	// for i := 0; i < 10; i++ {
+	// 	leak2()
+	// }
+	// time.Sleep(time.Second)
+	// fmt.Printf("after goroutine num: %d\n", runtime.NumGoroutine())
 	//
 	// print("hello")
 }
