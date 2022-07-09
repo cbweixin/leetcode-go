@@ -35,7 +35,7 @@ func main() {
 	fmt.Println(sumSqures(<-a, <-b))
 
 	c, d := make(chan int32), make(chan int32)
-	longTimeRequest2(c)
-	longTimeRequest2(d)
-	fmt.Println(<-c, <-d)
+	go longTimeRequest2(c)
+	go longTimeRequest2(d)
+	fmt.Println(sumSqures(<-c, <-d))
 }
