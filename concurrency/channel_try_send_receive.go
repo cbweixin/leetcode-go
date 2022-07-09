@@ -30,4 +30,14 @@ func main() {
 	fmt.Println(tryReceieve()) // Hi!
 	// The following line fails to receive.
 	fmt.Println(tryReceieve()) // -
+
+	// below code has 50% possibility to panic, both of the two `case` operations are non-block
+	c2 := make(chan struct{})
+	close(c2)
+	select {
+	// send to closed, non-nil channel would cause panic
+	case c2 <- struct{}{}:
+		// but receive from closed, non-nil chan, you would get zero value, no panic
+	case <-c2:
+	}
 }
