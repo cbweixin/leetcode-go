@@ -94,7 +94,7 @@ func panic2() {
 }
 
 func main() {
-	panic2()
+	// panic2()
 
 	// f2()
 	// f1()
