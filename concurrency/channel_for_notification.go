@@ -119,6 +119,12 @@ func main() {
 	//
 	// By the example in the last sub-section, we can replace the three channel send operations ready <- struct{}{} in
 	// the last example with one channel close operation close(ready) to do an 1-to-N notifications.
+	// Surely, we can also close a channel to do a 1-to-1 notification. In fact, this is the most used notification way
+	// in Go.
+	//
+	// The feature that infinite values can be received from a closed channel will be utilized in many other use cases
+	// introduced below. In fact, the feature is used popularly in the standard packages. For example, the context
+	// package uses this feature to confirm cancellations.
 	close(ready1) // broadcast notification
 
 	// being N-to-1 notified
