@@ -41,5 +41,5 @@ func main() {
 	<-done
 	//do other things
 
-	fmt.Println(values[0], values[len(values)-1])
+	fmt.Println(values[0], len(values), values[len(values)-1])
 }
