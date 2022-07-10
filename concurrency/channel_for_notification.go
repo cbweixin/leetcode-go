@@ -202,6 +202,36 @@ func runBar2() {
 
 }
 
+// There will be at most about ten live customer goroutines coexisting in the above optimized version (but there will
+// still be a lots of customer goroutines to be created in the program lifetime).
+//
+// In a more efficient implementation shown below, at most ten customer serving goroutines will be created in the
+// program lifetime.
+func ServeCustomerByroutine(consumers chan int) {
+	for c := range consumers {
+		log.Print("++ customer #", c, " drinks at bar")
+		time.Sleep(time.Second * time.Duration(2+rand.Intn(6)))
+		log.Print("-- customer #", c, " leaves the bar")
+	}
+}
+
+func runBar3() {
+	rand.Seed(time.Now().UnixNano())
+
+	const BarSeatCount = 10
+	consumers := make(chan int)
+
+	for i := 0; i < BarSeatCount; i++ {
+		go ServeCustomerByroutine(consumers)
+	}
+
+	for customerId := 0; ; customerId++ {
+		time.Sleep(time.Second)
+		consumers <- customerId
+	}
+
+}
+
 func main() {
 	// 1-to-1 notification by sending a value to a channel
 
@@ -221,14 +251,16 @@ func main() {
 
 	// sorting goroutine
 	go func() {
-		sort.Slice(values, func(i, j int) bool {
-			return values[i] < values[j]
-		})
+		sort.Slice(
+			values, func(i, j int) bool {
+				return values[i] < values[j]
+			},
+		)
 		done <- struct{}{}
 	}()
 
 	<-done
-	//do other things
+	// do other things
 
 	fmt.Println(values[0], len(values), values[len(values)-1])
 
@@ -243,9 +275,11 @@ func main() {
 
 	done1 := make(chan struct{})
 	go func() {
-		sort.Slice(values, func(i, j int) bool {
-			return values[i] < values[j]
-		})
+		sort.Slice(
+			values, func(i, j int) bool {
+				return values[i] < values[j]
+			},
+		)
 		<-done1
 	}()
 
@@ -308,5 +342,7 @@ func main() {
 	mutexEx1()
 	mutexEx2()
 
-	runBar2()
+	// runBar()
+	// runBar2()
+	runBar3()
 }
