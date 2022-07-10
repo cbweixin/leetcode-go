@@ -111,7 +111,15 @@ func main() {
 	// simulate an initialization phrase
 	time.Sleep(time.Second * 3 / 2)
 	// 1-to-N notifications
-	close(ready1)
+
+	// Broadcast (1-to-N) notifications by closing a channel
+	// The way to do 1-to-N notifications shown in the last sub-section is seldom used in practice, for there is a
+	// better way. By making using of the feature that infinite values can be received from a closed channel, we can
+	// close a channel to broadcast notifications.
+	//
+	// By the example in the last sub-section, we can replace the three channel send operations ready <- struct{}{} in
+	// the last example with one channel close operation close(ready) to do an 1-to-N notifications.
+	close(ready1) // broadcast notification
 
 	// being N-to-1 notified
 	<-done4
