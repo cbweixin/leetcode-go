@@ -102,4 +102,19 @@ func main() {
 	<-done3
 	<-done3
 	<-done3
+
+	ready1, done4 := make(chan T), make(chan T)
+	go worker(3, ready1, done4)
+	go worker(4, ready1, done4)
+	go worker(5, ready1, done4)
+
+	// simulate an initialization phrase
+	time.Sleep(time.Second * 3 / 2)
+	// 1-to-N notifications
+	close(ready1)
+
+	// being N-to-1 notified
+	<-done4
+	<-done4
+	<-done4
 }
