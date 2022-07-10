@@ -88,6 +88,34 @@ func mutexEx1() {
 	fmt.Println("counter is ", counter)
 }
 
+// The following is a lock-through-receive example. It just shows the modified part based on the above lock-through-send
+// example.
+func mutexEx2() {
+	mutex := make(chan T, 1)
+	counter := 0
+	mutex <- T{}
+
+	increase := func() {
+		<-mutex
+		counter++
+		mutex <- T{}
+	}
+
+	increase1000 := func(done chan<- T) {
+		for i := 0; i < 1000; i++ {
+			increase()
+		}
+		done <- T{}
+	}
+
+	done := make(chan T)
+	go increase1000(done)
+	go increase1000(done)
+	<-done
+	<-done
+	fmt.Println("counter is ", counter)
+}
+
 func main() {
 	// 1-to-1 notification by sending a value to a channel
 
@@ -192,4 +220,5 @@ func main() {
 	fmt.Println("Bye!")
 
 	mutexEx1()
+	mutexEx2()
 }
