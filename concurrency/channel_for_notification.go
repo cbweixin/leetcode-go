@@ -20,6 +20,10 @@ type T struct{}
 // N-to-1 and 1-to-N notifications
 
 // By extending the above two use cases a little, it is easy to do N-to-1 and 1-to-N notifications.
+// In fact, the ways to do 1-to-N and N-to-1 notifications introduced in this sub-section are not used commonly in
+// practice. In practice, we often use sync.WaitGroup to do N-to-1 notifications, and we do 1-to-N notifications by
+// close channels. Please read the next sub-section for details.
+
 func worker(id int, ready <-chan T, done chan<- T) {
 	<-ready // block here and wait for notification
 
