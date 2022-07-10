@@ -2,9 +2,11 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"math/rand"
 	"os"
 	"sort"
+	"time"
 )
 
 // Use Channels for Notifications
@@ -12,6 +14,22 @@ import (
 // Notifications can be viewed as special requests/responses in which the responded values are not important. Generally
 // , we use the blank struct type struct{} as the element types of the notification channels, for the size of type
 // struct{} is zero, hence values of struct{} doesn't consume memory.
+
+type T struct{}
+
+// N-to-1 and 1-to-N notifications
+
+// By extending the above two use cases a little, it is easy to do N-to-1 and 1-to-N notifications.
+func worker(id int, ready <-chan T, done chan<- T) {
+	<-ready // block here and wait for notification
+
+	log.Print("worker #", id, " starts")
+	// simulate a work load
+	time.Sleep(time.Second * time.Duration(id+1))
+	log.Print("worker #", id, " job done")
+
+	done <- T{}
+}
 
 func main() {
 	// 1-to-1 notification by sending a value to a channel
@@ -63,4 +81,21 @@ func main() {
 	done1 <- struct{}{}
 	fmt.Println(values[0], len(values), values[len(values)-1])
 
+	log.SetFlags(0)
+	ready, done3 := make(chan T), make(chan T)
+	go worker(0, ready, done3)
+	go worker(1, ready, done3)
+	go worker(2, ready, done3)
+
+	// simulate an initialization phrase
+	time.Sleep(time.Second * 3 / 2)
+	// 1-to-N notifications
+	ready <- T{}
+	ready <- T{}
+	ready <- T{}
+
+	// being N-to-1 notified
+	<-done3
+	<-done3
+	<-done3
 }
