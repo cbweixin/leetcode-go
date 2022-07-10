@@ -24,6 +24,9 @@ type T struct{}
 // practice. In practice, we often use sync.WaitGroup to do N-to-1 notifications, and we do 1-to-N notifications by
 // close channels. Please read the next sub-section for details.
 
+type Seat int
+type Bar chan Seat
+
 func worker(id int, ready <-chan T, done chan<- T) {
 	<-ready // block here and wait for notification
 
@@ -114,6 +117,51 @@ func mutexEx2() {
 	<-done
 	<-done
 	fmt.Println("counter is ", counter)
+}
+
+// Use Channels as Counting Semaphores
+
+// Buffered channels can be used as counting semaphores. Counting semaphores can be viewed as multi-owner locks. If the
+// capacity of a channel is N, then it can be viewed as a lock which can have most N owners at any time. Binary
+// semaphores (mutexes) are special counting semaphores, each of binary semaphores can have at most one owner at
+// any time.
+//
+// Counting semaphores are often used to enforce a maximum number of concurrent requests.
+//
+// Like using channels as mutexes, there are also two manners to acquire one piece of ownership of a channel semaphore.
+// Acquire ownership through a send, release through a receive.
+// Acquire ownership through a receive, release through a send.
+// An example of acquiring ownership through receiving values from a channel.
+func (bar Bar) ServeCustomer(c int) {
+	log.Print("customer #", c, " enters the bar")
+	seat := <-bar // need a seat to drink
+	log.Print("++ customer #", c, " drinks at seat #", seat)
+	time.Sleep(time.Second * time.Duration(2+rand.Intn(6)))
+	log.Print("-- customer#", c, " frees seat#", seat)
+	bar <- seat // free seat and leave the bar
+}
+
+func runBar() {
+	rand.Seed(time.Now().UnixNano())
+
+	bar24x7 := make(Bar, 10) // the bar has 10 seats
+	// place seat in bar
+	for seatId := 0; seatId < cap(bar24x7); seatId++ {
+		// none of the sends will block
+		bar24x7 <- Seat(seatId)
+	}
+
+	for customerId := 0; ; customerId++ {
+		time.Sleep(time.Second)
+		go bar24x7.ServeCustomer(customerId)
+	}
+
+	// The last for loop in the main function is to avoid the program exiting. There is a better way, which will be
+	// introduced below, to do the job.
+	for { // sleeping != blocking
+		time.Sleep(time.Second)
+	}
+
 }
 
 func main() {
@@ -221,4 +269,6 @@ func main() {
 
 	mutexEx1()
 	mutexEx2()
+
+	runBar()
 }
