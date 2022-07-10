@@ -51,6 +51,20 @@ func source(c chan<- int32) {
 	c <- ra
 }
 
+// More request-response variants
+// The parameter and result channels can be buffered so that the response sides won't need to wait for the request sides
+// to take out the transferred values.
+//
+// Sometimes, a request is not guaranteed to be responded back a valid value. For all kinds of reasons, an error may be
+// returned instead. For such cases, we can use a struct type like struct{v T; err error} or a blank interface type as
+// the channel element type.
+//
+// Sometimes, for some reasons, the response may need a much longer time than the expected to arrive, or will never
+// arrive. We can use the timeout mechanism introduced below to handle such circumstances.
+//
+// Sometimes, a sequence of values may be returned from the response side, this is kind of the data flow mechanism
+// mentioned later below.
+
 func sumSqures(a, b int32) int32 {
 	return a*a + b*b
 }
