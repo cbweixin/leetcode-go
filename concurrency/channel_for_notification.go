@@ -35,6 +35,49 @@ func worker(id int, ready <-chan T, done chan<- T) {
 	done <- T{}
 }
 
+// Timer: scheduled notification
+// n fact, the After function in the time standard package provides the same functionality, with a much more
+// efficient implementation. We should use that function instead to make the code look clean.
+//
+// Please note, <-time.After(aDuration) will make the current goroutine enter blocking state, but a
+// time.Sleep(aDuration) function call will not.
+//
+// The use of <-time.After(aDuration) is often used in the timeout mechanism which will be introduced below.
+func AfterDuration(d time.Duration) <-chan struct{} {
+	c := make(chan struct{}, 1)
+	go func() {
+		time.Sleep(d)
+		c <- struct{}{}
+	}()
+
+	return c
+}
+
+func mutexEx1() {
+	mutex := make(chan T, 1)
+	counter := 0
+
+	increase := func() {
+		mutex <- T{}
+		counter++
+		<-mutex
+	}
+
+	increase1000 := func(done chan<- T) {
+		for i := 0; i < 1000; i++ {
+			increase()
+		}
+		done <- T{}
+	}
+
+	done := make(chan T)
+	go increase1000(done)
+	go increase1000(done)
+	<-done
+	<-done
+	fmt.Println("counter is ", counter)
+}
+
 func main() {
 	// 1-to-1 notification by sending a value to a channel
 
@@ -131,4 +174,12 @@ func main() {
 	<-done4
 	<-done4
 	<-done4
+
+	fmt.Println("Hi!")
+	<-AfterDuration(time.Second)
+	fmt.Println("Hello!")
+	<-AfterDuration(time.Second)
+	fmt.Println("Bye!")
+
+	mutexEx1()
 }
