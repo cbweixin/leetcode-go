@@ -53,6 +53,16 @@ func AfterDuration(d time.Duration) <-chan struct{} {
 	return c
 }
 
+// Use Channels as Mutex Locks
+
+// One of the above examples has mentioned that one-capacity buffered channels can be used as one-time binary semaphore.
+// In fact, such channels can also be used as multi-time binary semaphores, a.k.a., mutex locks, though such mutex locks
+// are not efficient as the mutexes provided in the sync standard package.
+//
+// There are two manners to use one-capacity buffered channels as mutex locks.
+// Lock through a send, unlock through a receive.
+// Lock through a receive, unlock through a send.
+// The following is a lock-through-send example.
 func mutexEx1() {
 	mutex := make(chan T, 1)
 	counter := 0
