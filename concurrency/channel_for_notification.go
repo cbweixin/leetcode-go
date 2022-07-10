@@ -42,4 +42,25 @@ func main() {
 	//do other things
 
 	fmt.Println(values[0], len(values), values[len(values)-1])
+
+	// 1-to-1 notification by receiving a value from a channel
+
+	// If the value buffer queue of a channel is full (the buffer queue of an unbuffered channel is always full), a
+	// send operation on the channel will block until another goroutine receives a value from the channel. So we can
+	// receive a value from a channel to notify another goroutine which is waiting to send a value to the same channel.
+	// Generally, the channel should be an unbuffered channel.
+	//
+	// This notification way is used much less common than the way introduced in the last example.
+
+	done1 := make(chan struct{})
+	go func() {
+		sort.Slice(values, func(i, j int) bool {
+			return values[i] < values[j]
+		})
+		<-done1
+	}()
+
+	done1 <- struct{}{}
+	fmt.Println(values[0], len(values), values[len(values)-1])
+
 }
