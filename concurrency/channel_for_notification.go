@@ -27,6 +27,34 @@ type T struct{}
 type Seat int
 type Bar chan Seat
 
+type Ball uint64
+
+func Play(playerName string, table chan Ball) {
+	var lastValue Ball = 1
+	for {
+		ball := <-table // get the ball
+		fmt.Println(playerName, ball)
+		ball += lastValue
+		if ball < lastValue { // overflow
+			os.Exit(0)
+		}
+		lastValue = ball
+		table <- ball // bat back the ball
+		time.Sleep(time.Second)
+	}
+}
+
+func playPingpong() {
+	table := make(chan Ball)
+	go func() {
+		table <- 1
+	}()
+
+	go Play("A: ", table)
+	Play("B: ", table)
+
+}
+
 func worker(id int, ready <-chan T, done chan<- T) {
 	<-ready // block here and wait for notification
 
@@ -207,6 +235,42 @@ func runBar2() {
 //
 // In a more efficient implementation shown below, at most ten customer serving goroutines will be created in the
 // program lifetime.
+
+func (bar Bar) ServeCustomerByRoutine(consumers chan int) {
+	for c := range consumers {
+		seatId := <-bar
+		log.Print("++ customer #", c, " drinks at seat#", seatId)
+		time.Sleep(time.Second * time.Duration(2+rand.Intn(6)))
+		log.Print("-- customer #", c, " frees seat#", seatId)
+		bar <- seatId
+	}
+}
+
+func runBar4() {
+	rand.Seed(time.Now().UnixNano())
+
+	bar24x7 := make(Bar, 10) // the bar has 10 seats
+	// place seat in bar
+	for seatId := 0; seatId < cap(bar24x7); seatId++ {
+		// none of the sends will block
+		bar24x7 <- Seat(seatId)
+	}
+
+	consumers := make(chan int)
+	for i := 0; i < cap(bar24x7); i++ {
+		go bar24x7.ServeCustomerByRoutine(consumers)
+
+	}
+
+	for customerId := 0; ; customerId++ {
+		time.Sleep(time.Second)
+		consumers <- customerId
+	}
+
+}
+
+// Off-topic: surely, if we don't care about seat IDs (which is common in practice), then the bar24x7 semaphore is not
+// essential at all:
 func ServeCustomerByroutine(consumers chan int) {
 	for c := range consumers {
 		log.Print("++ customer #", c, " drinks at bar")
@@ -344,5 +408,8 @@ func main() {
 
 	// runBar()
 	// runBar2()
-	runBar3()
+	// runBar3()
+	// runBar4()
+
+	playPingpong()
 }
