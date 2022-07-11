@@ -51,6 +51,16 @@ func source(c chan<- int32) {
 	c <- ra
 }
 
+func source2(c chan<- int32) {
+	ra, rb := rand.Int31(), rand.Intn(3)+1
+	time.Sleep(time.Second * time.Duration(rb))
+	select {
+	case c <- ra:
+	default:
+	}
+
+}
+
 // More request-response variants
 // The parameter and result channels can be buffered so that the response sides won't need to wait for the request sides
 // to take out the transferred values.
@@ -88,6 +98,7 @@ func main() {
 
 	startTime := time.Now()
 	// c2 must be a buffered channel
+	// if c2 is not a buffered channel, then c2 might block goroutine, which cause memory leak
 	c2 := make(chan int32, 5)
 	for i := 0; i < cap(c2); i++ {
 		go source(c2)
@@ -96,4 +107,14 @@ func main() {
 	rnd := <-c2
 	fmt.Println(time.Since(startTime))
 	fmt.Println(rnd)
+
+	// c3 must be a buffered channel, reason is the same above.
+	c3 := make(chan int32, 1)
+	for i := 0; i < 5; i++ {
+		go source2(c3)
+	}
+
+	rnd2 := <-c3
+	println(rnd2)
+
 }
