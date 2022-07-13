@@ -6,6 +6,8 @@ import (
 )
 
 func Ticker_test() {
+	// here we use a buffered channel. if we use unbuffered channel, it is possible
+	// all case are blocking call, so the whole goroutine just stucked
 	intChan := make(chan int, 1)
 	ticker := time.NewTicker(time.Second)
 	go func() {
