@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"math/rand"
+	"runtime"
 	"time"
 )
 
@@ -51,12 +52,18 @@ func source(c chan<- int32) {
 	c <- ra
 }
 
+// Another way to implement the first-response-wins use case
+
+// As mentioned above, we can use the select mechanism (try-send) with a buffered channel which capacity is one
+// (at least) to implement the first-response-wins use case. For example,
 func source2(c chan<- int32) {
 	ra, rb := rand.Int31(), rand.Intn(3)+1
+	fmt.Println("source2 before branch ", ra)
 	time.Sleep(time.Second * time.Duration(rb))
 	select {
 	case c <- ra:
 	default:
+		fmt.Println("source2 default branch ", ra)
 	}
 
 }
@@ -98,7 +105,8 @@ func main() {
 
 	startTime := time.Now()
 	// c2 must be a buffered channel
-	// if c2 is not a buffered channel, then c2 might block goroutine, which cause memory leak
+	// if c2 is not a buffered channel, then c <- ra would be a blocking call, then goroutine would stucked there
+	// and cause memory leak
 	c2 := make(chan int32, 5)
 	for i := 0; i < cap(c2); i++ {
 		go source(c2)
@@ -108,13 +116,22 @@ func main() {
 	fmt.Println(time.Since(startTime))
 	fmt.Println(rnd)
 
-	// c3 must be a buffered channel, reason is the same above.
-	c3 := make(chan int32, 1)
+	time.Sleep(time.Second * 2)
+
+	// c3 must be a buffered channel, reason is different from above.
+	// if c3 is not a buffered channel, then c3 <- ra would be a blocking call, hence it would go to default branch
+	// thus, rnd := <- c3 might never be getting any value
+	fmt.Println("before ", runtime.NumGoroutine())
+	c3 := make(chan int32, 0)
 	for i := 0; i < 5; i++ {
 		go source2(c3)
 	}
 
+	fmt.Println("middle ", runtime.NumGoroutine())
+	time.Sleep(time.Second * 1)
 	rnd2 := <-c3
 	println(rnd2)
+	time.Sleep(time.Second * 1)
+	fmt.Println("after ", runtime.NumGoroutine())
 
 }
