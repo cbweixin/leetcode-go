@@ -70,6 +70,7 @@ func leak2() {
 
 func panic1() {
 	// panic, try to send to a closed channel
+	// but try to get from a closed channel, you would get zero value, no panic would happen
 	ch := make(chan int, 1)
 	close(ch)
 	ch <- 1
