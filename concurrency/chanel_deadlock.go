@@ -83,6 +83,7 @@ func panic2() {
 	go func() {
 		<-time.After(2 * time.Second)
 		fmt.Println("close channel 2")
+		// close a closed channel would cause panic
 		close(ch)
 		close(done)
 	}()
