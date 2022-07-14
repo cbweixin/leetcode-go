@@ -38,7 +38,7 @@ func leak1() {
 		ch <- 100
 	}()
 
-	select {
+	select { // if timeout too early, then above goroutine would blocking forever,cause memory leak
 	case <-time.After(2500 * time.Millisecond):
 		fmt.Println("timeout! exit...")
 	case result := <-ch:
@@ -51,6 +51,7 @@ func leak2() {
 
 	// consumer
 	go func() {
+		// for..range would block consumer, if producer do not close channel, then this goroutine would stucked
 		for result := range ch {
 			fmt.Printf("result : %d\n", result)
 		}
@@ -61,6 +62,8 @@ func leak2() {
 	ch <- 2
 	time.Sleep(time.Second)
 	fmt.Println("producer close channel")
+	// without this line, OOM might occur
+	// https://cbweixin.github.io/2022/07/06/channel-related-issues/
 	close(ch)
 
 }
