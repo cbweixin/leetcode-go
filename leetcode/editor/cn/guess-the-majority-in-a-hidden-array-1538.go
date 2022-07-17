@@ -90,6 +90,7 @@ func guessMajority(reader *ArrayReader) int {
 	case4 := reader.query(0, 1, 2, 4)
 
 	equal0, unEqual0 := make([]int, 0), make([]int, 0)
+	// bugfixed - [0,0,1,1,0]
 	equal0 = append(equal0, 0)
 
 	if case0 == case1 {
