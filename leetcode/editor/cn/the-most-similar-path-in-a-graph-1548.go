@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 // 我们有 n 座城市和 m 条双向道路 roads ，其中 roads[i] = [ai, bi] 连接城市 ai 和城市 bi。每个城市的名称由字符串数组
 // names 中给出的三个大写英文字母组成。从任意城市 x 出发，你可以到达任意城市 y ，其中 y != x （即：城市和道路形成一张无向连通图）。
@@ -107,7 +110,7 @@ func mostSimilar(n int, roads [][]int, names []string, targetPath []string) []in
 	}
 
 	for j := 0; j < n; j++ {
-		if names[0] != names[j] {
+		if names[j] != targetPath[0] {
 			dp[0][j] = 1
 		} else {
 			dp[0][j] = 0
@@ -154,3 +157,19 @@ func mostSimilar(n int, roads [][]int, names []string, targetPath []string) []in
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	// Wrong Answer:
+	// input:25
+	// [[0,1],[1,6],[3,6],[2,3],[2,4],[4,5],[6,5],[6,7],[8,7],[8,12],[8,9],[10,9],[12,11],[12,9],[16,15],[15,14],[14,13],[14,19],[19,13],[20,19],[21,19],[22,19],[23,19],[24,19],[13,17],[17,18],[13,6],[18,12]]
+	// ["ICN","IKT","ATH","TBS","TLV","LCA","DME","AUH","CGK","DPS","KUL","BKK","SIN","LED","SVO","BEG","TIV","MSQ","PEK","PRG","DUB","MXP","ORY","CRL","AMS"]
+	// ["ATH","TBS","DME"]
+	// Output:[0,1,6]
+	// Expected:[2,3,6] stdout:
+	roads := [][]int{{0, 1}, {1, 6}, {3, 6}, {2, 3}, {2, 4}, {4, 5}, {6, 5}, {6, 7}, {8, 7}, {8, 12}, {8, 9}, {10, 9}, {12, 11}, {12, 9}, {16, 15}, {15, 14}, {14, 13}, {14, 19}, {19, 13}, {20, 19}, {21, 19}, {22, 19}, {23, 19}, {24, 19}, {13, 17}, {17, 18}, {13, 6}, {18, 12}}
+	names := []string{"ICN", "IKT", "ATH", "TBS", "TLV", "LCA", "DME", "AUH", "CGK", "DPS", "KUL", "BKK", "SIN", "LED", "SVO", "BEG",
+		"TIV", "MSQ", "PEK", "PRG", "DUB", "MXP", "ORY", "CRL", "AMS"}
+	targetPath := []string{"ATH", "TBS", "DME"}
+
+	fmt.Println(mostSimilar(25, roads, names, targetPath))
+
+}
