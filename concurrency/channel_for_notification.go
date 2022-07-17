@@ -113,6 +113,39 @@ func Play3() {
 
 }
 
+// Control code execution possibility weights
+
+// We can duplicate a case branch in a select code block to increase the execution possibility weigh of the
+// corresponding code.
+func CaseWithWeight() {
+	foo, bar := make(chan struct{}), make(chan struct{})
+	close(foo)
+	close(bar)
+	x, y := 0, 0
+
+	f := func() {
+		x++
+	}
+	g := func() {
+		y++
+	}
+
+	for i := 0; i < 1000000; i++ {
+		select {
+		case <-foo:
+			f()
+		case <-foo:
+			f()
+		case <-bar:
+			g()
+
+		}
+	}
+
+	fmt.Println(x / y)
+
+}
+
 func worker(id int, ready <-chan T, done chan<- T) {
 	<-ready // block here and wait for notification
 
@@ -461,14 +494,15 @@ func main() {
 	<-AfterDuration(time.Second)
 	fmt.Println("Bye!")
 
-	mutexEx1()
-	mutexEx2()
+	// mutexEx1()
+	// mutexEx2()
 
 	// runBar()
 	// runBar2()
 	// runBar3()
 	// runBar4()
 
+	CaseWithWeight()
 	Play3()
 	playPingPong2()
 	playPingpong()
