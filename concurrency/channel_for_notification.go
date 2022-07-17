@@ -101,6 +101,7 @@ func Play2(playerName string, table chan Ball, server bool) {
 // example will print 1212... when running. It has not much usefulness in practice. It is shown here just for learning
 // purpose.
 func Play3() {
+	// if c is a unbuffered channel, then both 2 case are blocked, we would get a deadlock error
 	for c := make(chan struct{}, 1); true; {
 		select {
 		case c <- struct{}{}:
