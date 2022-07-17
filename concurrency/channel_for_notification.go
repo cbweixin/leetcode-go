@@ -97,6 +97,22 @@ func Play2(playerName string, table chan Ball, server bool) {
 	}
 }
 
+// The following is another (non-concurrent) example which is much simpler and also demos the switch effect. This
+// example will print 1212... when running. It has not much usefulness in practice. It is shown here just for learning
+// purpose.
+func Play3() {
+	for c := make(chan struct{}, 1); true; {
+		select {
+		case c <- struct{}{}:
+			fmt.Println(1)
+		case <-c:
+			fmt.Println(2)
+		}
+	}
+	time.Sleep(time.Second)
+
+}
+
 func worker(id int, ready <-chan T, done chan<- T) {
 	<-ready // block here and wait for notification
 
@@ -453,6 +469,7 @@ func main() {
 	// runBar3()
 	// runBar4()
 
+	Play3()
 	playPingPong2()
 	playPingpong()
 }
