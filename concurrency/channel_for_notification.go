@@ -27,7 +27,7 @@ type T struct{}
 type Seat int
 type Bar chan Seat
 
-type Ball uint64
+type Ball uint8
 
 func Play(playerName string, table chan Ball) {
 	var lastValue Ball = 1
@@ -53,6 +53,48 @@ func playPingpong() {
 	go Play("A: ", table)
 	Play("B: ", table)
 
+}
+
+func playPingPong2() {
+	table := make(chan Ball)
+	go Play2("A: ", table, false)
+	Play2("B: ", table, true)
+
+}
+
+// Switches
+
+// From the article channels in Go, we have learned that sending a value to or receiving a value from a nil channel are
+// both blocking operations. By making use of this fact, we can change the involved channels in the case operations of
+// a select code block to affect the branch selection in the select code block.
+//
+// The following is another ping-pong example which is implemented by using the select mechanism. In this example, one
+// of the two channel variables involved in the select block is nil. The case branch corresponding the nil channel will
+// not get selected for sure. We can think such case branches are in off status. At the end of each loop step, the
+// on/off statuses of the two case branches are switched.
+func Play2(playerName string, table chan Ball, server bool) {
+	var receive, send chan Ball
+	if server {
+		receive, send = nil, table
+	} else {
+		receive, send = table, nil
+	}
+
+	var lastValue Ball = 1
+	for {
+		select {
+		case send <- lastValue:
+		case value := <-receive:
+			fmt.Println(playerName, value)
+			value += lastValue
+			if value < lastValue { // overflow
+				os.Exit(0)
+			}
+			lastValue = value
+		}
+		receive, send = send, receive
+		time.Sleep(time.Second)
+	}
 }
 
 func worker(id int, ready <-chan T, done chan<- T) {
@@ -411,5 +453,6 @@ func main() {
 	// runBar3()
 	// runBar4()
 
+	playPingPong2()
 	playPingpong()
 }
