@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
+import "./ratelimiter"
 
 // Try-Send and Try-Receive
 
@@ -44,4 +48,16 @@ func main() {
 			fmt.Println("failed to get book")
 		}
 	}
+
+	requests := make(chan ratelimiter.Request)
+	go ratelimiter.HandleRequests(requests)
+	// with below sleep, the rate limiter would gather 1 minutes ticker, once wake up
+	// the below for loop would quickly be processed , we will see 1-200 got bursted print out
+	// then 201, 202, each one got printed individually
+	time.Sleep(time.Minute)
+
+	for i := 0; ; i++ {
+		requests <- i
+	}
+
 }
