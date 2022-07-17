@@ -139,8 +139,8 @@ func mostSimilar(n int, roads [][]int, names []string, targetPath []string) []in
 	u, k := -1, 0
 	for i := m - 1; i > 0; i-- {
 		u = path[i][ans[k]]
-		ans = append(ans, u)
 		k++
+		ans[k] = u
 	}
 
 	reverse := func(arr []int) []int {
