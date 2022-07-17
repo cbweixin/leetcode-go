@@ -84,12 +84,13 @@ func mostSimilar(n int, roads [][]int, names []string, targetPath []string) []in
 	m := len(targetPath)
 	dp := make([][]int, m)
 	path := make([][]int, m)
-	for _, arr := range dp {
-		arr = make([]int, n)
-		for i := 0; i < n; i++ {
-			arr[i] = m
+	for i := 0; i < m; i++ {
+		dp[i] = make([]int, n)
+		for j := 0; j < n; j++ {
+			dp[i][j] = m
 		}
 	}
+
 	for i := 0; i < m; i++ {
 		path[i] = make([]int, n)
 	}
