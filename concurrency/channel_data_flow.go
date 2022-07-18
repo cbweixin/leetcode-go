@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/binary"
 	"math/rand"
+	"sync"
 )
 
 func RandomGenerator() <-chan uint64 {
@@ -38,4 +39,30 @@ func Aggregator(inputs ...<-chan uint64) <-chan uint64 {
 	}
 
 	return out
+}
+
+// A better implementation should consider whether or not an input stream has been closed. (Also valid for the following
+// other module worker implementations.)
+func AggregatorImproved(inputs ...<-chan uint64) <-chan uint64 {
+	out := make(chan uint64)
+	var wg sync.WaitGroup
+	for _, in := range inputs {
+		wg.Add(1)
+		go func(in <-chan uint64) {
+			defer wg.Done()
+			// if in is closed, then the loop will ends eventually
+			for x := range in {
+				out <- x
+			}
+
+		}(in)
+	}
+
+	go func() {
+		wg.Wait()
+		close(out)
+	}()
+
+	return out
+
 }
