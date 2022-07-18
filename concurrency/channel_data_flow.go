@@ -64,5 +64,37 @@ func AggregatorImproved(inputs ...<-chan uint64) <-chan uint64 {
 	}()
 
 	return out
+}
 
+// If the number of aggregated data streams is very small (two or three),
+// we can use select block to aggregate ithese data streams.
+func AggregatorWithTwoStream(inputs ...<-chan uint64) <-chan uint64 {
+	out := make(chan uint64)
+	go func() {
+		inA, inB := inputs[0], inputs[1]
+		for {
+			select {
+			case v := <-inA:
+				out <- v
+			case v := <-inB:
+				out <- v
+			}
+		}
+	}()
+
+	return out
+}
+
+// Data division
+
+// A data division module worker does the opposite of a data aggregation module worker. It is easy to implement a
+// division worker, but in practice, division workers are not very useful and seldom used.
+func Divisor(input <-chan uint64, outputs ...chan<- uint64) {
+	for _, out := range outputs {
+		go func(o chan<- uint64) {
+			for {
+				o <- <-input
+			}
+		}(out)
+	}
 }
