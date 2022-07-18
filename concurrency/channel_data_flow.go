@@ -98,3 +98,19 @@ func Divisor(input <-chan uint64, outputs ...chan<- uint64) {
 		}(out)
 	}
 }
+
+// Data duplication/proliferation
+
+// Data duplication (proliferation) can be viewed as special data decompositions. One piece of data will be duplicated
+// and each of the duplicated data will be sent to different output data streams.
+func Duplicator(in <-chan uint64) (<-chan uint64, <-chan uint64) {
+	outA, outB := make(chan uint64), make(chan uint64)
+	go func() {
+		for x := range in {
+			outA <- x
+			outB <- x
+		}
+	}()
+
+	return outA, outB
+}
