@@ -2,6 +2,8 @@ package main
 
 import (
 	"encoding/binary"
+	"fmt"
+	"math/big"
 	"math/rand"
 	"sync"
 )
@@ -113,4 +115,88 @@ func Duplicator(in <-chan uint64) (<-chan uint64, <-chan uint64) {
 	}()
 
 	return outA, outB
+}
+
+// Data calculation/analysis
+// The functionalities of data calculation and analysis modules vary and each is very specific. Generally, a worker
+// function of such modules transforms each piece of input data into another piece of output data.
+//
+// For simple demo purpose, here shows a worker example which inverts every bit of each transferred uint64 value.
+func Calculator(in <-chan uint64, out chan uint64) <-chan uint64 {
+	if out == nil {
+		out = make(chan uint64)
+	}
+	go func() {
+		for x := range in {
+			out <- ^x
+		}
+	}()
+	return out
+}
+
+// Data validation/filtering
+
+// A data validation or filtering module discards some transferred data in a stream. For example, the following worker
+// function discards all non-prime numbers.
+func Filter0(input <-chan uint64, output chan uint64) <-chan uint64 {
+	if output == nil {
+		output = make(chan uint64)
+	}
+	go func() {
+		bigInt := big.NewInt(0)
+		for x := range input {
+			bigInt.SetUint64(x)
+			if bigInt.ProbablyPrime(1) {
+				output <- x
+			}
+		}
+	}()
+
+	return output
+}
+
+func Filter(input <-chan uint64) <-chan uint64 {
+	return Filter0(input, nil)
+}
+
+// Data serving/saving
+
+// Generally, a data serving or saving module is the last or final output module in a data flow system. Here just
+// provides a simple worker which prints each piece of data received from the input stream.
+func Printer(input <-chan uint64) {
+	for x := range input {
+		fmt.Println(x)
+	}
+}
+
+func Pipeline1() {
+	Printer(
+		Filter(
+			Calculator(
+				RandomGenerator(), nil,
+			),
+		),
+	)
+}
+
+func Pipeline2() {
+	filterA := Filter(RandomGenerator())
+	filterB := Filter(RandomGenerator())
+	filterC := Filter(RandomGenerator())
+	filter := AggregatorImproved(filterA, filterB, filterC)
+	calculatorA := Calculator(filter, nil)
+	calculatorB := Calculator(filter, nil)
+	calculator := Aggregator(calculatorA, calculatorB)
+	Printer(calculator)
+}
+
+// Data flow system assembling
+
+// Now, let's use the above module worker functions to assemble several data flow systems. Assembling a data flow system
+// is just to create some workers of different modules, and specify the input streams for every worker.
+//
+// Data flow system example 1 (a linear pipeline):
+func main() {
+	Pipeline2()
+	// Pipeline1()
 }
