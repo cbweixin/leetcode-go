@@ -55,7 +55,7 @@ func NewGoTickets(total uint32) (GoTickets, error) {
 			fmt.Sprintf("The goroutine ticket pool can NOT be initialized! (total=%d)\n", total)
 		return nil, errors.New(errMsg)
 	}
-	// rturn gt's address
+	// return gt's address
 	return &gt, nil
 }
 
