@@ -1,5 +1,7 @@
 package main
 
+import "strconv"
+
 // 给定一个字符串列表 dict ，其中所有字符串的长度都相同。
 //
 // 当存在两个字符串在相同索引处只有一个字符不同时，返回 True ，否则返回 False 。
@@ -46,7 +48,7 @@ package main
 
 // 2022-07-19 10:11:35
 // leetcode submit region begin(Prohibit modification and deletion)
-func differByOne(dict []string) bool {
+func differByOne2(dict []string) bool {
 	mod := 100000000007
 	l, m := len(dict), len(dict[0])
 	hash := make([]int, l)
@@ -54,7 +56,7 @@ func differByOne(dict []string) bool {
 	for i := 0; i < l; i++ {
 		for j := 0; j < m; j++ {
 			// rune is a alias of int32
-			hash[i] = (26*hash[i] + int(rune(dict[i][j])-rune('a'))) % mod
+			hash[i] = (26*hash[i] + int(uint8(dict[i][j])-('a'))) % mod
 		}
 	}
 
@@ -63,7 +65,7 @@ func differByOne(dict []string) bool {
 	for j := m - 1; j >= 0; j-- {
 		seen := make(map[int]struct{})
 		for i := 0; i < l; i++ {
-			newHash := (hash[i] - base*int(rune(dict[i][j])-rune('a'))) % mod
+			newHash := (hash[i] - base*int(uint8(dict[i][j])-('a'))) % mod
 			if _, ok := seen[newHash]; ok {
 				return true
 			}
@@ -74,6 +76,20 @@ func differByOne(dict []string) bool {
 
 	return false
 
+}
+
+func differByOne(dict []string) bool {
+	hset := make(map[string]struct{})
+	for _, word := range dict {
+		for i := 0; i < len(word); i++ {
+			cur := word[:i] + word[i+1:] + strconv.Itoa(i)
+			if _, ok := hset[cur]; ok {
+				return true
+			}
+			hset[cur] = struct{}{}
+		}
+	}
+	return false
 }
 
 // leetcode submit region end(Prohibit modification and deletion)

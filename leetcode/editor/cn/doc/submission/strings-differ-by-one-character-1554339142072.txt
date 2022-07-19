@@ -1,0 +1,36 @@
+func differByOne(dict []string) bool {
+	mod := 100000000007
+	l, m := len(dict), len(dict[0])
+	hash := make([]int, l)
+
+	for i := 0; i < l; i++ {
+		for j := 0; j < m; j++ {
+			// rune is a alias of int32
+			hash[i] = (26*hash[i] + int(uint8(dict[i][j])-('a'))) % mod
+		}
+	}
+
+	base := 1
+
+	for j := m - 1; j >= 0; j-- {
+		seen := make(map[int]struct{})
+		for i := 0; i < l; i++ {
+			newHash := (hash[i] - base*int(uint8(dict[i][j])-('a'))) % mod
+			if _, ok := seen[newHash]; ok {
+				return true
+			}
+			seen[newHash] = struct{}{}
+		}
+		base = (base * 26) % mod
+	}
+
+	return false
+
+}
+
+
+//total_testcases:81
+//total_correct:78
+//input_formatted:["moihmlbfdbgdokdknaegcojfbgfhdmbbagk","moihmibfdbgdokdknjofdkjlfbjhkifgggl","moicmibfdbgdokdknniijhjnieelambelcd","moihmibfdbgdokdknlaghflnibmbficaiio","moihmibfdbgdokdknlehfbjibcicokfblca","modhmibfdbgdokdknjihgfejeohjkccogcl","moihmiffdbgdokdknfbedhdoejaofnkbddk","moihmibfdbgdokdknmdacbcabgaommmaage","moihmibfdbgdokdknhddnheglfeknalaljg","moihmibfdbgdokdkncadhfcjfklbibfadhh","moihmibfdbgdokdkndjoeoaeknbfncbdnbc","moihmibfdbgdokdknjigmfgbjfndfidofoo","moihmibfdbgdokdknegbhemjhfaalicgmji","moihmibfdbgdokdkndejmdgocakfiidkcoa","moihmibfdbgdokdknbbfcccdifkjgcnndmo","moihmibfdbgdokdkngighnmaojabljhaaaf","moihmibfdbgdokdknbhjniooldkdenegdig","moihmibfdbgdokdkndleffcmmciefjkonbi","moihmibfdbgdokdkngebdfdkhcoebelcnbg","mmihmibfdbgdokdkndcgaddaeekmanoccgn","moihmibfdbgdokdknbabkmoonfejaoaooll","moihmibfdbgdokdknonadongdkkoibhaogn","moihmibfdbgdokdknljchjbfcmeeajdaibk","moihmibfdbgdokdkndibcomalldenlnnjif","mofhmibfdbgdokdknmgogjmohoofjfcfheh","moihmibfdbgdokdknmednjgiifonjncdndb","moihmibfdbgdokdkndficefaecaeafbdnno","moihmibfdbgdokdknghnhcjkjdciflmnnki","moihmiffdbgdokdknjdmdlfcjomlibfmdmk","moihmibfdbgdokdknhoaendcoegbcadecgi","moihmibfdbgdokdknmncbmnakdlchadjfib","moihmibfdbgdokdknjgjnbcfodldfoiighd","moihmibfdbgdokdknoooklmljahdocmogii","moihmiifdbgdokdklgikhdjfheclhallelc","moihmibfdbgdofdknlgmojkcjnidgffkglk","moihmibfdbgdokdknjjejgilcelfcjglcka","moihmibfdbgdokdkncadhfcjfkliibfadhh","moihmibfdbgdokdknmlmohehnakhmgmkcfb","aoihmibfdbgdokdknobcafkenlhnhemmdkc","moihmibfdbgdokdkncjgajiffhlembllfcm","moihmibfdbgdokdkngomodaadacglhoedhk","moihmibfdbgdokdknaenmgfmefkldlhmgma","moihmibfdbgdokdknhfogboicjdbokoikoa","moihmibndbgdokdknkndddhnlnjaaomlejg","moihmibfdbgdokdknnjeldlabkhcoaifhgb","moihmibfdbgdokdknjogodigbjoebcandll","moihmibfdbgdokdknhbkmneicinnahjhhfn","moifmibfdbgdokdknbkjofaofibejhnmcco","moihmibfdbgdokiknikcogdfimemenojdli"]
+//expected_output:true
+//code_output:false
