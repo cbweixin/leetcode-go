@@ -46,6 +46,9 @@ package main
 
 // 2022-07-19 10:11:35
 // leetcode submit region begin(Prohibit modification and deletion)
+//  https://leetcode.com/tag/hash-function/
+// https://leetcode.com/tag/rolling-hash/
+// hash
 func differByOne(dict []string) bool {
 	// mod := uint(100000000007)
 	l, m := len(dict), len(dict[0])
