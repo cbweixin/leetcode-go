@@ -1,7 +1,5 @@
 package main
 
-import "strconv"
-
 // 给定一个字符串列表 dict ，其中所有字符串的长度都相同。
 //
 // 当存在两个字符串在相同索引处只有一个字符不同时，返回 True ，否则返回 False 。
@@ -48,52 +46,64 @@ import "strconv"
 
 // 2022-07-19 10:11:35
 // leetcode submit region begin(Prohibit modification and deletion)
-func differByOne2(dict []string) bool {
-	mod := 100000000007
+func differByOne(dict []string) bool {
+	// mod := uint(100000000007)
 	l, m := len(dict), len(dict[0])
-	hash := make([]int, l)
+	hash := make([]uint, l)
 
 	for i := 0; i < l; i++ {
 		for j := 0; j < m; j++ {
 			// rune is a alias of int32
-			hash[i] = (26*hash[i] + int(uint8(dict[i][j])-('a'))) % mod
+			hash[i] = (26*hash[i] + uint(uint8(dict[i][j])-('a')))
 		}
 	}
 
-	base := 1
+	base := uint(1)
 
 	for j := m - 1; j >= 0; j-- {
-		seen := make(map[int]struct{})
+		seen := make(map[uint]struct{})
 		for i := 0; i < l; i++ {
-			newHash := (hash[i] - base*int(uint8(dict[i][j])-('a'))) % mod
+			newHash := (hash[i] - base*uint(uint8(dict[i][j])-('a')))
 			if _, ok := seen[newHash]; ok {
 				return true
 			}
 			seen[newHash] = struct{}{}
 		}
-		base = (base * 26) % mod
+		base = (base * 26)
 	}
 
 	return false
 
-}
-
-func differByOne(dict []string) bool {
-	hset := make(map[string]struct{})
-	for _, word := range dict {
-		for i := 0; i < len(word); i++ {
-			cur := word[:i] + word[i+1:] + strconv.Itoa(i)
-			if _, ok := hset[cur]; ok {
-				return true
-			}
-			hset[cur] = struct{}{}
-		}
-	}
-	return false
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
 func main() {
-	dict := []string{"abcde", "abaaa", "aaade"}
+	dict := []string{
+		"moihmlbfdbgdokdknaegcojfbgfhdmbbagk", "moihmibfdbgdokdknjofdkjlfbjhkifgggl",
+		"moicmibfdbgdokdknniijhjnieelambelcd", "moihmibfdbgdokdknlaghflnibmbficaiio",
+		"moihmibfdbgdokdknlehfbjibcicokfblca", "modhmibfdbgdokdknjihgfejeohjkccogcl",
+		"moihmiffdbgdokdknfbedhdoejaofnkbddk", "moihmibfdbgdokdknmdacbcabgaommmaage",
+		"moihmibfdbgdokdknhddnheglfeknalaljg", "moihmibfdbgdokdkncadhfcjfklbibfadhh",
+		"moihmibfdbgdokdkndjoeoaeknbfncbdnbc", "moihmibfdbgdokdknjigmfgbjfndfidofoo",
+		"moihmibfdbgdokdknegbhemjhfaalicgmji", "moihmibfdbgdokdkndejmdgocakfiidkcoa",
+		"moihmibfdbgdokdknbbfcccdifkjgcnndmo", "moihmibfdbgdokdkngighnmaojabljhaaaf",
+		"moihmibfdbgdokdknbhjniooldkdenegdig", "moihmibfdbgdokdkndleffcmmciefjkonbi",
+		"moihmibfdbgdokdkngebdfdkhcoebelcnbg", "mmihmibfdbgdokdkndcgaddaeekmanoccgn",
+		"moihmibfdbgdokdknbabkmoonfejaoaooll", "moihmibfdbgdokdknonadongdkkoibhaogn",
+		"moihmibfdbgdokdknljchjbfcmeeajdaibk", "moihmibfdbgdokdkndibcomalldenlnnjif",
+		"mofhmibfdbgdokdknmgogjmohoofjfcfheh", "moihmibfdbgdokdknmednjgiifonjncdndb",
+		"moihmibfdbgdokdkndficefaecaeafbdnno", "moihmibfdbgdokdknghnhcjkjdciflmnnki",
+		"moihmiffdbgdokdknjdmdlfcjomlibfmdmk", "moihmibfdbgdokdknhoaendcoegbcadecgi",
+		"moihmibfdbgdokdknmncbmnakdlchadjfib", "moihmibfdbgdokdknjgjnbcfodldfoiighd",
+		"moihmibfdbgdokdknoooklmljahdocmogii", "moihmiifdbgdokdklgikhdjfheclhallelc",
+		"moihmibfdbgdofdknlgmojkcjnidgffkglk", "moihmibfdbgdokdknjjejgilcelfcjglcka",
+		"moihmibfdbgdokdkncadhfcjfkliibfadhh", "moihmibfdbgdokdknmlmohehnakhmgmkcfb",
+		"aoihmibfdbgdokdknobcafkenlhnhemmdkc", "moihmibfdbgdokdkncjgajiffhlembllfcm",
+		"moihmibfdbgdokdkngomodaadacglhoedhk", "moihmibfdbgdokdknaenmgfmefkldlhmgma",
+		"moihmibfdbgdokdknhfogboicjdbokoikoa", "moihmibndbgdokdknkndddhnlnjaaomlejg",
+		"moihmibfdbgdokdknnjeldlabkhcoaifhgb", "moihmibfdbgdokdknjogodigbjoebcandll",
+		"moihmibfdbgdokdknhbkmneicinnahjhhfn", "moifmibfdbgdokdknbkjofaofibejhnmcco",
+		"moihmibfdbgdokiknikcogdfimemenojdli",
+	}
 	println(differByOne(dict))
 }
