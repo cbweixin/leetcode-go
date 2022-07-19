@@ -58,9 +58,10 @@ func differByOne(dict []string) bool {
 		}
 	}
 
-	seen, base := make(map[int]struct{}), 1
+	base := 1
 
 	for j := m - 1; j >= 0; j-- {
+		seen := make(map[int]struct{})
 		for i := 0; i < l; i++ {
 			newHash := (hash[i] - base*int(rune(dict[i][j])-rune('a'))) % mod
 			if _, ok := seen[newHash]; ok {
@@ -76,3 +77,7 @@ func differByOne(dict []string) bool {
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	dict := []string{"abcde", "abaaa", "aaade"}
+	println(differByOne(dict))
+}
