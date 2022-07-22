@@ -97,7 +97,7 @@ func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 		}
 	}
 
-	m, n := len(smallers), len(boxes)
+	m, n := len(smallers), len(warehouse)
 	if m >= n {
 		return n
 	}
@@ -106,7 +106,7 @@ func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 	}
 
 	sort.Ints(middles)
-	curIdx, res := len(warehouse)-1-m, m
+	curIdx, res := n-1-m, m
 	for curIdx > 0 {
 		t, i := middles[0], 0
 		middles = middles[1:]
