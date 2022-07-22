@@ -106,7 +106,7 @@ func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 	}
 
 	sort.Ints(middles)
-	curIdx, res := n-1-m, m
+	curIdx, res := len(warehouse)-1-m, m
 	for curIdx > 0 {
 		t, i := middles[0], 0
 		middles = middles[1:]
@@ -124,7 +124,10 @@ func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 		}
 	}
 	return res
-
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	boxes, warehouse := []int{4, 4, 1, 1}, []int{5, 4, 3, 3, 1}
+	println(maxBoxesInWarehouse(boxes, warehouse))
+}
