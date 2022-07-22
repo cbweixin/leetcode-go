@@ -1,0 +1,116 @@
+@startuml
+namespace gee {
+    class Context << (S,Aquamarine) >> {
+        - handlers []HandlerFunc
+        - index int
+        - engine *Engine
+
+        + Writer http.ResponseWriter
+        + Req *http.Request
+        + Path string
+        + Method string
+        + Params <font color=blue>map</font>[string]string
+        + StatusCode int
+
+        + Next() 
+        + Fail(code int, err string) 
+        + Param(key string) string
+        + PostForm(key string) string
+        + Query(key string) string
+        + Status(code int) 
+        + SetHeader(key string, value string) 
+        + String(code int, format string, values ...<font color=blue>interface</font>{}) 
+        + JSON(code int, obj <font color=blue>interface</font>{}) 
+        + Data(code int, data []byte) 
+        + HTML(code int, name string, data <font color=blue>interface</font>{}) 
+
+    }
+    class Engine << (S,Aquamarine) >> {
+        - router *router
+        - groups []*RouterGroup
+        - htmlTemplates *template.Template
+        - funcMap template.FuncMap
+
+        + SetFuncMap(funcMap template.FuncMap) 
+        + LoadHTMLGlob(pattern string) 
+        + Run(addr string) error
+        + ServeHTTP(w http.ResponseWriter, req *http.Request) 
+
+    }
+    class RouterGroup << (S,Aquamarine) >> {
+        - prefix string
+        - middlewares []HandlerFunc
+        - parent *RouterGroup
+        - engine *Engine
+
+        - addRoute(method string, comp string, handler HandlerFunc) 
+        - createStaticHandler(relativePath string, fs http.FileSystem) HandlerFunc
+
+        + Group(prefix string) *RouterGroup
+        + Use(middlewares ...HandlerFunc) 
+        + GET(pattern string, handler HandlerFunc) 
+        + POST(pattern string, handler HandlerFunc) 
+        + Static(relativePath string, root string) 
+
+    }
+    class gee.H << (T, #FF7700) >>  {
+    }
+    class gee.HandlerFunc << (T, #FF7700) >>  {
+    }
+    class node << (S,Aquamarine) >> {
+        - pattern string
+        - part string
+        - children []*node
+        - isWild bool
+
+        - insert(pattern string, parts []string, height int) 
+        - search(parts []string, height int) *node
+        - travel(list *) 
+        - matchChild(part string) *node
+        - matchChildren(part string) []*node
+
+        + String() string
+
+    }
+    class router << (S,Aquamarine) >> {
+        - roots <font color=blue>map</font>[string]*node
+        - handlers <font color=blue>map</font>[string]HandlerFunc
+
+        - addRoute(method string, pattern string, handler HandlerFunc) 
+        - getRoute(method string, path string) (*node, <font color=blue>map</font>[string]string)
+        - getRoutes(method string) []*node
+        - handle(c *Context) 
+
+    }
+}
+"gee.RouterGroup" *-- "extends""gee.Engine"
+
+
+"gee.Context""uses" o-- "gee.Engine"
+"gee.Context""uses" o-- "gee.HandlerFunc"
+"gee.Context""uses" o-- "http.Request"
+"gee.Context""uses" o-- "http.ResponseWriter"
+"gee.Engine""uses" o-- "gee.RouterGroup"
+"gee.Engine""uses" o-- "gee.router"
+"gee.Engine""uses" o-- "template.FuncMap"
+"gee.Engine""uses" o-- "template.Template"
+"gee.RouterGroup""uses" o-- "gee.Engine"
+"gee.RouterGroup""uses" o-- "gee.HandlerFunc"
+"gee.RouterGroup""uses" o-- "gee.RouterGroup"
+"gee.node""uses" o-- "gee.node"
+"gee.router""uses" o-- "gee.HandlerFunc"
+"gee.router""uses" o-- "gee.node"
+
+namespace main {
+    class student << (S,Aquamarine) >> {
+        + Name string
+        + Age int8
+
+    }
+}
+
+
+
+"gee.<font color=blue>func</font>(*Context) " #.. "alias of""gee.HandlerFunc"
+"gee.<font color=blue>map</font>[string]<font color=blue>interface</font>{}" #.. "alias of""gee.H"
+@enduml
