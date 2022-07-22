@@ -111,7 +111,7 @@ func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 		t, i := middles[0], 0
 		middles = middles[1:]
 
-		for i < curIdx && t <= warehouse[curIdx] {
+		for i < curIdx && t <= warehouse[i] {
 			i++
 		}
 		if i > 0 {
