@@ -73,7 +73,7 @@ import "sort"
 // 2022-07-23 17:52:28
 // leetcode submit region begin(Prohibit modification and deletion)
 // greedy
-func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
+func maxBoxesInWarehouse2(boxes []int, warehouse []int) int {
 	m, n := len(boxes), len(warehouse)
 	minWL, minWR := warehouse[0], warehouse[n-1]
 	minWLS, minWRS := make([]int, n), make([]int, n)
@@ -124,5 +124,5 @@ func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 func main() {
 	boxes := []int{1, 2, 2, 3, 4}
 	warehouse := []int{3, 4, 1, 2}
-	println(maxBoxesInWarehouse(boxes, warehouse))
+	println(maxBoxesInWarehouse2(boxes, warehouse))
 }
