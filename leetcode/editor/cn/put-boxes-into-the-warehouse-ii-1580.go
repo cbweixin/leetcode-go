@@ -72,6 +72,7 @@ import "sort"
 
 // 2022-07-23 17:52:28
 // leetcode submit region begin(Prohibit modification and deletion)
+// greedy
 func maxBoxesInWarehouse(boxes []int, warehouse []int) int {
 	m, n := len(boxes), len(warehouse)
 	minWL, minWR := warehouse[0], warehouse[n-1]
