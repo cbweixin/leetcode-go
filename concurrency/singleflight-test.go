@@ -27,6 +27,18 @@ func singleflightGetArticle(sg *singleflight.Group, id int) (string, error) {
 	return v.(string), err
 }
 
+func singleflightGetArticleDeadLock(sg *singleflight.Group, id int) (string, error) {
+	v, err, _ := sg.Do(
+		fmt.Sprintf("%d", id), func() (interface{}, error) {
+			select {
+			// let code blocking here
+			}
+			return getArticle(id)
+		},
+	)
+	return v.(string), err
+}
+
 func main() {
 	time.AfterFunc(
 		2000*time.Millisecond, func() {
@@ -63,8 +75,22 @@ func main() {
 	for i := 0; i < n; i++ {
 		wg.Add(1)
 		go func() {
-			// res, _ := singleflightGetArticle(sg, 1)
 			res, _ := getArticle(1)
+			if res != "article: 1" {
+				panic("err")
+			}
+			wg.Done()
+		}()
+	}
+	wg.Wait()
+
+	fmt.Printf("send %d requests concurently, time used: %s\n", n, time.Since(now))
+	fmt.Println("count", count)
+
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go func() {
+			res, _ := singleflightGetArticleDeadLock(sg, 1)
 			if res != "article: 1" {
 				panic("err")
 			}
