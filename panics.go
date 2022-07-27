@@ -27,6 +27,16 @@ func fullName(firstName *string, lastName *string) {
 	fmt.Println("returned normally from fullName")
 }
 
+func firstPanic() {
+	defer secondPanic()
+	panic("first panic")
+}
+
+func secondPanic() {
+	fmt.Println("panic again")
+	panic("second panic")
+}
+
 func main() {
 	// fmt.Println("starting programm...")
 	// panic("pacnic oh, oaa")
@@ -36,6 +46,8 @@ func main() {
 	test()
 	// below line could be output because in test function, there is a defer which recovered the panic
 	fmt.Printf("Test completed\r\n")
+
+	firstPanic()
 
 	firstName := "Elon"
 	fullName(&firstName, nil)
