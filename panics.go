@@ -37,6 +37,26 @@ func secondPanic() {
 	panic("second panic")
 }
 
+func thirdPanic() {
+	defer deferOne()
+	defer fourthPanic()
+	panic("I am thirdPanic")
+}
+
+func deferOne() {
+	fmt.Println("I am deferone")
+}
+
+func fourthPanic() {
+	defer deferTwo()
+	panic("I am fourthPanic")
+}
+
+func deferTwo() {
+	p := recover()
+	fmt.Println(p)
+}
+
 func main() {
 	// fmt.Println("starting programm...")
 	// panic("pacnic oh, oaa")
@@ -47,6 +67,7 @@ func main() {
 	// below line could be output because in test function, there is a defer which recovered the panic
 	fmt.Printf("Test completed\r\n")
 
+	thirdPanic()
 	firstPanic()
 
 	firstName := "Elon"
