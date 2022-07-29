@@ -51,6 +51,7 @@ func TestDoDupSuppress(t *testing.T) {
 			wg1.Done()
 		}
 		v := <-c
+		fmt.Println(v)
 		c <- v // pump; make available for any future calls
 
 		time.Sleep(10 * time.Millisecond) // let more goroutines enter Do
@@ -61,11 +62,11 @@ func TestDoDupSuppress(t *testing.T) {
 	const n = 10
 	wg1.Add(1)
 	for i := 0; i < n; i++ {
-		// wg1.Add(1)
+		wg1.Add(1)
 		wg2.Add(1)
 		go func() {
 			defer wg2.Done()
-			// wg1.Done()
+			wg1.Done()
 			v, err, _ := g.Do("key", fn)
 			if err != nil {
 				t.Errorf("Do error: %v", err)
@@ -76,6 +77,7 @@ func TestDoDupSuppress(t *testing.T) {
 			}
 		}()
 	}
+	//
 	wg1.Wait()
 	// At least one goroutine is in fn now and all of them have at
 	// least reached the line before the Do.
@@ -163,4 +165,45 @@ func TestForget(t *testing.T) {
 	if result != 2 {
 		t.Errorf("We should receive result produced by second call, expected: 2, got %d", result)
 	}
+}
+
+func TestPanic(t *testing.T) {
+	var g Group
+	defer func() {
+		if rec := recover(); rec != nil {
+			// Recoverd panic
+			fmt.Println(rec)
+		}
+	}()
+	key := "same key"
+	var wg1, wg2 sync.WaitGroup
+	wg1.Add(1)
+	go func() {
+		g.Do(
+			key, func() (_ interface{}, err error) {
+				wg1.Done()
+				panic("panic in oneflight")
+			},
+		)
+	}()
+
+	const n = 5
+	for i := 0; i < n; i++ {
+		wg2.Add(1)
+		go func() {
+			g.Do(
+				key, func() (_ interface{}, err error) {
+					defer wg2.Done()
+					fmt.Println("hihihi")
+					return 3, nil
+				},
+			)
+
+		}()
+
+	}
+
+	wg1.Wait()
+	wg2.Wait()
+
 }

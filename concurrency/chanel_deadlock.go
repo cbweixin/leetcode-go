@@ -101,7 +101,7 @@ func panic2() {
 func main() {
 	// panic2()
 
-	// f2()
+	f2()
 	// f1()
 	// f3()
 	// fmt.Printf("before goroutine num: %d\n", runtime.NumGoroutine())
