@@ -189,11 +189,13 @@ func TestPanic(t *testing.T) {
 
 	const n = 5
 	for i := 0; i < n; i++ {
+		wg1.Add(1)
 		wg2.Add(1)
 		go func() {
 			g.Do(
 				key, func() (_ interface{}, err error) {
 					defer wg2.Done()
+					wg1.Done()
 					fmt.Println("hihihi")
 					return 3, nil
 				},
