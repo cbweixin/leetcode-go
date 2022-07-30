@@ -3,6 +3,7 @@ package oneflight
 import (
 	"errors"
 	"fmt"
+	"runtime/debug"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -167,20 +168,28 @@ func TestForget(t *testing.T) {
 	}
 }
 
+//
 func TestPanic(t *testing.T) {
+	// t.Skip("sking for now...")
 	var g Group
-	defer func() {
-		if rec := recover(); rec != nil {
-			// Recoverd panic
-			fmt.Println(rec)
-		}
-	}()
+	// defer func() {
+	// 	if rec := recover(); rec != nil {
+	// 		// Recoverd panic
+	// 		fmt.Println(rec)
+	// 	}
+	// }()
 	key := "same key"
 	var wg1, wg2 sync.WaitGroup
 	wg1.Add(1)
 	go func() {
 		g.Do(
 			key, func() (_ interface{}, err error) {
+				defer func() {
+					rec := recover()
+					fmt.Println(rec)
+					fmt.Printf("pancic stack :%s\n", debug.Stack())
+				}()
+
 				wg1.Done()
 				panic("panic in oneflight")
 			},
@@ -208,4 +217,40 @@ func TestPanic(t *testing.T) {
 	wg1.Wait()
 	wg2.Wait()
 
+}
+
+func TestPanicDo(t *testing.T) {
+	var g Group
+	fn := func() (interface{}, error) {
+		panic("invalid memory address or nil pointer deference")
+	}
+
+	const n = 5
+	waited := int32(n)
+	panicCount := int32(0)
+	done := make(chan struct{})
+
+	for i := 0; i < n; i++ {
+		go func() {
+			defer func() {
+				if err := recover(); err != nil {
+					t.Logf("Got panic : %v\n%s", err, debug.Stack())
+					atomic.AddInt32(&panicCount, 1)
+				}
+				if atomic.AddInt32(&waited, -1) == 0 {
+					close(done)
+				}
+			}()
+			g.Do("key", fn)
+		}()
+	}
+
+	select {
+	case <-done:
+		if panicCount != n {
+			t.Errorf("Expected %d panic, but got %d", n, panicCount)
+		}
+	case <-time.After(time.Second):
+		t.Fatalf("Do hanges")
+	}
 }
