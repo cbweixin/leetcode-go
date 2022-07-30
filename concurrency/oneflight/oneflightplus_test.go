@@ -23,10 +23,11 @@ func TestPanicDo2(t *testing.T) {
 		go func() {
 			defer func() {
 				if err := recover(); err != nil {
-					t.Logf("Got panic : %v\n%s", err, debug.Stack())
+					// t.Logf("Got panic : %v\n%s", err, debug.Stack())
 					atomic.AddInt32(&panicCount, 1)
 				}
 				if atomic.AddInt32(&waited, -1) == 0 {
+					t.Logf("close channel : %s\n", debug.Stack())
 					close(done)
 				}
 			}()

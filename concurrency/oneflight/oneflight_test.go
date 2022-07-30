@@ -3,6 +3,7 @@ package oneflight
 import (
 	"errors"
 	"fmt"
+	"runtime"
 	"runtime/debug"
 	"sync"
 	"sync/atomic"
@@ -258,5 +259,38 @@ func TestPanicDo(t *testing.T) {
 		}
 	case <-time.After(time.Second):
 		t.Fatalf("Do hanges")
+	}
+}
+
+func TestGoExitDo(t *testing.T) {
+	var g Group
+	fn := func() (interface{}, error) {
+		runtime.Goexit()
+		return nil, nil
+	}
+
+	const n = 5
+	waited := int32(n)
+	done := make(chan struct{})
+
+	for i := 0; i < n; i++ {
+		go func() {
+			var err error
+			defer func() {
+				if err != nil {
+					t.Errorf("Error should be nil, but got: %v", err)
+				}
+				if atomic.AddInt32(&waited, -1) == 0 {
+					close(done)
+				}
+			}()
+			_, err, _ = g.Do("key", fn)
+		}()
+	}
+
+	select {
+	case <-done:
+	case <-time.After(time.Second):
+		t.Fatalf("Do hangs")
 	}
 }

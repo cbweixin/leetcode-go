@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"log"
 	"runtime"
 	"runtime/debug"
 	"sync"
@@ -150,6 +151,7 @@ func (g *Group2) doCall(c *callReq, key string, fn func() (interface{}, error)) 
 		}
 
 		if e, ok := c.err.(*panicError); ok {
+			log.Print("why....?")
 			// In order to prevent the waiting channels from being blocked forever,
 			// needs to ensure that this panic cannot be recovered.
 			if len(c.chans) > 0 {

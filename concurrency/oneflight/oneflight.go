@@ -1,6 +1,9 @@
 package oneflight
 
-import "sync"
+import (
+	"log"
+	"sync"
+)
 
 // call is an in-flight or completed singleflight.Do call
 type call struct {
@@ -58,7 +61,9 @@ func (g *Group) Do(key string, fn func() (interface{}, error)) (v interface{}, e
 	g.m[key] = c
 	g.mu.Unlock()
 
+	log.Println("prepare do call")
 	g.doCall(c, key, fn)
+	log.Println("done with do call")
 	return c.val, c.err, c.dups > 0
 }
 
@@ -88,7 +93,9 @@ func (g *Group) DoChan(key string, fn func() (interface{}, error)) <-chan Result
 
 // doCall handles the single call for a key.
 func (g *Group) doCall(c *call, key string, fn func() (interface{}, error)) {
+	log.Println("do call happens")
 	c.val, c.err = fn()
+	log.Println("call done")
 	c.wg.Done()
 
 	g.mu.Lock()
