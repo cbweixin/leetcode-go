@@ -155,8 +155,10 @@ func (g *Group2) doCall(c *callReq, key string, fn func() (interface{}, error)) 
 			// In order to prevent the waiting channels from being blocked forever,
 			// needs to ensure that this panic cannot be recovered.
 			if len(c.chans) > 0 {
-				go panic(e)
-				select {} // Keep this goroutine around so that it will appear in the crash dump.
+				log.Print("go panic")
+				panic(e)
+				// go panic(e)
+				// select {} // Keep this goroutine around so that it will appear in the crash dump.
 			} else {
 				panic(e)
 			}
@@ -181,6 +183,7 @@ func (g *Group2) doCall(c *callReq, key string, fn func() (interface{}, error)) 
 				// the time we know that, the part of the stack trace relevant to the
 				// panic has been discarded.
 				if r := recover(); r != nil {
+					log.Println("defer 2")
 					c.err = newPanicError(r)
 				}
 			}
