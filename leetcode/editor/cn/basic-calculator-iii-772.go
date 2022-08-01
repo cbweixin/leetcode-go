@@ -95,11 +95,15 @@ func calculate(s string) int {
 		return 2
 	}
 
-	temp := 0
+	temp, l := 0, len(s)-1
 
-	for _, c := range s {
+	for i, c := range s {
 		if c <= '9' && c >= '0' {
 			temp = temp*10 + int(c-'0')
+			if i == l {
+				operands = append(operands, temp)
+				temp = 0
+			}
 		} else {
 			operands = append(operands, temp)
 			temp = 0
@@ -118,6 +122,7 @@ func calculate(s string) int {
 					t := compute(pop(&operands), pop(&operands), pop(&operators))
 					operands = append(operands, t)
 				}
+				operators = append(operators, int(c))
 			}
 		}
 	}
@@ -134,3 +139,7 @@ func calculate(s string) int {
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	s := "1 + (2-3)*(5-6/2)"
+	println(calculate(s))
+}

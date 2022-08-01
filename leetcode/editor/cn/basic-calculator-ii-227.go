@@ -48,7 +48,7 @@ package main
 // 2022-08-01 10:46:08
 // leetcode submit region begin(Prohibit modification and deletion)
 // stack
-func calculate(s string) int {
+func calculate2(s string) int {
 	s += "+"
 	temp, operands, sign := 0, make([]int, 0), '+'
 	for _, c := range s {
