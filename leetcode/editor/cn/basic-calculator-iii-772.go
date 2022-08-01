@@ -103,7 +103,7 @@ func calculate(s string) int {
 				temp = 0
 			}
 		} else {
-			if s[i-1] >= '0' && s[i-1] <= '9' {
+			if i > 0 && s[i-1] >= '0' && s[i-1] <= '9' {
 				operands = append(operands, temp)
 				temp = 0
 			}
@@ -141,5 +141,8 @@ func calculate(s string) int {
 // leetcode submit region end(Prohibit modification and deletion)
 func main() {
 	s := "1+(2-3)*(5-6/2)"
+	println(calculate(s))
+
+	s = "(2+6*3+5-(3*14/7+2)*5)+3"
 	println(calculate(s))
 }
