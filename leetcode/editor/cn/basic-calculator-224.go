@@ -47,6 +47,7 @@ import "strings"
 
 // 2022-08-01 09:59:08
 // leetcode submit region begin(Prohibit modification and deletion)
+// stack
 func calculate1(s string) int {
 	var b strings.Builder
 	b.WriteString(s)
