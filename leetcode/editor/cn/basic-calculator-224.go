@@ -47,7 +47,7 @@ import "strings"
 
 // 2022-08-01 09:59:08
 // leetcode submit region begin(Prohibit modification and deletion)
-func calculate(s string) int {
+func calculate1(s string) int {
 	var b strings.Builder
 	b.WriteString(s)
 	b.WriteString("+")
@@ -76,5 +76,5 @@ func calculate(s string) int {
 // leetcode submit region end(Prohibit modification and deletion)
 func main() {
 	s := "1 -(1-2) + 3 -(4-5-5)"
-	println(calculate(s))
+	println(calculate1(s))
 }
