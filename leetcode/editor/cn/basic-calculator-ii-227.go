@@ -65,6 +65,8 @@ func calculate(s string) int {
 				t := len(operands) - 1
 				operands[t] = operands[t] / temp
 			}
+			temp = 0
+			sign = c
 		}
 	}
 	res := 0
