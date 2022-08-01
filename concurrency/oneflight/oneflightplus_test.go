@@ -131,7 +131,10 @@ func TestPanicDoSharedByDoChan(t *testing.T) {
 		g := new(Group2)
 		go func() {
 			defer func() {
-				recover()
+				t.Log("test panic recover")
+				// recover()
+				r := recover()
+				t.Log("===", r)
 			}()
 			g.Do(
 				"", func() (interface{}, error) {
@@ -143,12 +146,16 @@ func TestPanicDoSharedByDoChan(t *testing.T) {
 		}()
 
 		<-blocked
+		t.Log("===dochain starts")
 		ch := g.DoChan(
 			"", func() (interface{}, error) {
+				t.Log("do chan panic")
 				panic("DoChan unexpectedly executed callback")
 			},
 		)
+		t.Log("===close unblock")
 		close(unblock)
+		t.Log("=== <-ch", len(ch), cap(ch))
 		<-ch
 		t.Fatalf("DoChan unexpectedly returned")
 	}
@@ -168,6 +175,9 @@ func TestPanicDoSharedByDoChan(t *testing.T) {
 	t.Logf("%s:\n%s", strings.Join(cmd.Args, " "), out)
 	if err == nil {
 		t.Errorf("Test subprocess passed; want a crash due to panic in Do shared by DoChan")
+	}
+	if bytes.Contains(out.Bytes(), []byte("deadlock!")) {
+		t.Errorf("Test subprocess failed with blocking channel.")
 	}
 	if bytes.Contains(out.Bytes(), []byte("DoChan unexpectedly")) {
 		t.Errorf("Test subprocess failed with an unexpected failure mode.")

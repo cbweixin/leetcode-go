@@ -27,6 +27,7 @@ func (p *panicError) Error() string {
 }
 
 func newPanicError(v interface{}) error {
+	log.Println("===get new panic")
 	stack := debug.Stack()
 
 	// The first line of the stack trace is of the form "goroutine N [status]:"
@@ -100,7 +101,9 @@ func (g *Group2) Do(key string, fn func() (interface{}, error)) (v interface{}, 
 	g.m[key] = c
 	g.mu.Unlock()
 
+	log.Println("===docall starts")
 	g.doCall(c, key, fn)
+	log.Println("===docall return")
 	return c.val, c.err, c.dups > 0
 }
 
@@ -118,6 +121,7 @@ func (g *Group2) DoChan(key string, fn func() (interface{}, error)) <-chan Resul
 		c.dups++
 		c.chans = append(c.chans, ch)
 		g.mu.Unlock()
+		log.Println("===return ch")
 		return ch
 	}
 	c := &callReq{chans: []chan<- Result2{ch}}
@@ -126,6 +130,7 @@ func (g *Group2) DoChan(key string, fn func() (interface{}, error)) <-chan Resul
 	g.mu.Unlock()
 
 	go g.doCall(c, key, fn)
+	log.Print("===return ch")
 
 	return ch
 }
@@ -156,15 +161,16 @@ func (g *Group2) doCall(c *callReq, key string, fn func() (interface{}, error)) 
 			// needs to ensure that this panic cannot be recovered.
 			if len(c.chans) > 0 {
 				log.Print("go panic")
-				panic(e)
-				// go panic(e)
-				// select {} // Keep this goroutine around so that it will appear in the crash dump.
+				// panic(e)
+				go panic(e)
+				select {} // Keep this goroutine around so that it will appear in the crash dump.
 			} else {
 				panic(e)
 			}
 		} else if c.err == errGoexit {
 			// Already in the process of goexit, no need to callReq again
 		} else {
+			log.Print("nornal return")
 			// Normal return
 			for _, ch := range c.chans {
 				ch <- Result2{c.val, c.err, c.dups > 0}
