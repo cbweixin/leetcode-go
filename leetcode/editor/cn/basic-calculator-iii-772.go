@@ -1,7 +1,5 @@
 package main
 
-import "strings"
-
 // 实现一个基本的计算器来计算简单的表达式字符串。
 //
 // 表达式字符串只包含非负整数，算符 +、-、*、/ ，左括号 ( 和右括号 ) 。整数除法需要 向下截断 。
@@ -65,7 +63,7 @@ import "strings"
 // leetcode submit region begin(Prohibit modification and deletion)
 
 func calculate(s string) int {
-	s = strings.ReplaceAll(s, " ", "")
+	// s = strings.ReplaceAll(s, " ", "")
 	operands, operators := make([]int, 0), make([]int, 0)
 
 	compute := func(b, a int, op int) int {
@@ -105,8 +103,10 @@ func calculate(s string) int {
 				temp = 0
 			}
 		} else {
-			operands = append(operands, temp)
-			temp = 0
+			if s[i-1] >= '0' && s[i-1] <= '9' {
+				operands = append(operands, temp)
+				temp = 0
+			}
 			if c == '(' {
 				operators = append(operators, int(c))
 			} else if c == ')' {
@@ -140,6 +140,6 @@ func calculate(s string) int {
 
 // leetcode submit region end(Prohibit modification and deletion)
 func main() {
-	s := "1 + (2-3)*(5-6/2)"
+	s := "1+(2-3)*(5-6/2)"
 	println(calculate(s))
 }
