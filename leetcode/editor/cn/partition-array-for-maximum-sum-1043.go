@@ -72,7 +72,7 @@ func maxSumAfterPartitioning(arr []int, k int) int {
 			dp[i] = maxA(arr[:i+1]) * (i + 1)
 		} else {
 			for j := i; j > i-k; j-- {
-				dp[i] = max(dp[i], dp[j-1]+maxA(arr[j:i])*(i-j+1))
+				dp[i] = max(dp[i], dp[j-1]+maxA(arr[j:i+1])*(i-j+1))
 			}
 		}
 
