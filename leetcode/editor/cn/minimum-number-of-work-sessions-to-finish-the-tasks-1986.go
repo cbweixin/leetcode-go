@@ -75,17 +75,17 @@ func minSessions(tasks []int, sessionTime int) int {
 			}
 			j = j >> 1
 			idx++
-			if t <= sessionTime {
-				dp[i] = 1
-			}
+		}
+		if t <= sessionTime {
+			dp[i] = 1
 		}
 	}
 
-	max := func(x, y int) int {
+	min := func(x, y int) int {
 		if x >= y {
-			return x
+			return y
 		}
-		return y
+		return x
 	}
 
 	for i := 0; i < m; i++ {
@@ -95,7 +95,7 @@ func minSessions(tasks []int, sessionTime int) int {
 		j := i
 		for j > 0 {
 			j = (j - 1) & i
-			dp[i] = max(dp[i], dp[j]+dp[i^j])
+			dp[i] = min(dp[i], dp[j]+dp[i^j])
 		}
 
 	}
