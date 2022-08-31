@@ -40,18 +40,13 @@ func countElements(arr []int) int {
 	for _, v := range arr {
 		if _, ok := m[v+1]; ok {
 			res++
-		} else if _, ok := m[v]; !ok {
+		}
+		if _, ok := m[v]; !ok {
 			if k, ok := m[v-1]; ok {
 				res += k
 			}
 		}
-
-		if _, ok := m[v]; !ok {
-			m[v] = 1
-		} else {
-			m[v]++
-		}
-
+		m[v]++
 	}
 
 	return res
@@ -59,3 +54,7 @@ func countElements(arr []int) int {
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	arr := []int{1, 3, 2, 3, 5, 0}
+	println(countElements(arr))
+}
