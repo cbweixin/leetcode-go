@@ -63,7 +63,7 @@ package main
 
 var null struct{}
 
-func lowestCommonAncestor(p *Node, q *Node) *Node {
+func lowestCommonAncestor1(p *Node, q *Node) *Node {
 	s := make(map[int]struct{})
 	for p != nil {
 		s[p.Val] = null
@@ -77,6 +77,24 @@ func lowestCommonAncestor(p *Node, q *Node) *Node {
 		q = q.Parent
 	}
 	return p
+
+}
+
+func lowestCommonAncestor(p *Node, q *Node) *Node {
+	a, b := p, q
+	for a != b {
+		if a == nil {
+			a = q
+		} else {
+			a = a.Parent
+		}
+		if b == nil {
+			b = p
+		} else {
+			b = b.Parent
+		}
+	}
+	return a
 
 }
 
