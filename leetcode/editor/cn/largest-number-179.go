@@ -38,7 +38,7 @@ import (
 
 // 2022-09-03 22:49:54
 // leetcode submit region begin(Prohibit modification and deletion)
-func largestNumber(nums []int) string {
+func largestNumber2(nums []int) string {
 	sort.Slice(
 		nums, func(i, j int) bool {
 			s1, s2 := strconv.Itoa(nums[i]), strconv.Itoa(nums[j])
@@ -56,6 +56,34 @@ func largestNumber(nums []int) string {
 	if b.Len() == 0 {
 		return "0"
 	}
+	return b.String()
+
+}
+
+func largestNumber(nums []int) string {
+	sort.Slice(
+		nums, func(i, j int) bool {
+			x, y := nums[i], nums[j]
+			si, sj := 10, 10
+			for si <= x {
+				si *= 10
+			}
+			for sj <= y {
+				sj *= 10
+			}
+			return sj*x+y > si*y+x
+		},
+	)
+
+	if nums[0] == 0 {
+		return "0"
+	}
+
+	var b bytes.Buffer
+	for _, v := range nums {
+		b.WriteString(strconv.Itoa(v))
+	}
+
 	return b.String()
 
 }
