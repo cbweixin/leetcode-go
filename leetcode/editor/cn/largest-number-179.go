@@ -60,6 +60,8 @@ func largestNumber2(nums []int) string {
 
 }
 
+// think about [4, 45], there would be 445 or 454
+// 445 = 4 * 100 + 45, 454 = 45 * 10 + 4
 func largestNumber(nums []int) string {
 	sort.Slice(
 		nums, func(i, j int) bool {
