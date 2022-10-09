@@ -67,8 +67,11 @@ func findBuildings(heights []int) []int {
 		res = append(res, st[0])
 	}
 
-	return res
+	for i, j := 0, len(res)-1; i < j; i, j = i+1, j-1 {
+		res[i], res[j] = res[j], res[i]
+	}
 
+	return res
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
