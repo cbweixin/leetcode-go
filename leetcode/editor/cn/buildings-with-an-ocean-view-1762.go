@@ -50,7 +50,9 @@ package main
 
 // 2022-10-09 15:06:57
 // leetcode submit region begin(Prohibit modification and deletion)
-func findBuildings(heights []int) []int {
+
+// stack
+func findBuildings2(heights []int) []int {
 	st, l, res := make([]int, 0), len(heights), make([]int, 0)
 
 	for i := l - 1; i >= 0; i-- {
@@ -72,6 +74,22 @@ func findBuildings(heights []int) []int {
 	}
 
 	return res
+}
+
+func findBuildings(heights []int) []int {
+	lMax, l, res := 0, len(heights), make([]int, 0)
+	for i := l - 1; i >= 0; i-- {
+		if heights[i] > lMax {
+			res = append(res, i)
+			lMax = heights[i]
+		}
+	}
+
+	for i, j := 0, len(res)-1; i < j; i, j = i+1, j-1 {
+		res[i], res[j] = res[j], res[i]
+	}
+	return res
+
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
