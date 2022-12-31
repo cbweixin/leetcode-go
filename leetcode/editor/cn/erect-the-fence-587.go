@@ -1,6 +1,6 @@
 package main
 
-//给定一个数组 trees，其中 trees[i] = [xi, yi] 表示树在花园中的位置。
+// 给定一个数组 trees，其中 trees[i] = [xi, yi] 表示树在花园中的位置。
 //
 // 你被要求用最短长度的绳子把整个花园围起来，因为绳子很贵。只有把 所有的树都围起来，花园才围得很好。
 //
@@ -11,16 +11,16 @@ package main
 //
 //
 //
-//输入: points = [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
-//输出: [[1,1],[2,0],[3,3],[2,4],[4,2]]
+// 输入: points = [[1,1],[2,2],[2,0],[2,4],[3,3],[4,2]]
+// 输出: [[1,1],[2,0],[3,3],[2,4],[4,2]]
 //
 // 示例 2:
 //
 //
 //
 //
-//输入: points = [[1,2],[2,2],[4,2]]
-//输出: [[4,2],[2,2],[1,2]]
+// 输入: points = [[1,2],[2,2],[4,2]]
+// 输出: [[4,2],[2,2],[1,2]]
 //
 //
 //
@@ -36,14 +36,10 @@ package main
 // Related Topics 几何 数组 数学 👍 210 👎 0
 
 // 2022-12-31 12:34:40
-//leetcode submit region begin(Prohibit modification and deletion)
+// leetcode submit region begin(Prohibit modification and deletion)
 func outerTrees(trees [][]int) [][]int {
-	cross := func(a, b, c []int) int {
-		bax, bay := a[0]-b[0], a[1]-b[1]
-		bcx, bcy := c[0]-b[0], c[1]-b[1]
-
-		return bax*bcy - bcx*bay
-
+	cross := func(p, q, r []int) int {
+		return (q[0]-p[0])*(r[1]-q[1]) - (q[1]-p[1])*(r[0]-q[0])
 	}
 
 	visited := make([]bool, len(trees))
@@ -87,4 +83,4 @@ func outerTrees(trees [][]int) [][]int {
 
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
