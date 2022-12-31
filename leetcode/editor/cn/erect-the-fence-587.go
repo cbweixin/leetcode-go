@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 // 给定一个数组 trees，其中 trees[i] = [xi, yi] 表示树在花园中的位置。
 //
 // 你被要求用最短长度的绳子把整个花园围起来，因为绳子很贵。只有把 所有的树都围起来，花园才围得很好。
@@ -41,11 +43,14 @@ func outerTrees(trees [][]int) [][]int {
 	cross := func(p, q, r []int) int {
 		return (q[0]-p[0])*(r[1]-q[1]) - (q[1]-p[1])*(r[0]-q[0])
 	}
+	if len(trees) < 4 {
+		return trees
+	}
 
 	visited := make([]bool, len(trees))
 	leftMost := 0
 	for k, v := range trees {
-		if v[0] < trees[leftMost][0] {
+		if v[0] < trees[leftMost][0] || (v[0] == trees[leftMost][0] && v[1] < trees[leftMost][1]) {
 			leftMost = k
 		}
 	}
@@ -84,3 +89,6 @@ func outerTrees(trees [][]int) [][]int {
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(outerTrees([][]int{{0, 5}, {10, 0}, {10, 10}, {0, 10}, {0, 0}}))
+}
