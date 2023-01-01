@@ -62,7 +62,7 @@ package main
 
 // 2022-12-31 17:28:27
 //leetcode submit region begin(Prohibit modification and deletion)
-func nimGame(piles []int) bool {
+func nimGame1(piles []int) bool {
 	xor := 0
 	for _, v := range piles {
 		xor ^= v
@@ -72,4 +72,37 @@ func nimGame(piles []int) bool {
 
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+func nimGame(piles []int) bool {
+	// leetcode submit region end(Prohibit modification and deletion)
+	mask := 0
+	for i, v := range piles {
+		mask = (mask << 3) + v
+	}
+	memo := make(map[int]bool)
+
+	var play func(int) bool
+	play = func(n int) bool {
+		v, ok := memo[n]
+		if ok {
+			return v
+		}
+		for i := 0; i < len(piles); i++ {
+			t := (mask >> (3 * i)) & 7
+			if t == 0 {
+				continue
+			}
+			for j := 1; j <= t; j++ {
+				a := j << (3 * i)
+				if mask-a == 0 || !play(mask-a) {
+					memo[mask] = true
+					return true
+				}
+			}
+		}
+		memo[mask] = false
+		return false
+	}
+
+	return play(mask)
+
+}
