@@ -74,6 +74,7 @@ func nimGame1(piles []int) bool {
 
 }
 
+// bit-manipulation
 func nimGame(piles []int) bool {
 	// leetcode submit region end(Prohibit modification and deletion)
 	mask := 0
