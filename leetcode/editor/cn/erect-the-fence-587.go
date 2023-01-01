@@ -66,6 +66,7 @@ func outerTrees(trees [][]int) [][]int {
 		}
 		// if there exists i, which is at the line formed by p, q
 		for i, b := range visited {
+			// bugfixed
 			if !b && i != p && i != q && cross(trees[p], trees[q], trees[i]) == 0 {
 				res = append(res, trees[i])
 				visited[i] = true
