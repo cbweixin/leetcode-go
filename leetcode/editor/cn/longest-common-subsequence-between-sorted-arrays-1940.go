@@ -54,10 +54,10 @@ func longestCommonSubsequence(arrays [][]int) []int {
 			freq[v] += 1
 		}
 	}
-	res := make([]int, 1)
-	for k, v := range freq {
-		if v == len(arrays) {
-			res = append(res, k)
+	res := make([]int, 0)
+	for _, v := range arrays[0] {
+		if freq[v] == len(arrays) {
+			res = append(res, v)
 		}
 	}
 
