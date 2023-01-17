@@ -60,9 +60,7 @@ func longestCommonSubsequence(arrays [][]int) []int {
 			res = append(res, v)
 		}
 	}
-
 	return res
-
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
