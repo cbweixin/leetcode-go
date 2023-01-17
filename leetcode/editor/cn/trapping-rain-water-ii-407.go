@@ -124,6 +124,19 @@ func (h *ConeHeap) Pop() interface{} {
 
 // leetcode submit region end(Prohibit modification and deletion)
 func main() {
-	fmt.Println(trapRainWater([][]int{{1, 4, 3, 1, 3, 2}, {3, 2, 1, 3, 2, 4}, {2, 3, 3, 2, 3, 1}}))
+	// 4
+	// fmt.Println(trapRainWater([][]int{{1, 4, 3, 1, 3, 2}, {3, 2, 1, 3, 2, 4}, {2, 3, 3, 2, 3, 1}}))
+	// 14
+	fmt.Println(
+		trapRainWater(
+			[][]int{
+				{12, 13, 1, 12},
+				{13, 4, 13, 12},
+				{13, 8, 10, 12},
+				{12, 13, 12, 12},
+				{13, 13, 13, 13},
+			},
+		),
+	)
 
 }
