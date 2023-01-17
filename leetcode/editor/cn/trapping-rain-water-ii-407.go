@@ -1,8 +1,11 @@
 package main
 
-import "container/heap"
+import (
+	"container/heap"
+	"fmt"
+)
 
-//给你一个 m x n 的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。
+// 给你一个 m x n 的矩阵，其中的值均为非负整数，代表二维高度图每个单元的高度，请计算图中形状最多能接多少体积的雨水。
 //
 //
 //
@@ -11,9 +14,9 @@ import "container/heap"
 //
 //
 //
-//输入: heightMap = [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]
-//输出: 4
-//解释: 下雨后，雨水将会被上图蓝色的方块中。总的接雨水量为1+2+1=4。
+// 输入: heightMap = [[1,4,3,1,3,2],[3,2,1,3,2,4],[2,3,3,2,3,1]]
+// 输出: 4
+// 解释: 下雨后，雨水将会被上图蓝色的方块中。总的接雨水量为1+2+1=4。
 //
 //
 // 示例 2:
@@ -21,8 +24,8 @@ import "container/heap"
 //
 //
 //
-//输入: heightMap = [[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]
-//输出: 10
+// 输入: heightMap = [[3,3,3,3,3],[3,2,2,2,3],[3,2,1,2,3],[3,2,2,2,3],[3,3,3,3,3]]
+// 输出: 10
 //
 //
 //
@@ -41,7 +44,7 @@ import "container/heap"
 // Related Topics 广度优先搜索 数组 矩阵 堆（优先队列） 👍 648 👎 0
 
 // 2023-01-16 22:27:59
-//leetcode submit region begin(Prohibit modification and deletion)
+// leetcode submit region begin(Prohibit modification and deletion)
 func trapRainWater(heightMap [][]int) int {
 	m := len(heightMap)
 	if m == 0 {
@@ -53,7 +56,10 @@ func trapRainWater(heightMap [][]int) int {
 	}
 	pq := make(ConeHeap, 0)
 	heap.Init(&pq)
-	isVisited := make([][]bool, m, n)
+	isVisited := make([][]bool, m)
+	for i := range isVisited {
+		isVisited[i] = make([]bool, n)
+	}
 
 	for i := 0; i < m; i++ {
 		for j := 0; j < n; j++ {
@@ -77,11 +83,13 @@ func trapRainWater(heightMap [][]int) int {
 			nX, nY := topCone.x+v[0], topCone.y+v[1]
 			if nX >= 0 && nX < m && nY >= 0 && nY < n && !isVisited[nX][nY] {
 				trap += max(0, topCone.height-heightMap[nX][nY])
-				pq.Push(cone{
-					height: max(topCone.height, heightMap[nX][nY]),
-					x:      nX,
-					y:      nY,
-				})
+				pq.Push(
+					cone{
+						height: max(topCone.height, heightMap[nX][nY]),
+						x:      nX,
+						y:      nY,
+					},
+				)
 				isVisited[nX][nY] = true
 			}
 		}
@@ -114,4 +122,8 @@ func (h *ConeHeap) Pop() interface{} {
 	return x
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(trapRainWater([][]int{{1, 4, 3, 1, 3, 2}, {3, 2, 1, 3, 2, 4}, {2, 3, 3, 2, 3, 1}}))
+
+}
