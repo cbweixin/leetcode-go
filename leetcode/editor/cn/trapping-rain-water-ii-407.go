@@ -55,7 +55,6 @@ func trapRainWater(heightMap [][]int) int {
 		return 0
 	}
 	pq := make(ConeHeap, 0)
-	heap.Init(&pq)
 	isVisited := make([][]bool, m)
 	for i := range isVisited {
 		isVisited[i] = make([]bool, n)
@@ -69,6 +68,7 @@ func trapRainWater(heightMap [][]int) int {
 			}
 		}
 	}
+	heap.Init(&pq)
 
 	trap := 0
 	max := func(x, y int) int {
@@ -78,12 +78,12 @@ func trapRainWater(heightMap [][]int) int {
 		return y
 	}
 	for pq.Len() > 0 {
-		topCone := pq.Pop().(cone)
+		topCone := heap.Pop(&pq).(cone)
 		for _, v := range [][]int{{0, -1}, {-1, 0}, {0, 1}, {1, 0}} {
 			nX, nY := topCone.x+v[0], topCone.y+v[1]
 			if nX >= 0 && nX < m && nY >= 0 && nY < n && !isVisited[nX][nY] {
 				trap += max(0, topCone.height-heightMap[nX][nY])
-				pq.Push(
+				heap.Push(&pq,
 					cone{
 						height: max(topCone.height, heightMap[nX][nY]),
 						x:      nX,
@@ -110,7 +110,9 @@ type ConeHeap []cone
 
 func (h ConeHeap) Len() int           { return len(h) }
 func (h ConeHeap) Less(i, j int) bool { return h[i].height < h[j].height }
-func (h ConeHeap) Swap(i, j int)      { h[i], h[j] = h[j], h[i] }
+func (h ConeHeap) Swap(i, j int) {
+	h[i], h[j] = h[j], h[i]
+}
 func (h *ConeHeap) Push(x interface{}) {
 	*h = append(*h, x.(cone))
 }
