@@ -111,6 +111,9 @@ func findInteger(k int, digit1 int, digit2 int) int {
 	var deque = []int{digit1, digit2}
 	for len(deque) > 0 {
 		a := deque[0]
+		if a > math.MaxInt32 {
+			return -1
+		}
 		if a > k && a%k == 0 {
 			return a
 		}
