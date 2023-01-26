@@ -57,7 +57,7 @@ import (
 //2023-01-26 13:51:34
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func findInteger(k int, digit1 int, digit2 int) int {
+func findInteger2(k int, digit1 int, digit2 int) int {
 	max := func(a, b int) int {
 		if a >= b {
 			return a
@@ -98,6 +98,26 @@ func findInteger(k int, digit1 int, digit2 int) int {
 	}
 
 	return search(0)
+
+}
+
+func findInteger(k int, digit1 int, digit2 int) int {
+	if digit1+digit2 == 0 {
+		return -1
+	}
+	if digit1 > digit2 {
+		digit1, digit2 = digit2, digit1
+	}
+	var deque = []int{digit1, digit2}
+	for len(deque) > 0 {
+		a := deque[0]
+		if a > k && a%k == 0 {
+			return a
+		}
+		deque = append(deque[1:], []int{a*10 + digit1, a*10 + digit2}...)
+	}
+
+	return -1
 
 }
 
