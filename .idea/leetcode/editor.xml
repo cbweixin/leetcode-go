@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="LeetcodeEditor">
+    <option name="projectConfig">
+      <map>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/smallest-greater-multiple-made-of-two-digits-1999.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/smallest-greater-multiple-made-of-two-digits-1999.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1999" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/smallest-greater-multiple-made-of-two-digits-1999.go" />
+              <option name="titleSlug" value="smallest-greater-multiple-made-of-two-digits" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
