@@ -73,7 +73,7 @@ func findInteger(k int, digit1 int, digit2 int) int {
 			return -1
 		}
 
-		if i > 0 && i%k == 0 {
+		if i > k && i%k == 0 {
 			return i
 		}
 
