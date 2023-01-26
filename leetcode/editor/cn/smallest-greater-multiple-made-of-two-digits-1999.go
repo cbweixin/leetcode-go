@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"fmt"
+	"math"
+)
 
 //给你三个整数, k, digit1和 digit2, 你想要找到满足以下条件的 最小 整数：
 //
@@ -98,4 +101,7 @@ func findInteger(k int, digit1 int, digit2 int) int {
 
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(findInteger(3, 3, 6))
+}
