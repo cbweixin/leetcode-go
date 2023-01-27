@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //给定两个大小分别为 m 和 n 的正序（从小到大）数组 nums1 和 nums2。请你找出并返回这两个正序数组的 中位数 。
 //
 // 算法的时间复杂度应该为 O(log (m+n)) 。
@@ -54,7 +56,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 
 	// partition
 	getKth = func(arr1 []int, start1 int, end1 int, arr2 []int, start2 int, end2 int, k int) int {
-		l1, l2 := end1-start1+1, end2-start2+2
+		l1, l2 := end1-start1+1, end2-start2+1
 		if l1 > l2 {
 			return getKth(arr2, start2, end2, arr1, start1, end1, k)
 		}
@@ -81,4 +83,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(findMedianSortedArrays([]int{2}, []int{}))
+}
