@@ -52,6 +52,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 		return y
 	}
 
+	// partition
 	getKth = func(arr1 []int, start1 int, end1 int, arr2 []int, start2 int, end2 int, k int) int {
 		l1, l2 := end1-start1+1, end2-start2+2
 		if l1 > l2 {
@@ -74,7 +75,7 @@ func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
 	}
 
 	n, m := len(nums1), len(nums2)
-	k1, k2 := (n+m+1)>>1, (n+m+2)>>2
+	k1, k2 := (n+m+1)>>1, (n+m+2)>>1
 
 	return float64((getKth(nums1, 0, n-1, nums2, 0, m-1, k1) + getKth(nums1, 0, n-1, nums2, 0, m-1, k2))) / 2
 
