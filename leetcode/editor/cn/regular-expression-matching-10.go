@@ -57,9 +57,6 @@ func isMatch(s string, p string) bool {
 	dp := make([][]bool, m+1)
 	for i := 0; i < m+1; i++ {
 		dp[i] = make([]bool, n+1)
-		//for j := 0; j < n+1; j++{
-		//	dp[i][j] = false
-		//}
 	}
 	dp[0][0] = true
 	for j := 2; j < n+1; j++ {
