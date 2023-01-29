@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 '.' 和 '*' 的正则表达式匹配。
 //
 //
@@ -55,10 +57,13 @@ func isMatch(s string, p string) bool {
 	dp := make([][]bool, m+1)
 	for i := 0; i < m+1; i++ {
 		dp[i] = make([]bool, n+1)
+		//for j := 0; j < n+1; j++{
+		//	dp[i][j] = false
+		//}
 	}
 	dp[0][0] = true
 	for j := 2; j < n+1; j++ {
-		if p[j] == '*' {
+		if p[j-1] == '*' {
 			dp[0][j] = dp[0][j-2]
 		}
 	}
@@ -80,4 +85,8 @@ func isMatch(s string, p string) bool {
 	return dp[m][n]
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(isMatch("aa", "a"))
+	fmt.Println(isMatch("aa", "a*"))
+}
