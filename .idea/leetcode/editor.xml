@@ -113,6 +113,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/merge-k-sorted-lists-23.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/merge-k-sorted-lists-23.md" />
+              <option name="frontendQuestionId" value="leetcode.cn23" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/merge-k-sorted-lists-23.go" />
+              <option name="titleSlug" value="merge-k-sorted-lists" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/regular-expression-matching-10.go">
           <value>
             <LeetcodeEditor>

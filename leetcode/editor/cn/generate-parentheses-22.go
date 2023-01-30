@@ -34,6 +34,7 @@ import "fmt"
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func generateParenthesis(n int) []string {
+	// backtrack
 	res, path := make([]string, 0), make([]byte, 0)
 	var gen func(int, int, []byte)
 
