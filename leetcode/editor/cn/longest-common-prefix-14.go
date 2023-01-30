@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //编写一个函数来查找字符串数组中的最长公共前缀。
 //
 // 如果不存在公共前缀，返回空字符串 ""。
@@ -36,14 +38,18 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func longestCommonPrefix(strs []string) string {
-	for i := 0; i < len(strs[0]); i++ {
-		for _, s := range strs {
+	i := 0
+	for i = 0; i < len(strs[0]); i++ {
+		for _, s := range strs[1:] {
 			if i == len(s) || s[i] != strs[0][i] {
 				return s[:i]
 			}
 		}
 	}
-	return ""
+	return strs[0][:i]
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(longestCommonPrefix([]string{"a"}))
+}
