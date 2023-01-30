@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"strings"
 )
 
 //给定一个仅包含数字 2-9 的字符串，返回所有它能表示的字母组合。答案可以按 任意顺序 返回。
@@ -48,6 +47,7 @@ import (
 //2023-01-30 09:59:54
 
 // leetcode submit region begin(Prohibit modification and deletion)
+// recursion
 func letterCombinations(digits string) []string {
 	var lookup = []string{"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"}
 	res := make([]string, 0)
@@ -59,11 +59,7 @@ func letterCombinations(digits string) []string {
 			return
 		}
 		for _, v := range lookup[digits[idx]-'0'] {
-			var b strings.Builder
-			b.WriteString(s)
-			b.WriteRune(v)
-			dfs(idx+1, b.String())
-
+			dfs(idx+1, s+string(v))
 		}
 		return
 
