@@ -48,6 +48,7 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func isValid(s string) bool {
+	// stack
 	lookup := map[rune]rune{'{': '}', '(': ')', '[': ']'}
 	stack := make([]rune, 0)
 
@@ -61,7 +62,6 @@ func isValid(s string) bool {
 			stack = stack[:len(stack)-1]
 		}
 	}
-
 	return len(stack) == 0
 }
 
