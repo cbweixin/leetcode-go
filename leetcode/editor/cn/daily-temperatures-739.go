@@ -42,14 +42,11 @@ package main
 // stack, mono-stack
 func dailyTemperatures(temperatures []int) []int {
 	l := len(temperatures)
-	res, stack, t := make([]int, l), make([]int, 0), 0
+	res, stack := make([]int, l), make([]int, 0)
 
 	for i, v := range temperatures {
-		if len(stack) > 0 {
-			t = stack[len(stack)-1]
-		}
-		for len(stack) > 0 && v > temperatures[t] {
-			res[t] = i - t
+		for len(stack) > 0 && v > temperatures[stack[len(stack)-1]] {
+			res[stack[len(stack)-1]] = i - stack[len(stack)-1]
 			stack = stack[:len(stack)-1]
 		}
 		stack = append(stack, i)
