@@ -58,6 +58,7 @@ func isValid(s string) bool {
 			if len(stack) == 0 || lookup[stack[len(stack)-1]] != v {
 				return false
 			}
+			stack = stack[:len(stack)-1]
 		}
 	}
 
