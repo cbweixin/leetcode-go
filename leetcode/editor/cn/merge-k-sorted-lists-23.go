@@ -73,7 +73,9 @@ func mergeKLists(lists []*ListNode) *ListNode {
 	cur := dummy
 	pq := make(ListNodeHeap, 0)
 	for _, l := range lists {
-		pq.Push(l)
+		if l != nil {
+			pq.Push(l)
+		}
 	}
 
 	heap.Init(&pq)
