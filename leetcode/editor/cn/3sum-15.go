@@ -1,6 +1,9 @@
 package main
 
-import "sort"
+import (
+	"fmt"
+	"sort"
+)
 
 //给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j !=
 //k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请
@@ -62,26 +65,32 @@ func threeSum(nums []int) [][]int {
 	for i := 0; i < n-2; i++ {
 		if i == 0 || nums[i] != nums[i-1] {
 			l, r := i+1, n-1
-			s := nums[i] + nums[l] + nums[r]
-			if s == 0 {
-				arr := []int{nums[i], nums[l], nums[r]}
-				res = append(res, arr)
+			for l < r {
+				s := nums[i] + nums[l] + nums[r]
+				if s == 0 {
+					arr := []int{nums[i], nums[l], nums[r]}
+					res = append(res, arr)
+					l, r = l+1, r-1
 
-				for l+1 < r && nums[l] == nums[l+1] {
+					for l < r && nums[l] == nums[l-1] {
+						l++
+					}
+					for r < l && nums[r] == nums[r+1] {
+						r--
+					}
+
+				} else if s > 0 {
+					r--
+				} else {
 					l++
 				}
-				for r-1 < l && nums[r-1] == nums[r] {
-					r--
-				}
-
-			} else if s > 0 {
-				r--
-			} else {
-				l++
 			}
 		}
 	}
 	return res
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(threeSum([]int{0, 0, 0}))
+}
