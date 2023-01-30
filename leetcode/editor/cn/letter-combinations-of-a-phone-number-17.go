@@ -69,6 +69,9 @@ func letterCombinations(digits string) []string {
 
 	}
 
+	if len(digits) == 0 {
+		return res
+	}
 	dfs(0, "")
 	return res
 }
