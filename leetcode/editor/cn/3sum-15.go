@@ -75,7 +75,7 @@ func threeSum(nums []int) [][]int {
 					for l < r && nums[l] == nums[l-1] {
 						l++
 					}
-					for r < l && nums[r] == nums[r+1] {
+					for r > l && nums[r] == nums[r+1] {
 						r--
 					}
 
