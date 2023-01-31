@@ -2,6 +2,7 @@ package main
 
 import (
 	"container/heap"
+	"fmt"
 	"math"
 )
 
@@ -68,8 +69,8 @@ import (
 func assignTasks(servers []int, tasks []int) []int {
 	release := make(map[int][]server, 0)
 	availble, curTime, i := make(ServerHeap, 0), 0, 0
-	for i, v := range servers {
-		availble.Push(server{weight: v, index: i})
+	for k, v := range servers {
+		availble.Push(server{weight: v, index: k})
 	}
 	heap.Init(&availble)
 	res := make([]int, len(tasks))
@@ -108,6 +109,9 @@ func assignTasks(servers []int, tasks []int) []int {
 				release[t] = []server{{weight: s.weight, index: s.index}}
 			}
 			i += 1
+			//if i == 6 {
+			//	fmt.Println(availble, release)
+			//}
 			if i == len(tasks) {
 				break
 			}
@@ -130,6 +134,9 @@ func (h ServerHeap) Len() int {
 }
 
 func (h ServerHeap) Less(i, j int) bool {
+	if h[i].weight == h[j].weight {
+		return h[i].index < h[j].index
+	}
 	return h[i].weight < h[j].weight
 }
 
@@ -149,3 +156,11 @@ func (h *ServerHeap) Pop() interface{} {
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
+
+func main() {
+	fmt.Println(assignTasks(
+		[]int{74, 57, 61, 82, 67, 97, 67, 21, 61, 79, 21, 50, 14, 88, 48, 52, 76, 64},
+		[]int{21, 100, 48, 64, 20, 8, 28, 10, 3, 63, 7},
+	),
+	)
+}
