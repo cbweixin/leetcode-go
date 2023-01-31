@@ -11,7 +11,7 @@ func minPatches(nums []int, n int) int {
 	boundary, cnt, i := 1, 0, 0
 
 	for boundary < n+1 {
-		if nums[i] <= boundary {
+		if i < len(nums) && nums[i] <= boundary {
 			boundary += nums[i]
 			i++
 		} else {
