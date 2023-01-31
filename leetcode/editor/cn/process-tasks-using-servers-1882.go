@@ -66,7 +66,8 @@ import (
 //2023-01-31 12:24:00
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func assignTasks(servers []int, tasks []int) []int {
+func assignTasks1(servers []int, tasks []int) []int {
+	// heap
 	release := make(map[int][]server, 0)
 	availble, curTime, i := make(ServerHeap, 0), 0, 0
 	for k, v := range servers {
@@ -109,9 +110,6 @@ func assignTasks(servers []int, tasks []int) []int {
 				release[t] = []server{{weight: s.weight, index: s.index}}
 			}
 			i += 1
-			//if i == 6 {
-			//	fmt.Println(availble, release)
-			//}
 			if i == len(tasks) {
 				break
 			}
@@ -120,6 +118,45 @@ func assignTasks(servers []int, tasks []int) []int {
 		curTime += 1
 	}
 	return res
+}
+
+func assignTasks(servers []int, tasks []int) []int {
+	free, busy, curTime, l, taskIdx := make(ServerHeap, 0), make(ServerHeap, 0), 0, len(tasks), 0
+	res := make([]int, l)
+
+	for i, w := range servers {
+		free.Push(server{weight: w, index: i})
+	}
+
+	heap.Init(&free)
+	heap.Init(&busy)
+
+	for taskIdx < l {
+		for len(busy) > 0 && busy[0].weight <= curTime {
+			s := heap.Pop(&busy).(server)
+			heap.Push(&free, server{weight: servers[s.index], index: s.index})
+		}
+
+		if len(free) == 0 {
+			curTime = busy[0].weight
+			continue
+		}
+
+		for taskIdx <= curTime && len(free) > 0 {
+			s := heap.Pop(&free).(server)
+			res[taskIdx] = s.index
+			heap.Push(&busy, server{weight: curTime + tasks[taskIdx], index: s.index})
+			taskIdx += 1
+			if taskIdx == l {
+				break
+			}
+		}
+
+		curTime += 1
+	}
+
+	return res
+
 }
 
 type server struct {
@@ -134,6 +171,8 @@ func (h ServerHeap) Len() int {
 }
 
 func (h ServerHeap) Less(i, j int) bool {
+	// bugfixed , if 2 server has same weight, but different index, without this fix , it won't work
+	// [61, 8], [61, 2], but I hope [61,2], [61,8]
 	if h[i].weight == h[j].weight {
 		return h[i].index < h[j].index
 	}
