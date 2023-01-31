@@ -95,6 +95,7 @@ func assignTasks(servers []int, tasks []int) []int {
 
 		if len(availble) == 0 {
 			curTime = minKey(release)
+			continue
 		}
 
 		for i <= curTime && len(availble) > 0 {
