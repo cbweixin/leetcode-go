@@ -58,6 +58,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/largest-subarray-length-k-1708.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/largest-subarray-length-k-1708.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1708" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/largest-subarray-length-k-1708.go" />
+              <option name="titleSlug" value="largest-subarray-length-k" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/letter-combinations-of-a-phone-number-17.go">
           <value>
             <LeetcodeEditor>
