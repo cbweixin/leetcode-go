@@ -69,6 +69,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/last-substring-in-lexicographical-order-1163.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/last-substring-in-lexicographical-order-1163.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1163" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/last-substring-in-lexicographical-order-1163.go" />
+              <option name="titleSlug" value="last-substring-in-lexicographical-order" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/letter-combinations-of-a-phone-number-17.go">
           <value>
             <LeetcodeEditor>
@@ -135,6 +146,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/minimum-number-of-steps-to-make-two-strings-anagram-1347.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/minimum-number-of-steps-to-make-two-strings-anagram-1347.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1347" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/minimum-number-of-steps-to-make-two-strings-anagram-1347.go" />
+              <option name="titleSlug" value="minimum-number-of-steps-to-make-two-strings-anagram" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/process-tasks-using-servers-1882.go">
           <value>
             <LeetcodeEditor>
@@ -198,6 +220,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/subtree-removal-game-with-fibonacci-tree-2005.go" />
               <option name="titleSlug" value="subtree-removal-game-with-fibonacci-tree" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/the-k-weakest-rows-in-a-matrix-1337.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/the-k-weakest-rows-in-a-matrix-1337.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1337" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/the-k-weakest-rows-in-a-matrix-1337.go" />
+              <option name="titleSlug" value="the-k-weakest-rows-in-a-matrix" />
             </LeetcodeEditor>
           </value>
         </entry>

@@ -55,6 +55,7 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func largestSubarray(nums []int, k int) []int {
+	// two-pointer
 	t := 0
 	for i := 1; i < len(nums)-k+1; i++ {
 		if nums[t] < nums[i] {
