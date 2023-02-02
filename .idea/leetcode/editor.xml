@@ -168,6 +168,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/product-of-the-last-k-numbers-1352.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/product-of-the-last-k-numbers-1352.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1352" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/product-of-the-last-k-numbers-1352.go" />
+              <option name="titleSlug" value="product-of-the-last-k-numbers" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/redistribute-characters-to-make-all-strings-equal-1897.go">
           <value>
             <LeetcodeEditor>
