@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 //把字符串 s 看作 "abcdefghijklmnopqrstuvwxyz" 的无限环绕字符串，所以 s 看起来是这样的：
 //
 //
@@ -49,12 +51,12 @@ package main
 
 // leetcode submit region begin(Prohibit modification and deletion)
 func findSubstringInWraproundString(p string) int {
-	chars := make(map[int]int, 26)
+	chars := make(map[byte]int, 26)
 	for _, c := range p {
-		chars[int(c-'a')] = 1
+		chars[byte(c)-byte('a')] = 1
 	}
-	isConsecutive := func(x, y int) bool {
-		return (x-'a'+1)%26 == 'y'-'a'
+	isConsecutive := func(x, y byte) bool {
+		return (x-byte('a')+1)%26 == y-byte('a')
 	}
 	max := func(x, y int) int {
 		if x >= y {
@@ -65,12 +67,12 @@ func findSubstringInWraproundString(p string) int {
 	cur := 1
 	l := len(p)
 	for i := 1; i < l; i++ {
-		if isConsecutive(int(p[i-1]), int(p[i])) {
+		if isConsecutive(p[i-1], p[i]) {
 			cur += 1
 		} else {
 			cur = 1
 		}
-		chars[int(p[i]-'a')] = max(chars[int(p[i]-'a')], cur)
+		chars[p[i]-byte('a')] = max(chars[p[i]-byte('a')], cur)
 	}
 	res := 0
 	for _, v := range chars {
@@ -81,4 +83,9 @@ func findSubstringInWraproundString(p string) int {
 
 }
 
-//leetcode submit region end(Prohibit modification and deletion)
+// leetcode submit region end(Prohibit modification and deletion)
+func main() {
+	fmt.Println(findSubstringInWraproundString("zab"))
+	//fmt.Println(byte('a'))
+	//fmt.Println(byte('z'))
+}
