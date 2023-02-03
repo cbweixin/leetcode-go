@@ -42,7 +42,7 @@ func numSubarrayBoundedMax(nums []int, left int, right int) int {
 		ans, cur := 0, 0
 		for _, v := range nums {
 			if v <= bound {
-				cur += 1
+				cur++
 			} else {
 				cur = 0
 			}
@@ -52,7 +52,7 @@ func numSubarrayBoundedMax(nums []int, left int, right int) int {
 		return ans
 	}
 
-	return count(right) - count(left)
+	return count(right) - count(left-1)
 
 }
 
