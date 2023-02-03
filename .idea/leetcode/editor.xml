@@ -36,6 +36,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/corporate-flight-bookings-1109.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/corporate-flight-bookings-1109.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1109" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/corporate-flight-bookings-1109.go" />
+              <option name="titleSlug" value="corporate-flight-bookings" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/daily-temperatures-739.go">
           <value>
             <LeetcodeEditor>
