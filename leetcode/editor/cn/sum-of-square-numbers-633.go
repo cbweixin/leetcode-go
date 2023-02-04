@@ -38,7 +38,7 @@ func judgeSquareSum(c int) bool {
 	a := 0
 	b := int(math.Sqrt(float64(c)))
 
-	for a < b {
+	for a <= b {
 		t := a*a + b*b
 		if t == c {
 			return true
