@@ -267,6 +267,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/sum-of-square-numbers-633.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/sum-of-square-numbers-633.md" />
+              <option name="frontendQuestionId" value="leetcode.cn633" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/sum-of-square-numbers-633.go" />
+              <option name="titleSlug" value="sum-of-square-numbers" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/the-k-weakest-rows-in-a-matrix-1337.go">
           <value>
             <LeetcodeEditor>
