@@ -245,6 +245,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/spiral-matrix-iii-885.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/spiral-matrix-iii-885.md" />
+              <option name="frontendQuestionId" value="leetcode.cn885" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/spiral-matrix-iii-885.go" />
+              <option name="titleSlug" value="spiral-matrix-iii" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/subtree-removal-game-with-fibonacci-tree-2005.go">
           <value>
             <LeetcodeEditor>
