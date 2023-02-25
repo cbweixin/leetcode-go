@@ -8,10 +8,10 @@ import (
 func main() {
 	stream := pump2()
 	go suck2(stream)
-	time.Sleep(1e2)
+	time.Sleep(5e4)
 	fmt.Println("-------hi----------------------------")
 	suck3(pump3())
-	time.Sleep(1e2)
+	time.Sleep(5e4)
 
 }
 
