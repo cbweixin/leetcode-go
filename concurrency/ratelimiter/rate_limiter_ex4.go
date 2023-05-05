@@ -53,7 +53,7 @@ func (l *Limiter) SetMax(m int64) {
 
 // MaxAllowed 限流器
 func MaxAllowed(limitValue int64) func(c *gin.Context) {
-	limiter := utils.NewLimiter(limitValue)
+	limiter := NewLimiter(limitValue)
 	log.Println("limiter.SetMax:", limitValue)
 	// 返回限流逻辑
 	return func(c *gin.Context) {

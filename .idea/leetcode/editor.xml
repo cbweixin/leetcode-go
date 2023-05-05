@@ -25,6 +25,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/cheapest-flights-within-k-stops-787.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/cheapest-flights-within-k-stops-787.md" />
+              <option name="frontendQuestionId" value="leetcode.cn787" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/cheapest-flights-within-k-stops-787.go" />
+              <option name="titleSlug" value="cheapest-flights-within-k-stops" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/container-with-most-water-11.go">
           <value>
             <LeetcodeEditor>
