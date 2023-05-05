@@ -102,8 +102,8 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 					que = append(que, [2]int{d, nC})
 				}
 			}
-			k -= 1
 		}
+		k -= 1
 	}
 	if minCost == math.MaxInt {
 		return -1
@@ -115,10 +115,10 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 
 // leetcode submit region end(Prohibit modification and deletion)
 func main() {
-	n := 4
-	flight := [][]int{{0, 1, 100}, {1, 2, 100}, {2, 0, 100}, {1, 3, 600}, {2, 3, 200}}
+	n := 5
+	flight := [][]int{{0, 1, 1}, {0, 2, 5}, {1, 2, 1}, {2, 3, 1}, {3, 4, 1}}
 	src := 0
-	dst := 3
-	k := 1
+	dst := 4
+	k := 2
 	fmt.Println(findCheapestPrice(n, flight, src, dst, k))
 }
