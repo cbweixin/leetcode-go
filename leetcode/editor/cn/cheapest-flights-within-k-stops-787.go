@@ -80,8 +80,10 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 
 	que := make([][2]int, 0)
 	que = append(que, [2]int{src, 0})
+	curMin := make(map[int]int)
+	curMin[src] = 0
 
-	for len(que) > 0 {
+	for len(que) > 0 && k >= 0 {
 		m := len(que)
 		for i := 0; i < m; i++ {
 			s, c := que[0][0], que[0][1]
@@ -93,8 +95,13 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 					if nC > minCost {
 						continue
 					}
+					cost, ok := curMin[d]
+					if ok && cost <= nC {
+						continue
+					}
 					if d == dst {
 						minCost = nC
+						curMin[d] = nC
 					}
 					if k == 0 {
 						continue
