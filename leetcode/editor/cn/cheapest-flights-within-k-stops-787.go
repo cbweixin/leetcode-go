@@ -62,6 +62,7 @@ import (
 // leetcode submit region begin(Prohibit modification and deletion)
 func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 	costs := make([][]int, n)
+	curMin := make([][]int, k+1)
 	for i := range costs {
 		costs[i] = make([]int, n)
 		for j := range costs[i] {
@@ -69,48 +70,55 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 		}
 	}
 
+	for i := range curMin {
+		curMin[i] = make([]int, n)
+	}
+
 	for _, f := range flights {
 		costs[f[0]][f[1]] = f[2]
 	}
 
 	minCost := math.MaxInt
-	var null struct{}
-	seen := make(map[int]struct{})
-	seen[src] = null
+	//var null struct{}
+	//seen := make(map[int]struct{})
+	//seen[src] = null
 
-	que := make([][2]int, 0)
-	que = append(que, [2]int{src, 0})
-	curMin := make(map[int]int)
-	curMin[src] = 0
+	que := make([]int, 0)
+	que = append(que, src)
 
-	for len(que) > 0 && k >= 0 {
+	curMin[0][src] = 0
+	step := 0
+
+	for len(que) > 0 && step <= k {
 		m := len(que)
 		for i := 0; i < m; i++ {
-			s, c := que[0][0], que[0][1]
+			s := que[0]
 			que = que[1:]
 			for d := 0; d < n; d++ {
-				_, ok := seen[d]
-				if !ok && costs[s][d] < math.MaxInt {
-					nC := c + costs[s][d]
-					if nC > minCost {
-						continue
-					}
-					cost, ok := curMin[d]
-					if ok && cost <= nC {
-						continue
-					}
-					if d == dst {
-						minCost = nC
-						curMin[d] = nC
-					}
-					if k == 0 {
-						continue
-					}
-					que = append(que, [2]int{d, nC})
+				if costs[s][d] == math.MaxInt {
+					continue
 				}
+				if step == 0 {
+					curMin[step][d] = costs[s][d]
+				} else {
+					t := curMin[step-1][s] + costs[s][d]
+					if t < curMin[step][d] || curMin[step][d] == 0 {
+						curMin[step][d] = t
+					} else {
+						continue
+					}
+				}
+				if curMin[step][d] > minCost {
+					continue
+				}
+
+				if d == dst {
+					minCost = curMin[step][d]
+				}
+				que = append(que, d)
 			}
 		}
-		k -= 1
+		step++
 	}
 	if minCost == math.MaxInt {
 		return -1
