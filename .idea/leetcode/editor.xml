@@ -190,6 +190,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/number-of-sets-of-k-non-overlapping-line-segments-1621.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/number-of-sets-of-k-non-overlapping-line-segments-1621.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1621" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/number-of-sets-of-k-non-overlapping-line-segments-1621.go" />
+              <option name="titleSlug" value="number-of-sets-of-k-non-overlapping-line-segments" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/number-of-subarrays-with-bounded-maximum-795.go">
           <value>
             <LeetcodeEditor>
