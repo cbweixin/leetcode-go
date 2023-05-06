@@ -1,7 +1,5 @@
 package main
 
-import "math/big"
-
 //给你一维空间的 n 个点，其中第 i 个点（编号从 0 到 n-1）位于 x = i 处，请你找到 恰好 k 个不重叠 线段且每个线段至少覆盖两个点的方案数
 //。线段的两个端点必须都是 整数坐标 。这 k 个线段不需要全部覆盖全部 n 个点，且它们的端点 可以 重合。
 //
@@ -62,9 +60,28 @@ import "math/big"
 //2023-05-06 15:51:34
 
 func numberOfSets(n int, k int) int {
-	z := new(big.Int)
-	res := int(z.Binomial(int64(n+k-1), int64(k<<1)).Uint64() % 1000000007)
-	return res
+	var combine func(int, int) int
+	mod := 1000000007
+	cache := make([][]int, n+1)
+
+	for i := range cache {
+		cache[i] = make([]int, k+1)
+	}
+
+	// c(n,k) = c(n-1,k) + c(n, k-1)
+	combine = func(n int, k int) int {
+		if n == 0 || k == 0 {
+			return 1
+		} else if cache[n][k] > 0 {
+			return cache[n][k]
+		} else {
+			cache[n][k] = (combine(n-1, k) + combine(n, k-1)) % mod
+		}
+
+		return cache[n][k]
+	}
+
+	return combine(n+k-1, k<<1)
 
 }
 
