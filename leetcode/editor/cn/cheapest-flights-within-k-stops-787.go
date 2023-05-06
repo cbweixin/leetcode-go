@@ -60,7 +60,7 @@ import (
 //2023-05-05 16:04:53
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
+func findCheapestPrice_bfs(n int, flights [][]int, src int, dst int, k int) int {
 	costs := make([][]int, n)
 	curMin := make([][]int, k+1)
 	for i := range costs {
@@ -126,6 +126,43 @@ func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
 
 	return minCost
 
+}
+func findCheapestPrice(n int, flights [][]int, src int, dst int, k int) int {
+	dp, temp := make([]int, n), make([]int, n)
+
+	for i := range dp {
+		dp[i] = 100000
+	}
+
+	min := func(x, y int) int {
+		if x < y {
+			return x
+		}
+		return y
+	}
+
+	reset_temp := func() {
+		for i := range temp {
+			temp[i] = 100000
+		}
+		temp[src] = 0
+	}
+	dp[src] = 0
+	for i := 0; i < k+1; i++ {
+		reset_temp()
+		for _, f := range flights {
+			temp[f[1]] = min(temp[f[1]], dp[f[0]]+f[2])
+		}
+		for i := range temp {
+			dp[i] = temp[i]
+		}
+
+	}
+	//fmt.Printf("%v", dp)
+	if dp[dst] == 100000 {
+		return -1
+	}
+	return dp[dst]
 }
 
 // leetcode submit region end(Prohibit modification and deletion)
