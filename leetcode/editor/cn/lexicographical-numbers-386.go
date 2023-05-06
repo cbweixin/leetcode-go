@@ -35,7 +35,7 @@ import "fmt"
 //2023-05-06 13:31:06
 
 // leetcode submit region begin(Prohibit modification and deletion)
-func lexicalOrder(n int) []int {
+func lexicalOrder2(n int) []int {
 	res, cur := make([]int, n), 1
 
 	for i := 0; i < n; i++ {
@@ -43,16 +43,36 @@ func lexicalOrder(n int) []int {
 		if cur*10 <= n {
 			cur *= 10
 		} else {
-			if cur > n {
+			for cur%10 == 9 || cur+1 > n {
 				cur /= 10
 			}
 			cur++
-			for cur%10 == 0 {
-				cur /= 10
-			}
 		}
 	}
 	return res
+}
+
+func lexicalOrder(n int) []int {
+
+	var dfs func(int, int, *[]int)
+
+	dfs = func(cur int, limit int, res *[]int) {
+		if cur > limit {
+			return
+		}
+		*res = append(*res, cur)
+		for i := 0; i < 10; i++ {
+			dfs(cur*10+i, limit, res)
+		}
+	}
+
+	res := make([]int, 0)
+	for i := 1; i < 10; i++ {
+		dfs(i, n, &res)
+	}
+
+	return res
+
 }
 
 //leetcode submit region end(Prohibit modification and deletion)
