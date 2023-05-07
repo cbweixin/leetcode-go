@@ -157,6 +157,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/maximum-number-of-weeks-for-which-you-can-work-1953.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/maximum-number-of-weeks-for-which-you-can-work-1953.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1953" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/maximum-number-of-weeks-for-which-you-can-work-1953.go" />
+              <option name="titleSlug" value="maximum-number-of-weeks-for-which-you-can-work" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/median-of-two-sorted-arrays-4.go">
           <value>
             <LeetcodeEditor>
