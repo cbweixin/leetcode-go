@@ -69,6 +69,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/design-snake-game-353.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/design-snake-game-353.md" />
+              <option name="frontendQuestionId" value="leetcode.cn353" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/design-snake-game-353.go" />
+              <option name="titleSlug" value="design-snake-game" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/generate-parentheses-22.go">
           <value>
             <LeetcodeEditor>
@@ -198,6 +209,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/merge-k-sorted-lists-23.go" />
               <option name="titleSlug" value="merge-k-sorted-lists" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/minimize-the-maximum-of-two-arrays-2513.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/minimize-the-maximum-of-two-arrays-2513.md" />
+              <option name="frontendQuestionId" value="leetcode.cn2513" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/minimize-the-maximum-of-two-arrays-2513.go" />
+              <option name="titleSlug" value="minimize-the-maximum-of-two-arrays" />
             </LeetcodeEditor>
           </value>
         </entry>
