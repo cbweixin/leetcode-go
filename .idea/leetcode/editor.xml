@@ -113,6 +113,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/find-minimum-in-rotated-sorted-array-ii-154.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/find-minimum-in-rotated-sorted-array-ii-154.md" />
+              <option name="frontendQuestionId" value="leetcode.cn154" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/find-minimum-in-rotated-sorted-array-ii-154.go" />
+              <option name="titleSlug" value="find-minimum-in-rotated-sorted-array-ii" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/generate-parentheses-22.go">
           <value>
             <LeetcodeEditor>
