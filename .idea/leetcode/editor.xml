@@ -69,6 +69,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/design-hit-counter-362.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/design-hit-counter-362.md" />
+              <option name="frontendQuestionId" value="leetcode.cn362" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/design-hit-counter-362.go" />
+              <option name="titleSlug" value="design-hit-counter" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/design-snake-game-353.go">
           <value>
             <LeetcodeEditor>
@@ -77,6 +88,28 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/design-snake-game-353.go" />
               <option name="titleSlug" value="design-snake-game" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/divide-chocolate-1231.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/divide-chocolate-1231.md" />
+              <option name="frontendQuestionId" value="leetcode.cn1231" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/divide-chocolate-1231.go" />
+              <option name="titleSlug" value="divide-chocolate" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/find-minimum-in-rotated-sorted-array-153.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/find-minimum-in-rotated-sorted-array-153.md" />
+              <option name="frontendQuestionId" value="leetcode.cn153" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/find-minimum-in-rotated-sorted-array-153.go" />
+              <option name="titleSlug" value="find-minimum-in-rotated-sorted-array" />
             </LeetcodeEditor>
           </value>
         </entry>
