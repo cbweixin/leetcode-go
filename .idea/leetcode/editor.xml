@@ -14,6 +14,17 @@
             </LeetcodeEditor>
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/leetcode/editor/cn/[3116]单面值组合的第 K 小金额.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[3116]单面值组合的第 K 小金额.md" />
+              <option name="frontendQuestionId" value="leetcode.cn3116" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[3116]单面值组合的第 K 小金额.go" />
+              <option name="titleSlug" value="kth-smallest-amount-with-single-denomination-combination" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/leetcode/editor/cn/add-two-numbers-2.go">
           <value>
             <LeetcodeEditor>
@@ -462,6 +473,17 @@
               <option name="host" value="leetcode.cn" />
               <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/valid-parentheses-20.go" />
               <option name="titleSlug" value="valid-parentheses" />
+            </LeetcodeEditor>
+          </value>
+        </entry>
+        <entry key="/var/folders/mg/c1g9xfpn38v9l5qmgp4xxgz40000gp/T/leetcode/editor/cn/[3116]单面值组合的第 K 小金额.go">
+          <value>
+            <LeetcodeEditor>
+              <option name="contentPath" value="$PROJECT_DIR$/leetcode/editor/cn/doc/content/[3116]单面值组合的第 K 小金额.md" />
+              <option name="frontendQuestionId" value="leetcode.cn3116" />
+              <option name="host" value="leetcode.cn" />
+              <option name="path" value="$PROJECT_DIR$/leetcode/editor/cn/[3116]单面值组合的第 K 小金额.go" />
+              <option name="titleSlug" value="kth-smallest-amount-with-single-denomination-combination" />
             </LeetcodeEditor>
           </value>
         </entry>
